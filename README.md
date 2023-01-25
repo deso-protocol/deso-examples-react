@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Deso Examples React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple [Create React
+App](https://create-react-app.dev/docs/getting-started) project, but these
+examples can be easily ported to your preferred framework or build tool.
 
-## Available Scripts
+## How to run these examples locally
 
-In the project directory, you can run:
+Run the following in your terminal
 
-### `npm start`
+```sh
+git clone https://github.com/deso-protocol/deso-examples-react.git
+cd deso-examples-react
+npm i
+npm run start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## How to use this repo
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+If you want to port these examples to your own app, set up a project using the
+docs for your preferred tool (Create React App, Vite, Nextjs, Remix, Angular, Vue,
+etc). If you're not sure, Create React App is a reasonable choice for getting a
+development environment up and running for quick prototyping/experimenting.
 
-### `npm test`
+Next install the [DeSo identity
+library](https://www.npmjs.com/package/@deso-core/identity) using your preferred
+package manager:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+# npm
+npm i @deso-core/identity
 
-### `npm run build`
+# yarn
+yarn add @deso-core/identity
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Finally, use the examples found in this repo to help you build social features
+for your application using the [DeSo blockchain](https://deso.com)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Questions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- What are all these _WARNINGS_ when I run my app?
 
-### `npm run eject`
+```sh
+WARNING in ./node_modules/@deso-core/identity/src/lib/types.js
+Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
+Failed to parse source map from '/Absolute/Path/deso-examples-react/libs/identity/src/lib/types.ts' file: Error: ENOENT: no such file or directory, open '/Absolute/Path/deso-examples-react/libs/identity/src/lib/types.ts'
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This is a known issue with webpack and can be safely ignored. This issue may be resolved by the time you are reading this. See this issue for more context https://github.com/facebook/create-react-app/pull/11752
