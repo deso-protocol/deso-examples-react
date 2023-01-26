@@ -21,9 +21,9 @@ export const Root = () => {
       //
       // See src/components/nav.jsx for an concrete use case.
       //
-      // NOTE: This function might be chatty. You might want to implement some
-      // caching or memoization, to reduce unnecessary network calls. We have
-      // not done so here for simplicity.
+      // NOTE: This function could be chatty. You might want to implement some
+      // caching or memoization to reduce unnecessary network calls. We have not
+      // done so here for simplicity and to reduce noise from the example.
       identity.subscribe((state) => {
         if (!state.currentUser) {
           // if no user is logged in or the user has logged out, set our app user state to null
