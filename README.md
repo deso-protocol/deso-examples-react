@@ -64,4 +64,4 @@ This is a known issue with webpack and can be safely ignored. This issue may be 
   6. [React to changes in your code](./src/components/nav.jsx#L17)
 - [Check permissions](./src/routes/create-post.jsx#L23)
 - [Request permissions](./src/routes/create-post.jsx#L30)
-- [Create, sign, submit a transaction](./src/routes/create-post.jsxL#56)
+- [Create, sign, submit a transaction](./src/routes/create-post.jsx#L56)
