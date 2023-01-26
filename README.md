@@ -54,21 +54,14 @@ This is a known issue with webpack and can be safely ignored. This issue may be 
 ## Examples
 
 - [Login](./src/components/Nav.js#L8)
-  ```js
-  identity.login();
-  ```
 - [Logout](./src/components/Nav.js#L9)
-  ```js
-  identity.logout();
-  ```
 - State Sync
-  ```js
-  identity.subscribe((state) => /* do whatever you want with the state here */);
-  ```
-  Code walk-through:
   1. [Create a react context](./src/contexts.js#L3)
   2. [Set up useState hook](./src/routes/root.jsx#L8)
   3. [Set up useEffect hook](./src/routes/root.jsx#11)
-  4. [Subscribe to changes](./src/routes/root.jsx#L23)
-  5. [use context](./src/components/nav.jsx#7)
-  6. [React to changes](./src/components/nav.jsx#17)
+  4. [Subscribe to identity](./src/routes/root.jsx#L23)
+  5. [Use state from identity anywhere](./src/components/nav.jsx#7)
+  6. [React to changes in your code](./src/components/nav.jsx#17)
+- [Check permissions](./src/routes/create-post.jsx#23)
+- [Request permissions](./src/routes/create-post.jsx#30)
+- [Create, sign, submit a transaction](./src/routes/create-post.jsx#)
