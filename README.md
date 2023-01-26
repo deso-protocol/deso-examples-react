@@ -37,7 +37,7 @@ yarn add @deso-core/identity
 Finally, use the examples found in this repo to help you build social features
 for your application using the [DeSo blockchain](https://deso.com)
 
-Also note, the emphasis here is own demonstrating how to use the identity library, not UI/UX. The UI for this app is _ugly_. Do not copy it :)
+Also note, the emphasis here is on demonstrating how to use the identity library, not UI/UX. The UI for this app is _ugly_. Do not copy it :)
 
 ## Questions
 
