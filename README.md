@@ -39,18 +39,6 @@ for your application using the [DeSo blockchain](https://deso.com)
 
 Also note, the emphasis here is on demonstrating how to use the identity library, not UI/UX. The UI for this app is _ugly_. Do not copy it :)
 
-## Questions
-
-- What are all these _WARNINGS_ when I run my app?
-
-```sh
-WARNING in ./node_modules/@deso-core/identity/src/lib/types.js
-Module Warning (from ./node_modules/source-map-loader/dist/cjs.js):
-Failed to parse source map from '/Absolute/Path/deso-examples-react/libs/identity/src/lib/types.ts' file: Error: ENOENT: no such file or directory, open '/Absolute/Path/deso-examples-react/libs/identity/src/lib/types.ts'
-```
-
-This is a known issue with webpack and can be safely ignored. This issue may be resolved by the time you are reading this. See this issue for more context https://github.com/facebook/create-react-app/pull/11752
-
 ## Examples
 
 - [Login](./src/components/nav.jsx#L15)
@@ -59,7 +47,7 @@ This is a known issue with webpack and can be safely ignored. This issue may be 
   1. [Create a react context](./src/contexts.js#L3)
   2. [Set up useState hook](./src/routes/root.jsx#L8)
   3. [Set up useEffect hook](./src/routes/root.jsx#L11)
-  4. [Subscribe to identity](./src/routes/root.jsx#L23)
+  4. [Subscribe to identity](./src/routes/root.jsx#L27)
   5. [Instantiate a context provider](./src/routes/root.jsx#L53)
   6. [Use state from identity anywhere](./src/components/nav.jsx#L7)
   7. [React to changes in your code](./src/components/nav.jsx#L14)
