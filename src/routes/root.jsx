@@ -27,7 +27,8 @@ export const Root = () => {
           setUserState({ user: null });
           setLoading(false);
         } else if (
-          state.currentUser?.publicKey !== userState.loggedInUser?.publicKey
+          state.currentUser?.publicKey !==
+          userState.loggedInUser?.PublicKeysBase58Check
         ) {
           // if the user is logged in, fetch the user's details from a node and set the app user state
           // All of our components will re-render and update accordingly
