@@ -11,7 +11,7 @@ export const Nav = () => {
 
   return (
     <nav>
-      {!!profile && profile.Username}
+      {!!profile && `User: ${profile.Username}`}
       {!user && <button onClick={() => identity.login()}>Login</button>}
       {!!user && <button onClick={() => identity.logout()}>Logout</button>}
       <Link to="/">Home</Link>
