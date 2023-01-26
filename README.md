@@ -53,12 +53,12 @@ This is a known issue with webpack and can be safely ignored. This issue may be 
 
 ## Examples
 
-- [Login](./src/components/nav.jsx#L8)
-- [Logout](./src/components/nav.jsx#L9)
+- [Login](./src/components/nav.jsx#L15)
+- [Logout](./src/components/nav.jsx#L16)
 - State Sync
   1. [Create a react context](./src/contexts.js#L3)
   2. [Set up useState hook](./src/routes/root.jsx#L8)
-  3. [Set up useEffect hook](./src/routes/root.jsx#11)
+  3. [Set up useEffect hook](./src/routes/root.jsx#L11)
   4. [Subscribe to identity](./src/routes/root.jsx#L23)
   5. [Use state from identity anywhere](./src/components/nav.jsx#7)
   6. [React to changes in your code](./src/components/nav.jsx#17)
