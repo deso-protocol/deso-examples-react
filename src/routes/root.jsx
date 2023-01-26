@@ -17,7 +17,7 @@ export const Root = () => {
       // user via the useContext hook from anywhere in our app.
       //
       // example:
-      //    const { loggedInUser } = useContext(AppContext);
+      //    const { user } = useContext(UserContext);
       //
       // See src/components/nav.jsx for an concrete use case.
       identity.subscribe((state) => {
