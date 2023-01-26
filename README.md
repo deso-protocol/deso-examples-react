@@ -37,6 +37,8 @@ yarn add @deso-core/identity
 Finally, use the examples found in this repo to help you build social features
 for your application using the [DeSo blockchain](https://deso.com)
 
+Also note, the emphasis here is own deomonstrating how to use the identity library, not UI/UX. The UI for this app is _ugly_. Do not copy it :)
+
 ## Questions
 
 - What are all these _WARNINGS_ when I run my app?
@@ -48,3 +50,25 @@ Failed to parse source map from '/Absolute/Path/deso-examples-react/libs/identit
 ```
 
 This is a known issue with webpack and can be safely ignored. This issue may be resolved by the time you are reading this. See this issue for more context https://github.com/facebook/create-react-app/pull/11752
+
+## Examples
+
+- [Login](./src/components/Nav.js#L8)
+  ```js
+  identity.login();
+  ```
+- [Logout](./src/components/Nav.js#L9)
+  ```js
+  identity.logout();
+  ```
+- State Sync
+  ```js
+  identity.subscribe((state) => /* do whatever you want with the state here */);
+  ```
+  Code walk-through:
+  1. [Create a react context](./src/contexts.js#L3)
+  2. [Set up useState hook](./src/routes/root.jsx#L8)
+  3. [Set up useEffect hook](./src/routes/root.jsx#11)
+  4. [Subscribe to changes](./src/routes/root.jsx#L23)
+  5. [use context](./src/components/nav.jsx#7)
+  6. [React to changes](./src/components/nav.jsx#17)

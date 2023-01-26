@@ -5,10 +5,8 @@ import { Nav } from "../components/nav";
 import { UserContext } from "../contexts";
 
 export const Root = () => {
-  const [userState, setUserState] = useState({
-    user: null,
-    isLoadingUser: false,
-  });
+  const [userState, setUserState] = useState({ user: null });
+  const [loading, setLoading] = useState(true);
 
   useEffect(
     () =>
@@ -27,18 +25,24 @@ export const Root = () => {
           // if no user is logged in or the user has logged out, set our app user state to null
           // All of our components will re-render and update accordingly
           setUserState({ user: null });
+          setLoading(false);
         } else if (
           state.currentUser?.publicKey !== userState.loggedInUser?.publicKey
         ) {
           // if the user is logged in, fetch the user's details from a node and set the app user state
           // All of our components will re-render and update accordingly
-          fetchLoggedInUser().then((loggedInUser) => {
-            setUserState({ user: loggedInUser });
-          });
+          setLoading(true);
+          fetchLoggedInUser()
+            .then((loggedInUser) => {
+              setUserState({ user: loggedInUser });
+            })
+            .finally(() => setLoading(false));
         }
       }),
     [] /* NOTE: We pass an empty array to useEffect so that it only runs once for our entire app session */
   );
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <UserContext.Provider value={userState}>

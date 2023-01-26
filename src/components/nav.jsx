@@ -11,10 +11,11 @@ export const Nav = () => {
 
   return (
     <nav>
-      <Link to="/">Home</Link>
+      {!!profile && profile.Username}
       {!user && <button onClick={() => identity.login()}>Login</button>}
       {!!user && <button onClick={() => identity.logout()}>Logout</button>}
-      {!!profile && profile.Username}
+      <Link to="/">Home</Link>
+      <Link to="/create-post">Create Post</Link>
     </nav>
   );
 };
