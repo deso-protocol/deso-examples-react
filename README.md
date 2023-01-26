@@ -53,8 +53,8 @@ This is a known issue with webpack and can be safely ignored. This issue may be 
 
 ## Examples
 
-- [Login](./src/components/Nav.js#L8)
-- [Logout](./src/components/Nav.js#L9)
+- [Login](./src/components/nav.jsx#L8)
+- [Logout](./src/components/nav.jsx#L9)
 - State Sync
   1. [Create a react context](./src/contexts.js#L3)
   2. [Set up useState hook](./src/routes/root.jsx#L8)
