@@ -60,7 +60,7 @@ This is a known issue with webpack and can be safely ignored. This issue may be 
   2. [Set up useState hook](./src/routes/root.jsx#L8)
   3. [Set up useEffect hook](./src/routes/root.jsx#L11)
   4. [Subscribe to identity](./src/routes/root.jsx#L23)
-  5. [Instantiate a context provider](./src/components/root.jsx#L53)
+  5. [Instantiate a context provider](./src/routes/root.jsx#L53)
   6. [Use state from identity anywhere](./src/components/nav.jsx#L7)
   7. [React to changes in your code](./src/components/nav.jsx#L14)
 - [Check permissions](./src/routes/create-post.jsx#L23)
