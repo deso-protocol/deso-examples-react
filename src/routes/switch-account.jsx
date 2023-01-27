@@ -5,7 +5,6 @@ import { getDisplayName } from "../helpers";
 
 export const SwitchAccount = () => {
   const { currentUser, alternateUsers, isLoading } = useContext(UserContext);
-  console.log(currentUser, alternateUsers);
 
   if (!currentUser) {
     return (
