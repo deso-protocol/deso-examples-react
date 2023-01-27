@@ -4,18 +4,35 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../contexts";
 
 export const Nav = () => {
-  const { user } = useContext(UserContext);
-  // NOTE: A user may have created an anonymous account, but not yet filled in their profile details
-  // All apps will need to take this into account.
-  const profile = user?.ProfileEntryResponse;
+  const { currentUser, isLoading } = useContext(UserContext);
+  const displayName =
+    currentUser?.ProfileEntryResponse?.Username ??
+    currentUser?.PublicKeysBase58Check;
 
   return (
-    <nav>
-      {!!profile && `User: ${profile.Username}`}
-      {!user && <button onClick={() => identity.login()}>Login</button>}
-      {!!user && <button onClick={() => identity.logout()}>Logout</button>}
+    <nav className="main-nav">
       <Link to="/">Home</Link>
-      <Link to="/create-post">Create Post</Link>
+      <Link to="/sign-and-submit-tx">Sign and Submit Transaction</Link>
+      <Link to="switch-account">Switch Accounts</Link>
+      <div className="main-nav__user-actions">
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            {!!currentUser && (
+              <span className="main-nav__username">{displayName}</span>
+            )}
+
+            {!currentUser && (
+              <button onClick={() => identity.login()}>Login</button>
+            )}
+
+            {!!currentUser && (
+              <button onClick={() => identity.logout()}>Logout</button>
+            )}
+          </>
+        )}
+      </div>
     </nav>
   );
 };

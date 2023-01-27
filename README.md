@@ -37,20 +37,20 @@ yarn add @deso-core/identity
 Finally, use the examples found in this repo to help you build social features
 for your application using the [DeSo blockchain](https://deso.com)
 
-Also note, the emphasis here is on demonstrating how to use the identity library, not UI/UX. The UI for this app is _ugly_. Do not copy it :)
+There are lots of comments throughout the code, but if anything is unclear, please open an issue!
 
 ## Examples
 
-- [Login](./src/components/nav.jsx#L15)
-- [Logout](./src/components/nav.jsx#L16)
+- [Login](./src/components/nav.jsx#L27)
+- [Logout](./src/components/nav.jsx#L31)
 - State Sync
-  1. [Create a react context](./src/contexts.js#L3)
+  1. [Create a react context](./src/contexts.js#L7)
   2. [Set up useState hook](./src/routes/root.jsx#L8)
-  3. [Set up useEffect hook](./src/routes/root.jsx#L11)
-  4. [Subscribe to identity](./src/routes/root.jsx#L27)
-  5. [Instantiate a context provider](./src/routes/root.jsx#L53)
+  3. [Set up useEffect hook](./src/routes/root.jsx#L14)
+  4. [Subscribe to identity](./src/routes/root.jsx#L30)
+  5. [Instantiate a context provider](./src/routes/root.jsx#L94)
   6. [Use state from identity anywhere](./src/components/nav.jsx#L7)
-  7. [React to changes in your code](./src/components/nav.jsx#L14)
-- [Check permissions](./src/routes/create-post.jsx#L23)
-- [Request permissions](./src/routes/create-post.jsx#L30)
-- [Create, sign, submit a transaction](./src/routes/create-post.jsx#L56)
+  7. [React to changes in your code](./src/components/nav.jsx#L18)
+- [Check permissions](./src/routes/sign-and-submit-tx.jsx#L25)
+- [Request permissions](./src/routes/sign-and-submit-tx.jsx#L32)
+- [Create, sign, submit a transaction](./src/routes/sign-and-submit-tx.jsx#L58)

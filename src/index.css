@@ -5,9 +5,81 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #222;
+  color: #eee;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  text-decoration: none;
+  color: cyan;
+}
+
+a:visited {
+  color: magenta;
+}
+
+.main-content {
+  text-align: center;
+  margin-top: 10rem;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 10rem;
+  border-bottom: 1px solid #444;
+
+}
+
+@media screen and (max-width: 1000px) {
+  .main-nav {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.main-nav__user-actions {
+  margin-left: auto;
+}
+
+.main-nav__username {
+  margin-right: 1rem;
+}
+
+nav a:visited {
+  color: #eee;
+}
+
+nav a, nav button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #eee;
+  border: none;
+  background-color: transparent;
+  font-size: medium;
+}
+
+.list--unstyled {
+  list-style: none;
+  padding: 0;
+}
+
+.switch-account__button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: cyan;
+  font-size: large;
+  padding: 0.5rem 1rem;
+}
+
+.switch-account__list {
+  width: 10rem;
+  margin: 0 auto;
+  text-align: left;
 }
