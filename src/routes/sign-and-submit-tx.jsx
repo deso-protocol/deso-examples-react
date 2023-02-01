@@ -3,16 +3,21 @@ import { useContext } from "react";
 import { UserContext } from "../contexts";
 
 export const SignAndSubmitTx = () => {
-  const { currentUser: user } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
   const usernameOrPubkey =
-    user?.ProfileEntryResponse?.Username ?? user?.PublicKeyBase58Check;
+    currentUser?.ProfileEntryResponse?.Username ??
+    currentUser?.PublicKeyBase58Check;
 
   let hasPostingPermissions = identity.hasPermissions({
     TransactionCountLimitMap: {
       SUBMIT_POST: 1,
     },
   });
-  if (!usernameOrPubkey || !user.BalanceNanos || !hasPostingPermissions) {
+  if (
+    !usernameOrPubkey ||
+    !currentUser.BalanceNanos ||
+    !hasPostingPermissions
+  ) {
     return (
       <button
         onClick={() => {
@@ -21,7 +26,6 @@ export const SignAndSubmitTx = () => {
               getFreeDeso: true,
             })
             .then((res) => {
-              debugger;
               alert("Login success!");
             })
             .catch((err) => {
@@ -63,7 +67,7 @@ export const SignAndSubmitTx = () => {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                UpdaterPublicKeyBase58Check: user?.PublicKeyBase58Check,
+                UpdaterPublicKeyBase58Check: currentUser?.PublicKeyBase58Check,
                 BodyObj: {
                   Body: body,
                   ImageURLs: [],
