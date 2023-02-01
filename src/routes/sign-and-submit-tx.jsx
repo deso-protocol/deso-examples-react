@@ -2,77 +2,94 @@ import { identity } from "@deso-core/identity";
 import { useContext } from "react";
 import { UserContext } from "../contexts";
 
+// FIXME: Import this from @deso-core/identity instead of re-defining it.
+const NO_MONEY_ERROR = 'User does not have sufficient funds in their wallet to complete the transaction';
+
 export const SignAndSubmitTx = () => {
   const { currentUser: user } = useContext(UserContext);
-  const username =
+  const usernameOrPubkey =
     user?.ProfileEntryResponse?.Username ?? user?.PublicKeyBase58Check;
 
-  if (!username) {
+  let hasPostingPermissions = identity.hasPermissions({
+      TransactionCountLimitMap: {
+          SUBMIT_POST: 1,
+      },
+  })
+  if (!usernameOrPubkey || !user.BalanceNanos || !hasPostingPermissions) {
     return (
-      <button onClick={() => identity.login()}>Login to create a post</button>
+      <button onClick={() => {
+          identity.login({
+              getFreeDeso: true,
+          }).then((res)=>{
+              alert('Login success!')
+          }).catch((err)=>{
+              if (err?.toString().indexOf(NO_MONEY_ERROR) >= 0) {
+                  alert('You need DESO in order to post!')
+              } else {
+                  alert(err)
+              }
+          })
+      }}>Login to create a post</button>
     );
-  }
+  } else {
+      return (
+          <>
+              <h1>Submit a signed post transaction</h1>
+              <form
+                  onSubmit={(e) => {
+                      e.preventDefault();
 
-  return (
-    <>
-      <h1>Submit a signed post transaction</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
+                      // check if the user can make a post
+                      if (!hasPostingPermissions) {
+                          // if the user doesn't have permissions, request them
+                          identity.requestPermissions({
+                              GlobalDESOLimit: 10000000, // 0.01 DESO
+                              TransactionCountLimitMap: {
+                                  SUBMIT_POST: 3,
+                              },
+                          }).then((res)=>{
+                              console.log(res)
+                              debugger;
+                          });
+                          return;
+                      }
 
-          // check if the user can make a post
-          if (
-            !identity.hasPermissions({
-              TransactionCountLimitMap: {
-                SUBMIT_POST: 1,
-              },
-            })
-          ) {
-            // if the user doesn't have permissions, request them
-            identity.requestPermissions({
-              GlobalDESOLimit: 10000000, // 0.01 DESO
-              TransactionCountLimitMap: {
-                SUBMIT_POST: 3,
-              },
-            });
-            return;
-          }
+                      const body = e.target[0].value;
 
-          const body = e.target[0].value;
+                      const createTx = () =>
+                          fetch("https://node.deso.org/api/v0/submit-post", {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({
+                                  UpdaterPublicKeyBase58Check: user?.PublicKeyBase58Check,
+                                  BodyObj: {
+                                      Body: body,
+                                      ImageURLs: [],
+                                      VideoURLs: [],
+                                  },
+                                  MinFeeRateNanosPerKB: 1000,
+                              }),
+                          }).then((res) => res.json());
 
-          const createTx = () =>
-            fetch("https://node.deso.org/api/v0/submit-post", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                UpdaterPublicKeyBase58Check: identity.activePublicKey,
-                BodyObj: {
-                  Body: body,
-                  ImageURLs: [],
-                  VideoURLs: [],
-                },
-                MinFeeRateNanosPerKB: 1000,
-              }),
-            }).then((res) => res.json());
-
-          identity
-            .signAndSubmitTx(createTx)
-            .then(() => alert("Post submitted successfully!"))
-            .catch((e) =>
-              alert(`Error submitting post. Please try again. ${e.toString()}`)
-            );
-        }}
-      >
+                      identity
+                          .signAndSubmitTx(createTx)
+                          .then(() => alert("Post submitted successfully!"))
+                          .catch((e) =>
+                              alert(`Error submitting post. Please try again. ${e.toString()}`)
+                          );
+                  }}
+              >
         <textarea
-          name="post-textarea"
-          cols={30}
-          rows={10}
-          style={{ border: "1px solid black" }}
+            name="post-textarea"
+            cols={30}
+            rows={10}
+            style={{ border: "1px solid black" }}
         ></textarea>
-        <div>
-          <button>Post</button>
-        </div>
-      </form>
-    </>
-  );
+                  <div>
+                      <button>Post</button>
+                  </div>
+              </form>
+          </>
+      );
+  }
 };
