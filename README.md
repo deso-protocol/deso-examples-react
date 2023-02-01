@@ -41,16 +41,17 @@ There are lots of comments throughout the code, but if anything is unclear, plea
 
 ## Examples
 
+- [Configuration](./src/routes/root.jsx#L7)
 - [Login](./src/components/nav.jsx#L27)
 - [Logout](./src/components/nav.jsx#L31)
 - State Sync
   1. [Create a react context](./src/contexts.js#L7)
-  2. [Set up useState hook](./src/routes/root.jsx#L8)
-  3. [Set up useEffect hook](./src/routes/root.jsx#L14)
+  2. [Set up useState hook](./src/routes/root.jsx#L18)
+  3. [Set up useEffect hook](./src/routes/root.jsx#L24)
   4. [Subscribe to identity](./src/routes/root.jsx#L40)
   5. [Instantiate a context provider](./src/routes/root.jsx#L105)
   6. [Use state from identity anywhere](./src/components/nav.jsx#L7)
   7. [React to changes in your code](./src/components/nav.jsx#L18)
 - [Check permissions](./src/routes/sign-and-submit-tx.jsx#L25)
 - [Request permissions](./src/routes/sign-and-submit-tx.jsx#L32)
-- [Create, sign, submit a transaction](./src/routes/sign-and-submit-tx.jsx#L58)
+- [Create, sign, submit a transaction](./src/routes/sign-and-submit-tx.jsx#L62)
