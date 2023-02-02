@@ -1,4 +1,4 @@
-import { identity } from "@deso-core/identity";
+import { identity, NOTIFICATION_EVENTS } from "@deso-core/identity";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Nav } from "../components/nav";
@@ -37,7 +37,19 @@ export const Root = () => {
       // NOTE: This function could be chatty. You might want to implement some
       // caching or memoization to reduce unnecessary network calls. We have not
       // done so here for simplicity and to reduce noise from the example.
-      identity.subscribe(({ currentUser, alternateUsers }) => {
+      identity.subscribe(({ event, currentUser, alternateUsers }) => {
+        // The event property tells us what triggered the subscription callback.
+        // The authorize derived key flow is a multi-step asynchronous process. We can use the start
+        // of this to set our loading state. Once the flow is complete, the end event will be triggered
+        // and subscribe will be called again with the new user state. You can see an exhaustive list of
+        // events here: https://github.com/deso-protocol/deso-workspace/blob/main/libs/identity/src/lib/types.ts#L182
+        // You can filter on any of these events to trigger different actions in your app, or choose to ignore
+        // some of them.
+        if (event === NOTIFICATION_EVENTS.AUTHORIZE_DERIVED_KEY_START) {
+          setUserState((state) => ({ ...state, isLoading: true }));
+          return;
+        }
+
         // NOTE: You can use this callback to update your app state in any way you want.
         // Here we just use a simple useState hook combined with react context. You can
         // use redux, mobx, or any other state management library you want.

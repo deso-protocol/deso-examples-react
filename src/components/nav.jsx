@@ -2,12 +2,10 @@ import { identity } from "@deso-core/identity";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts";
+import { getDisplayName } from "../helpers";
 
 export const Nav = () => {
   const { currentUser, isLoading } = useContext(UserContext);
-  const displayName =
-    currentUser?.ProfileEntryResponse?.Username ??
-    currentUser?.PublicKeysBase58Check;
 
   return (
     <nav className="main-nav">
@@ -20,7 +18,9 @@ export const Nav = () => {
         ) : (
           <>
             {!!currentUser && (
-              <span className="main-nav__username">{displayName}</span>
+              <span className="main-nav__username">
+                {getDisplayName(currentUser)}
+              </span>
             )}
 
             {!currentUser && (
