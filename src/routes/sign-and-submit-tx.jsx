@@ -65,6 +65,9 @@ export const SignAndSubmitTx = () => {
                 ImageURLs: [],
                 VideoURLs: [],
               },
+            }).then((resp) => {
+              console.log(resp);
+              alert("Post submitted!");
             });
           }}
         >

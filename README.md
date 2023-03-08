@@ -28,10 +28,10 @@ package manager:
 
 ```sh
 # npm
-npm i @deso-core/identity
+npm i deso-protocol
 
 # yarn
-yarn add @deso-core/identity
+yarn add deso-protocol
 ```
 
 Finally, use the examples found in this repo to help you build social features
@@ -41,15 +41,15 @@ There are lots of comments throughout the code, but if anything is unclear, plea
 
 ## Examples
 
-- [Configuration](./src/routes/root.jsx#L7)
+- [Configuration](./src/routes/root.jsx#L12)
 - [Login](./src/components/nav.jsx#L27)
 - [Logout](./src/components/nav.jsx#L31)
 - State Sync
   1. [Create a react context](./src/contexts.js#L7)
-  2. [Set up useState hook](./src/routes/root.jsx#L18)
-  3. [Set up useEffect hook](./src/routes/root.jsx#L24)
-  4. [Subscribe to identity](./src/routes/root.jsx#L40)
-  5. [Instantiate a context provider](./src/routes/root.jsx#L117)
+  2. [Set up useState hook](./src/routes/root.jsx#L22)
+  3. [Set up useEffect hook](./src/routes/root.jsx#L28)
+  4. [Subscribe to identity](./src/routes/root.jsx#L44)
+  5. [Instantiate a context provider](./src/routes/root.jsx#L127)
   6. [Use state from identity anywhere](./src/components/nav.jsx#L8)
   7. [React to changes in your code](./src/components/nav.jsx#L16)
 - [Check permissions](./src/routes/sign-and-submit-tx.jsx#L8)
