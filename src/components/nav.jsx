@@ -1,4 +1,4 @@
-import { identity } from "@deso-core/identity";
+import { identity } from "deso-protocol";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../contexts";

@@ -1,15 +1,19 @@
-import { identity, NOTIFICATION_EVENTS } from "@deso-core/identity";
+import {
+  configure,
+  getUsersStateless,
+  identity,
+  NOTIFICATION_EVENTS,
+} from "deso-protocol";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Nav } from "../components/nav";
 import { UserContext } from "../contexts";
 
-identity.configure({
+configure({
   spendingLimitOptions: {
     GlobalDESOLimit: 10000000, // 0.01 DESO
     TransactionCountLimitMap: {
       SUBMIT_POST: "UNLIMITED",
-      BASIC_TRANSFER: "UNLIMITED",
     },
   },
 });
@@ -92,9 +96,15 @@ export const Root = () => {
             isLoading: true,
           }));
 
-          fetchUsers([currentUser.publicKey, ...alternateUserKeys])
-            .then((userList) => {
-              const [currentUser, ...alternateUsers] = userList;
+          getUsersStateless({
+            PublicKeysBase58Check: [
+              currentUser.publicKey,
+              ...alternateUserKeys,
+            ],
+            IncludeBalance: true,
+          })
+            .then(({ UserList }) => {
+              const [currentUser, ...alternateUsers] = UserList;
               setUserState((state) => ({
                 ...state,
                 currentUser,
@@ -122,16 +132,3 @@ export const Root = () => {
     </UserContext.Provider>
   );
 };
-
-function fetchUsers(keys) {
-  // We are using native browser fetch here but feel free to use any HTTP client you prefer.
-  return fetch(`https://node.deso.org/api/v0/get-users-stateless`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      PublicKeysBase58Check: keys,
-    }),
-  })
-    .then((res) => res.json())
-    .then(({ UserList }) => UserList);
-}

@@ -5,11 +5,11 @@ export const Home = () => {
       <p>
         This is a simple example app that demonstrates how to use{" "}
         <a
-          href="https://www.npmjs.com/package/@deso-core/identity"
+          href="https://www.npmjs.com/package/deso-protocol"
           target="_blank"
           rel="noopener noreferrer"
         >
-          @deso-core/identity
+          deso-protocol
         </a>
       </p>
     </>

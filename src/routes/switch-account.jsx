@@ -1,4 +1,4 @@
-import { identity } from "@deso-core/identity";
+import { identity } from "deso-protocol";
 import { useContext } from "react";
 import { UserContext } from "../contexts";
 import { getDisplayName } from "../helpers";

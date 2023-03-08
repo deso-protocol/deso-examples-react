@@ -1,4 +1,4 @@
-import { ERROR_TYPES, identity } from "@deso-core/identity";
+import { ERROR_TYPES, identity, submitPost } from "deso-protocol";
 import { useContext } from "react";
 import { UserContext } from "../contexts";
 
@@ -58,28 +58,14 @@ export const SignAndSubmitTx = () => {
 
             const body = e.target[0].value;
 
-            const tx = await fetch("https://node.deso.org/api/v0/submit-post", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-                BodyObj: {
-                  Body: body,
-                  ImageURLs: [],
-                  VideoURLs: [],
-                },
-                MinFeeRateNanosPerKB: 1000,
-              }),
-            }).then((res) => res.json());
-
-            identity
-              .signAndSubmit(tx)
-              .then(() => alert("Post submitted successfully!"))
-              .catch((e) =>
-                alert(
-                  `Error submitting post. Please try again. ${e.toString()}`
-                )
-              );
+            await submitPost({
+              UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+              BodyObj: {
+                Body: body,
+                ImageURLs: [],
+                VideoURLs: [],
+              },
+            });
           }}
         >
           <textarea
