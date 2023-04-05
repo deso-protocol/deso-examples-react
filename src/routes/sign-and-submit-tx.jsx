@@ -5,12 +5,6 @@ import { UserContext } from "../contexts";
 export const SignAndSubmitTx = () => {
   const { currentUser, isLoading } = useContext(UserContext);
 
-  let hasPostingPermissions = identity.hasPermissions({
-    TransactionCountLimitMap: {
-      SUBMIT_POST: 1,
-    },
-  });
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -44,7 +38,13 @@ export const SignAndSubmitTx = () => {
             e.preventDefault();
 
             // check if the user can make a post
-            if (!hasPostingPermissions) {
+            if (
+              !identity.hasPermissions({
+                TransactionCountLimitMap: {
+                  SUBMIT_POST: 1,
+                },
+              })
+            ) {
               // if the user doesn't have permissions, request them
               // and abort the submit
               identity.requestPermissions({
