@@ -22,8 +22,7 @@ docs for your preferred tool (Create React App, Vite, Nextjs, Remix, Angular, Vu
 etc). If you're not sure, Create React App is a reasonable choice for getting a
 development environment up and running for quick prototyping/experimenting.
 
-Next install the [DeSo identity
-library](https://www.npmjs.com/package/@deso-core/identity) using your preferred
+Next install the [DeSo protocol library](https://www.npmjs.com/package/deso-protocol) using your preferred
 package manager:
 
 ```sh
