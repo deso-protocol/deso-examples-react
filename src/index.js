@@ -7,6 +7,7 @@ import { Root } from "./routes/root";
 import { SignAndSubmitTx } from "./routes/sign-and-submit-tx";
 import { SwitchAccount } from "./routes/switch-account";
 import { User } from "./routes/user";
+import { LowLevel } from "./routes/low-level";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         path: "/switch-account",
         element: <SwitchAccount />,
       },
+      {
+        path: "/low-level",
+        element: <LowLevel />,
+      }
     ],
   },
 ]);
