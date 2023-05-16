@@ -6,7 +6,7 @@ import {
 } from "deso-protocol";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Nav } from "../components/nav";
+import { MantineAppShell } from "../components/AppShell/AppShell";
 import { UserContext } from "../contexts";
 
 configure({
@@ -125,10 +125,11 @@ export const Root = () => {
 
   return (
     <UserContext.Provider value={userState}>
-      <Nav />
-      <div role="main" className="main-content">
-        {userState.isLoading ? <div>Loading...</div> : <Outlet />}
-      </div>
+      <MantineAppShell>
+        <div role="main" className="main-content">
+          {userState.isLoading ? <div>Loading...</div> : <Outlet />}
+        </div>
+      </MantineAppShell>
     </UserContext.Provider>
   );
 };
