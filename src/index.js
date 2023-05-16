@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./routes/home";
 import { Root } from "./routes/root";
 import { Profile } from "./routes/profile";
-import { Notifications } from "./routes/notifications";
+import { NotificationsPage } from "./routes/notifications";
 import { Discover } from "./routes/discover";
 import { Wallet } from "./routes/wallet";
 import { Settings } from "./routes/settings";
@@ -12,6 +12,7 @@ import { SignAndSubmitTx } from "./routes/sign-and-submit-tx";
 import { SwitchAccount } from "./routes/switch-account";
 import { User } from "./routes/user";
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       withNormalizeCSS
     >
       <RouterProvider router={router} />
+      <Notifications />
     </MantineProvider>
   </React.StrictMode>
 );

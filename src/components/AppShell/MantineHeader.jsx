@@ -1,10 +1,11 @@
 import { identity } from "deso-protocol";
 import { useContext } from "react";
-
 import { UserContext } from "../../contexts";
+import { getDisplayName } from "../../helpers";
 
 import {
   createStyles,
+  Menu,
   Header,
   Group,
   Button,
@@ -90,7 +91,8 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const MantineHeader = () => {
-  const { isLoading } = useContext(UserContext);
+  const { currentUser, isLoading } = useContext(UserContext);
+
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
 
@@ -116,21 +118,52 @@ export const MantineHeader = () => {
                     Waves
                   </Text>
 
-                  <Group
-                    sx={{ height: "100%" }}
-                    spacing={0}
-                    className={classes.hiddenMobile}
-                  ></Group>
-
                   <Group className={classes.hiddenMobile}>
-                    <Button variant="default">Log in</Button>
-                    <Button
-                      leftIcon={<GiWaveCrest size="1rem" />}
-                      variant="gradient"
-                      gradient={{ from: "cyan", to: "indigo" }}
-                    >
-                      Sign up
-                    </Button>
+                    {isLoading ? (
+                      <div>Loading...</div>
+                    ) : (
+                      <>
+                        {!currentUser && (
+                          <>
+                            <Button
+                              leftIcon={<GiWaveCrest size="1rem" />}
+                              variant="gradient"
+                              gradient={{ from: "cyan", to: "indigo" }}
+                              onClick={() => identity.login()}
+                            >
+                              Sign Up
+                            </Button>
+                          </>
+                        )}
+
+                        {!!currentUser && (
+                          <Menu
+                            trigger="hover"
+                            openDelay={100}
+                            closeDelay={400}
+                            shadow="md"
+                            width={200}
+                          >
+                            <Menu.Target>
+                              <Button
+                                leftIcon={<GiWaveCrest size="1rem" />}
+                                variant="gradient"
+                                gradient={{ from: "cyan", to: "indigo" }}
+                              >
+                                {getDisplayName(currentUser)}
+                              </Button>
+                            </Menu.Target>
+
+                            <Menu.Dropdown>
+                              <Menu.Label>Account</Menu.Label>
+                              <Menu.Item onClick={() => identity.logout()}>
+                                Logout
+                              </Menu.Item>
+                            </Menu.Dropdown>
+                          </Menu>
+                        )}
+                      </>
+                    )}
                   </Group>
 
                   <Burger

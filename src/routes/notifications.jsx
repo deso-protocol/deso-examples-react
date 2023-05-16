@@ -1,6 +1,6 @@
 import { Group } from "@mantine/core";
-export const Notifications = () => {
-   return (
+export const NotificationsPage = () => {
+  return (
     <>
       <Group>Notifications</Group>
     </>

@@ -1,11 +1,4 @@
-import {
-  AppShell,
-  Footer,
-  Aside,
-  Text,
-  MediaQuery,
-  useMantineTheme,
-} from "@mantine/core";
+import { AppShell, Footer, Text, useMantineTheme } from "@mantine/core";
 import { MantineNavBar } from "./MantineNavBar";
 import { MantineHeader } from "./MantineHeader";
 import { ReactNode } from "react";
@@ -25,13 +18,6 @@ export const MantineAppShell = ({ children }: { children: ReactNode }) => {
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
       navbar={<MantineNavBar />}
-      aside={
-        <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-          <Aside p="md" hiddenBreakpoint="sm" width={{ sm: 200, lg: 300 }}>
-            <Text>Application sidebar</Text>
-          </Aside>
-        </MediaQuery>
-      }
       footer={
         <Footer height={60} p="md">
           Application footer
