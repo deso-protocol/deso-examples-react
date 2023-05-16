@@ -129,7 +129,6 @@ export const MantineHeader = () => {
     useDisclosure(false);
   const { classes, theme, cx } = useStyles();
   const [active, setActive] = useState("Home");
-  const [opened] = useState(false);
 
   const links = data.map((item) => (
     <Link
