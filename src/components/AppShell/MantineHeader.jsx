@@ -17,14 +17,7 @@ import {
   rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import {
-  IconNotification,
-  IconCode,
-  IconBook,
-  IconChartPie3,
-  IconFingerprint,
-  IconCoin,
-} from "@tabler/icons-react";
+
 import { GiWaveCrest } from "react-icons/gi";
 
 const useStyles = createStyles((theme) => ({
