@@ -1,8 +1,7 @@
 import { identity } from "deso-protocol";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+
 import { UserContext } from "../../contexts";
-import { getDisplayName } from "../../helpers";
 
 import {
   createStyles,
@@ -136,26 +135,8 @@ export const MantineHeader = () => {
   const { currentUser, isLoading } = useContext(UserContext);
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
-  const { classes, theme } = useStyles();
 
-  const links = mockdata.map((item) => (
-    <UnstyledButton className={classes.subLink} key={item.title}>
-      <Group noWrap align="flex-start">
-        <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon size={rem(22)} color={theme.fn.primaryColor()} />
-        </ThemeIcon>
-        <div>
-          <Text size="sm" fw={500}>
-            {item.title}
-          </Text>
-          <Text size="xs" color="dimmed">
-            {item.description}
-          </Text>
-        </div>
-      </Group>
-    </UnstyledButton>
-  ));
+  const { classes, theme } = useStyles();
 
   return (
     <nav className="main-nav">

@@ -1,13 +1,9 @@
-import { useState } from "react";
 import {
   AppShell,
-  Navbar,
-  Header,
   Footer,
   Aside,
   Text,
   MediaQuery,
-  Burger,
   useMantineTheme,
 } from "@mantine/core";
 import { MantineNavBar } from "./MantineNavBar";
