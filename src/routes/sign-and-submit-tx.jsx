@@ -1,7 +1,7 @@
 import { ERROR_TYPES, identity, submitPost } from "deso-protocol";
 import { useContext, useRef } from "react";
 import { UserContext } from "../contexts";
-import { IconCheck, IconX } from "@tabler/icons-react";
+import { IconCheck } from "@tabler/icons-react";
 import {
   Button,
   Center,

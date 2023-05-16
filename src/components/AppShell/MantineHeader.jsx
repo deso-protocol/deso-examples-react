@@ -1,8 +1,8 @@
 import { identity } from "deso-protocol";
-import { useContext } from "react";
+
+import { useContext, useState } from "react";
 import { UserContext } from "../../contexts";
 import { getDisplayName } from "../../helpers";
-
 import {
   createStyles,
   Menu,
@@ -15,11 +15,20 @@ import {
   Burger,
   Drawer,
   ScrollArea,
+  getStylesRef,
   rem,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-
 import { GiWaveCrest } from "react-icons/gi";
+import {
+  IconBellRinging,
+  IconUser,
+  IconSettings,
+  IconHome2,
+  IconDeviceDesktopAnalytics,
+  IconReceipt2,
+} from "@tabler/icons-react";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -88,15 +97,56 @@ const useStyles = createStyles((theme) => ({
       display: "none",
     },
   },
+
+  linkActive: {
+    "&, &:hover": {
+      backgroundColor: theme.fn.variant({
+        variant: "light",
+        color: theme.primaryColor,
+      }).background,
+      color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
+        .color,
+      [`& .${getStylesRef("icon")}`]: {
+        color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
+          .color,
+      },
+    },
+  },
 }));
+
+const data = [
+  { link: "/", label: "Home", icon: IconHome2 },
+  { link: "/discover", label: "Discover", icon: IconDeviceDesktopAnalytics },
+  { link: "/profile", label: "Profile", icon: IconUser },
+  { link: "/wallet", label: "Wallet", icon: IconReceipt2 },
+  { link: "/notifications", label: "Notifications", icon: IconBellRinging },
+  { link: "/settings", label: "Settings", icon: IconSettings },
+];
 
 export const MantineHeader = () => {
   const { currentUser, isLoading } = useContext(UserContext);
-
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
+  const { classes, theme, cx } = useStyles();
+  const [active, setActive] = useState("Home");
+  const [opened] = useState(false);
 
-  const { classes, theme } = useStyles();
+  const links = data.map((item) => (
+    <Link
+      to={item.link}
+      className={cx(classes.link, {
+        [classes.linkActive]: item.label === active,
+      })}
+      key={item.label}
+      onClick={() => {
+        closeDrawer();
+        setActive(item.label);
+      }}
+    >
+      <item.icon className={classes.linkIcon} stroke={1.5} />
+      <span>{item.label}</span>
+    </Link>
+  ));
 
   return (
     <nav className="main-nav">
@@ -199,22 +249,48 @@ export const MantineHeader = () => {
                     color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
                   />
 
+                  {links}
                   <Divider
                     my="sm"
                     color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
                   />
 
                   <Group position="center" grow pb="xl" px="md">
-                    <Button onClick={() => identity.login()} variant="default">
-                      Log in
-                    </Button>
-                    <Button
-                      leftIcon={<GiWaveCrest size="1rem" />}
-                      variant="gradient"
-                      gradient={{ from: "cyan", to: "indigo" }}
-                    >
-                      Sign up
-                    </Button>
+                    {isLoading ? (
+                      <div>Loading...</div>
+                    ) : (
+                      <>
+                        {!currentUser && (
+                          <>
+                            <Button
+                              onClick={() => identity.login()}
+                              variant="default"
+                            >
+                              Log in
+                            </Button>
+                            <Button
+                              leftIcon={<GiWaveCrest size="1rem" />}
+                              variant="gradient"
+                              gradient={{ from: "cyan", to: "indigo" }}
+                              onClick={() => identity.login()}
+                            >
+                              Sign Up
+                            </Button>
+                          </>
+                        )}
+
+                        {!!currentUser && (
+                          <Button
+                            leftIcon={<GiWaveCrest size="1rem" />}
+                            variant="gradient"
+                            gradient={{ from: "cyan", to: "indigo" }}
+                            onClick={() => identity.logout()}
+                          >
+                            Logout
+                          </Button>
+                        )}
+                      </>
+                    )}
                   </Group>
                 </ScrollArea>
               </Drawer>
