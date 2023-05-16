@@ -8,7 +8,6 @@ import {
   Paper,
   Textarea,
   Group,
-  Avatar,
   Loader,
 } from "@mantine/core";
 export const SignAndSubmitTx = () => {
