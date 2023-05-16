@@ -1,38 +1,53 @@
 import { ERROR_TYPES, identity, submitPost } from "deso-protocol";
 import { useContext } from "react";
 import { UserContext } from "../contexts";
-
+import {
+  Button,
+  Center,
+  Space,
+  Paper,
+  Textarea,
+  Group,
+  Avatar,
+  Loader,
+} from "@mantine/core";
 export const SignAndSubmitTx = () => {
   const { currentUser, isLoading } = useContext(UserContext);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Center>
+        <Loader variant="bars" />
+      </Center>
+    );
   }
 
   if (!currentUser || !currentUser.BalanceNanos) {
     return (
-      <button
-        onClick={() => {
-          identity
-            .login({
-              getFreeDeso: true,
-            })
-            .catch((err) => {
-              if (err?.type === ERROR_TYPES.NO_MONEY) {
-                alert("You need DESO in order to post!");
-              } else {
-                alert(err);
-              }
-            });
-        }}
-      >
-        Login to create a post
-      </button>
+      <Center>
+        <Button
+          radius="xl"
+          onClick={() => {
+            identity
+              .login({
+                getFreeDeso: true,
+              })
+              .catch((err) => {
+                if (err?.type === ERROR_TYPES.NO_MONEY) {
+                  alert("You need DESO in order to post!");
+                } else {
+                  alert(err);
+                }
+              });
+          }}
+        >
+          Login to Create
+        </Button>
+      </Center>
     );
   } else {
     return (
       <>
-        <h1>Submit a signed post transaction</h1>
         <form
           onSubmit={async (e) => {
             e.preventDefault();
@@ -71,15 +86,19 @@ export const SignAndSubmitTx = () => {
             });
           }}
         >
-          <textarea
-            name="post-textarea"
-            cols={30}
-            rows={10}
-            style={{ border: "1px solid black" }}
-          ></textarea>
-          <div>
-            <button>Post</button>
-          </div>
+          <Paper m="md" shadow="lg" radius="xl" p="xl" withBorder>
+            <Textarea
+              radius="xl"
+              autosize
+              placeholder="Let them hear your voice!"
+              variant="filled"
+              size="md"
+            />
+            <Space h="sm" />
+            <Group align="right">
+              <Button radius="xl">Create</Button>
+            </Group>
+          </Paper>
         </form>
       </>
     );

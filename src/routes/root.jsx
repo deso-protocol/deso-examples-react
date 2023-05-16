@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { MantineAppShell } from "../components/AppShell/AppShell";
 import { UserContext } from "../contexts";
+import { Loader, Center } from "@mantine/core";
 
 configure({
   spendingLimitOptions: {
@@ -127,7 +128,13 @@ export const Root = () => {
     <UserContext.Provider value={userState}>
       <MantineAppShell>
         <div role="main" className="main-content">
-          {userState.isLoading ? <div>Loading...</div> : <Outlet />}
+          {userState.isLoading ? (
+            <Center>
+              <Loader variant="bars" />
+            </Center>
+          ) : (
+            <Outlet />
+          )}
         </div>
       </MantineAppShell>
     </UserContext.Provider>

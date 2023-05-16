@@ -3,6 +3,11 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./routes/home";
 import { Root } from "./routes/root";
+import { Profile } from "./routes/profile";
+import { Notifications } from "./routes/notifications";
+import { Discover } from "./routes/discover";
+import { Wallet } from "./routes/wallet";
+import { Settings } from "./routes/settings";
 import { SignAndSubmitTx } from "./routes/sign-and-submit-tx";
 import { SwitchAccount } from "./routes/switch-account";
 import { User } from "./routes/user";
@@ -25,6 +30,26 @@ const router = createBrowserRouter([
       {
         path: "/switch-account",
         element: <SwitchAccount />,
+      },
+      {
+        path: "/notifications",
+        element: <Notifications />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
+      },
+      {
+        path: "/discover",
+        element: <Discover />,
+      },
+      {
+        path: "/wallet",
+        element: <Wallet />,
       },
     ],
   },

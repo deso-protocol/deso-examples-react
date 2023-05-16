@@ -8,7 +8,7 @@ import {
   IconDeviceDesktopAnalytics,
   IconReceipt2,
 } from "@tabler/icons-react";
-
+import { Link } from "react-router-dom";
 const useStyles = createStyles((theme) => ({
   header: {
     paddingBottom: theme.spacing.md,
@@ -79,33 +79,30 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const data = [
-  { link: "", label: "Home", icon: IconHome2 },
-  { link: "", label: "Discover", icon: IconDeviceDesktopAnalytics },
-  { link: "", label: "Profile", icon: IconUser },
-  { link: "", label: "Wallet", icon: IconReceipt2 },
-  { link: "", label: "Notifications", icon: IconBellRinging },
-  { link: "", label: "Settings", icon: IconSettings },
+  { link: "/", label: "Home", icon: IconHome2 },
+  { link: "/discover", label: "Discover", icon: IconDeviceDesktopAnalytics },
+  { link: "/profile", label: "Profile", icon: IconUser },
+  { link: "/wallet", label: "Wallet", icon: IconReceipt2 },
+  { link: "/notifications", label: "Notifications", icon: IconBellRinging },
+  { link: "/settings", label: "Settings", icon: IconSettings },
 ];
 
 export function MantineNavBar() {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState("Billing");
+  const [active, setActive] = useState("Home");
   const [opened] = useState(false);
   const links = data.map((item) => (
-    <a
+    <Link
+      to={item.link}
       className={cx(classes.link, {
         [classes.linkActive]: item.label === active,
       })}
-      href={item.link}
       key={item.label}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(item.label);
-      }}
+      onClick={() => setActive(item.label)}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
       <span>{item.label}</span>
-    </a>
+    </Link>
   ));
 
   return (
