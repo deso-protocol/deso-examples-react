@@ -1,11 +1,11 @@
 import { identity } from "deso-protocol";
 import { useContext } from "react";
+import { DeSoIdentityContext } from "react-deso-protocol";
 import { Link } from "react-router-dom";
-import { UserContext } from "../contexts";
 import { getDisplayName } from "../helpers";
 
 export const Nav = () => {
-  const { currentUser, isLoading } = useContext(UserContext);
+  const { currentUser, isLoading } = useContext(DeSoIdentityContext);
 
   return (
     <nav className="main-nav">

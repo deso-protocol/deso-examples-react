@@ -1,9 +1,9 @@
 import { ERROR_TYPES, identity, submitPost } from "deso-protocol";
 import { useContext } from "react";
-import { UserContext } from "../contexts";
+import { DeSoIdentityContext } from "react-deso-protocol";
 
 export const SignAndSubmitTx = () => {
-  const { currentUser, isLoading } = useContext(UserContext);
+  const { currentUser, isLoading } = useContext(DeSoIdentityContext);
 
   if (isLoading) {
     return <div>Loading...</div>;

@@ -1,10 +1,10 @@
 import { identity } from "deso-protocol";
 import { useContext } from "react";
-import { UserContext } from "../contexts";
+import { DeSoIdentityContext } from "react-deso-protocol";
 import { getDisplayName } from "../helpers";
 
 export const SwitchAccount = () => {
-  const { currentUser, alternateUsers, isLoading } = useContext(UserContext);
+  const { currentUser, alternateUsers, isLoading } = useContext(DeSoIdentityContext);
 
   if (!currentUser) {
     return (
