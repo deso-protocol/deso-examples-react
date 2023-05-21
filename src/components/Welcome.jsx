@@ -6,10 +6,8 @@ import {
   Text,
   List,
   ThemeIcon,
-  Button,
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
-import { GiWaveCrest } from "react-icons/gi";
 
 const useStyles = createStyles((theme) => ({
   inner: {
