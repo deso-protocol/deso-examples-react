@@ -29,6 +29,7 @@ import {
   IconReceipt2,
   IconLogout,
   IconSwitchHorizontal,
+  IconChevronRight 
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
@@ -316,11 +317,11 @@ export const MantineHeader = () => {
 
                         {!!currentUser && (
                           <Menu
-                            trigger="hover"
                             openDelay={100}
                             closeDelay={400}
                             shadow="md"
                             width={200}
+                            rightIcon={<IconChevronRight size="1rem" />}
                           >
                             <Menu.Target>
                               <Button
