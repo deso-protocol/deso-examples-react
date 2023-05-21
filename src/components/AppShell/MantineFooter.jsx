@@ -34,14 +34,12 @@ const useStyles = createStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     textDecoration: "none",
-    fontSize: theme.fontSizes.sm,
+
     color:
       theme.colorScheme === "dark"
         ? theme.colors.dark[1]
         : theme.colors.gray[7],
-    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
-    borderRadius: theme.radius.sm,
-    fontWeight: 500,
+    padding: `${theme.spacing.sm} ${theme.spacing.sm}`,
 
     "&:hover": {
       backgroundColor:
@@ -88,9 +86,9 @@ export const MantineFooter = () => {
 
   return (
     <Footer p="md" className={classes.footer}>
-      <Group position="center" spacing="xl" grow noWrap>
+      <Group position="center" spacing="lg" grow noWrap>
         <ActionIcon
-          size="lg"
+          size="xl"
           radius="xs"
           className={cx(classes.link, {
             [classes.linkActive]: active === "/",
@@ -104,7 +102,7 @@ export const MantineFooter = () => {
         </ActionIcon>
 
         <ActionIcon
-          size="lg"
+          size="xl"
           radius="xs"
           className={cx(classes.link, {
             [classes.linkActive]: active === "/discover",
@@ -121,7 +119,7 @@ export const MantineFooter = () => {
         </ActionIcon>
 
         <ActionIcon
-          size="lg"
+          size="xl"
           radius="xs"
           className={cx(classes.link, {
             [classes.linkActive]: active === "/profile",
@@ -135,7 +133,7 @@ export const MantineFooter = () => {
         </ActionIcon>
 
         <ActionIcon
-          size="lg"
+          size="xl"
           radius="xs"
           className={cx(classes.link, {
             [classes.linkActive]: active === "/wallet",
@@ -149,7 +147,7 @@ export const MantineFooter = () => {
         </ActionIcon>
 
         <ActionIcon
-          size="lg"
+          size="xl"
           radius="xs"
           className={cx(classes.link, {
             [classes.linkActive]: active === "/notifications",
@@ -163,7 +161,7 @@ export const MantineFooter = () => {
         </ActionIcon>
 
         <ActionIcon
-          size="lg"
+          size="xl"
           radius="xs"
           className={cx(classes.link, {
             [classes.linkActive]: active === "/settings",
