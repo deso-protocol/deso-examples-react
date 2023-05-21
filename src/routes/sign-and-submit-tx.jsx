@@ -1,5 +1,5 @@
-import { ERROR_TYPES, identity, submitPost } from "deso-protocol";
-import { useContext, useRef } from "react";
+import { ERROR_TYPES, identity, submitPost, getHotFeed } from "deso-protocol";
+import { useContext, useRef, useEffect } from "react";
 import { UserContext } from "../contexts";
 import { IconCheck } from "@tabler/icons-react";
 import {
@@ -7,19 +7,21 @@ import {
   Center,
   Space,
   Paper,
+  Text,
   Textarea,
   Group,
   Loader,
   Notification,
   createStyles,
+  Avatar,
 } from "@mantine/core";
-
-const useStyles = createStyles((theme) => ({}));
-
+import { getDisplayName } from "../helpers";
 export const SignAndSubmitTx = () => {
-  const { classes } = useStyles();
   const { currentUser, isLoading } = useContext(UserContext);
   const formRef = useRef(null);
+
+  const userPublicKey = currentUser.PublicKeyBase58Check;
+  console.log(currentUser);
 
   if (isLoading) {
     return (
@@ -55,14 +57,7 @@ export const SignAndSubmitTx = () => {
   } else {
     return (
       <>
-        <Paper
-          m="md"
-          shadow="lg"
-          radius="sm"
-          p="xl"
-          withBorder
-          className={classes.inner}
-        >
+        <Paper m="md" shadow="lg" radius="sm" p="xl" withBorder>
           <form
             ref={formRef}
             onSubmit={async (e) => {
@@ -113,6 +108,10 @@ export const SignAndSubmitTx = () => {
               form.reset();
             }}
           >
+            <Text fz="lg" fw={1000} inherit variant="gradient" component="span">
+              {getDisplayName(currentUser)}
+            </Text>
+            <Space h="sm" />
             <Textarea
               name="body"
               radius="md"
@@ -123,7 +122,12 @@ export const SignAndSubmitTx = () => {
             />
             <Space h="sm" />
             <Group postion="apart">
-              <Button raduis="sm" type="submit">
+              <Button
+                variant="gradient"
+                gradient={{ from: "cyan", to: "indigo" }}
+                raduis="sm"
+                type="submit"
+              >
                 Create
               </Button>
             </Group>
