@@ -108,7 +108,7 @@ export const SignAndSubmitTx = () => {
               form.reset();
             }}
           >
-            <Text fz="lg" fw={1000} inherit variant="gradient">
+            <Text fz="lg" fw={777} variant="gradient" truncate>
               {getDisplayName(currentUser)}
             </Text>
             <Space h="sm" />
