@@ -16,12 +16,12 @@ import {
   Avatar,
 } from "@mantine/core";
 import { getDisplayName } from "../helpers";
+
 export const SignAndSubmitTx = () => {
   const { currentUser, isLoading } = useContext(UserContext);
   const formRef = useRef(null);
 
-  const userPublicKey = currentUser.PublicKeyBase58Check;
-  console.log(currentUser);
+  
 
   if (isLoading) {
     return (

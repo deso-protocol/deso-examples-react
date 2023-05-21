@@ -1,5 +1,6 @@
-import { getHotFeed } from "deso-protocol";
-import { useEffect, useState } from "react";
+import { getPostsStateless } from "deso-protocol";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../contexts";
 import {
   Text,
   Avatar,
@@ -39,30 +40,34 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const HotFeed = () => {
+export const FollowerFeed = () => {
+  const { currentUser, isLoading } = useContext(UserContext);
   const { classes } = useStyles();
-  const [hotFeed, setHotFeed] = useState([]);
+  const [followerFeed, setFollowerFeed] = useState([]);
+  const userPublicKey = currentUser.PublicKeyBase58Check;
 
   useEffect(() => {
-    const fetchHotFeed = async () => {
+    const fetchFollowerFeed = async () => {
       try {
-        const hotFeed = await getHotFeed({
-          ResponseLimit: 30,
+        const followerFeedData = await getPostsStateless({
+          ReaderPublicKeyBase58Check: userPublicKey,
+          NumToFetch: 30,
+          GetPostsForFollowerFeed: true,
         });
 
-        setHotFeed(hotFeed.HotFeedPage);
+        setFollowerFeed(followerFeedData.PostsFound);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
       }
     };
 
-    fetchHotFeed();
-  }, []);
+    fetchFollowerFeed();
+  }, [currentUser]);
   return (
     <>
       <div>
-        {hotFeed && hotFeed.length > 0 ? (
-          hotFeed.map((post) => (
+        {followerFeed && followerFeed.length > 0 ? (
+          followerFeed.map((post) => (
             <Paper
               m="md"
               shadow="lg"
