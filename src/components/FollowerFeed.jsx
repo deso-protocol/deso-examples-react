@@ -57,6 +57,8 @@ export const FollowerFeed = () => {
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
       }
+      
+      
     };
 
     if (currentUser) {
@@ -67,6 +69,8 @@ export const FollowerFeed = () => {
   return (
     <>
       <div>
+        <Space h="md" />
+
         {currentUser ? (
           followerFeed && followerFeed.length > 0 ? (
             followerFeed.map((post) => (
@@ -206,7 +210,7 @@ export const FollowerFeed = () => {
           <Center>
             <Space h="md" />
             <Paper m="md" shadow="lg" radius="md" p="xl" withBorder>
-              <Text>Please log in to view the follower feed.</Text>{" "}
+              <Text>Please login to view your follower feed.</Text>{" "}
             </Paper>
             <Space h={222} />
           </Center>
