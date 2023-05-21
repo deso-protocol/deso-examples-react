@@ -93,6 +93,20 @@ export const MantineFooter = () => {
           size="lg"
           radius="xs"
           className={cx(classes.link, {
+            [classes.linkActive]: active === "/",
+          })}
+          onClick={() => {
+            setActive("/");
+            navigate("/");
+          }}
+        >
+          <IconHome2 size="1.4rem" className={classes.actionIcon} />
+        </ActionIcon>
+
+        <ActionIcon
+          size="lg"
+          radius="xs"
+          className={cx(classes.link, {
             [classes.linkActive]: active === "/discover",
           })}
           onClick={() => {
