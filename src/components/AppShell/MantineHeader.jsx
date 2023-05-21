@@ -266,7 +266,7 @@ export const MantineHeader = () => {
               <Drawer
                 opened={drawerOpened}
                 onClose={closeDrawer}
-                size="100%"
+                size="77%"
                 padding="md"
                 title={
                   <Text
