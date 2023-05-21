@@ -103,7 +103,7 @@ export const HotFeed = () => {
                     src={post.ImageURLs[0]}
                     radius="md"
                     alt="post-image"
-                    width={321}
+                    width={311}
                   />
                 </Group>
               )}
