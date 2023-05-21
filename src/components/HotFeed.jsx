@@ -61,6 +61,7 @@ export const HotFeed = () => {
   return (
     <>
       <div>
+        <Space h="md" />
         {hotFeed && hotFeed.length > 0 ? (
           hotFeed.map((post) => (
             <Paper
@@ -185,6 +186,7 @@ export const HotFeed = () => {
             <Loader variant="bars" />
           </Center>
         )}
+        <Space h={222} />
       </div>
     </>
   );
