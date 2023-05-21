@@ -57,8 +57,6 @@ export const FollowerFeed = () => {
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
       }
-      
-      
     };
 
     if (currentUser) {
@@ -209,8 +207,15 @@ export const FollowerFeed = () => {
         ) : (
           <Center>
             <Space h="md" />
-            <Paper m="md" shadow="lg" radius="md" p="xl" withBorder>
-              <Text>Please login to view your follower feed.</Text>{" "}
+            <Paper shadow="xl" radius="lg" p="xl" withBorder>
+              <Text
+                size="xl"
+                lineClamp={4}
+                variant="gradient"
+                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              >
+                Please login to view your Follower Feed.
+              </Text>
             </Paper>
             <Space h={222} />
           </Center>
