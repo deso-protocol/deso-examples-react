@@ -5,6 +5,7 @@ import {
   MediaQuery,
   ActionIcon,
   Group,
+  getStylesRef,
 } from "@mantine/core";
 import { useState } from "react";
 import {
@@ -27,37 +28,138 @@ const useStyles = createStyles((theme) => ({
       display: "none",
     },
   },
+
+  link: {
+    ...theme.fn.focusStyles(),
+    display: "flex",
+    alignItems: "center",
+    textDecoration: "none",
+    fontSize: theme.fontSizes.sm,
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[1]
+        : theme.colors.gray[7],
+    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
+    borderRadius: theme.radius.sm,
+    fontWeight: 500,
+
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[6]
+          : theme.colors.gray[0],
+      color: theme.colorScheme === "dark" ? theme.white : theme.black,
+
+      [`& .${getStylesRef("icon")}`]: {
+        color: theme.colorScheme === "dark" ? theme.white : theme.black,
+      },
+    },
+  },
+
+  linkIcon: {
+    ref: getStylesRef("icon"),
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[2]
+        : theme.colors.gray[6],
+    marginRight: theme.spacing.sm,
+  },
+
+  linkActive: {
+    "&, &:hover": {
+      backgroundColor: theme.fn.variant({
+        variant: "light",
+        color: theme.primaryColor,
+      }).background,
+      color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
+        .color,
+      [`& .${getStylesRef("icon")}`]: {
+        color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
+          .color,
+      },
+    },
+  },
 }));
 
 export const MantineFooter = () => {
   const navigate = useNavigate();
-
-  const { classes } = useStyles();
+  const [active, setActive] = useState("Home");
+  const { classes, cx } = useStyles();
 
   return (
     <Footer p="md" className={classes.footer}>
       <Group position="center" spacing="xl" grow noWrap>
-        <ActionIcon size="lg" radius="xs" onClick={() => navigate("/")}>
-          <IconHome2 size="1.4rem" />
-        </ActionIcon>
-        <ActionIcon size="lg" radius="xs" onClick={() => navigate("/discover")}>
-          <IconDeviceDesktopAnalytics size="1.4rem" />
-        </ActionIcon>
-        <ActionIcon size="lg" radius="xs" onClick={() => navigate("/profile")}>
-          <IconUser size="1.4rem" />
-        </ActionIcon>
-        <ActionIcon size="lg" radius="xs" onClick={() => navigate("/wallet")}>
-          <IconReceipt2 size="1.4rem" />
-        </ActionIcon>
         <ActionIcon
           size="lg"
           radius="xs"
-          onClick={() => navigate("/notifications")}
+          className={cx(classes.link, {
+            [classes.linkActive]: active === "/discover",
+          })}
+          onClick={() => {
+            setActive("/discover");
+            navigate("/discover");
+          }}
         >
-          <IconBellRinging size="1.4rem" />
+          <IconDeviceDesktopAnalytics
+            size="1.4rem"
+            className={classes.actionIcon}
+          />
         </ActionIcon>
-        <ActionIcon size="lg" radius="xs" onClick={() => navigate("/settings")}>
-          <IconSettings size="1.4rem" />
+
+        <ActionIcon
+          size="lg"
+          radius="xs"
+          className={cx(classes.link, {
+            [classes.linkActive]: active === "/profile",
+          })}
+          onClick={() => {
+            setActive("/profile");
+            navigate("/profile");
+          }}
+        >
+          <IconUser size="1.4rem" className={classes.actionIcon} />
+        </ActionIcon>
+
+        <ActionIcon
+          size="lg"
+          radius="xs"
+          className={cx(classes.link, {
+            [classes.linkActive]: active === "/wallet",
+          })}
+          onClick={() => {
+            setActive("/wallet");
+            navigate("/wallet");
+          }}
+        >
+          <IconReceipt2 size="1.4rem" className={classes.actionIcon} />
+        </ActionIcon>
+
+        <ActionIcon
+          size="lg"
+          radius="xs"
+          className={cx(classes.link, {
+            [classes.linkActive]: active === "/notifications",
+          })}
+          onClick={() => {
+            setActive("/notifications");
+            navigate("/notifications");
+          }}
+        >
+          <IconBellRinging size="1.4rem" className={classes.actionIcon} />
+        </ActionIcon>
+
+        <ActionIcon
+          size="lg"
+          radius="xs"
+          className={cx(classes.link, {
+            [classes.linkActive]: active === "/settings",
+          })}
+          onClick={() => {
+            setActive("/settings");
+            navigate("/settings");
+          }}
+        >
+          <IconSettings size="1.4rem" className={classes.actionIcon} />
         </ActionIcon>
       </Group>
     </Footer>
