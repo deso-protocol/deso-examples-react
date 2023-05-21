@@ -11,7 +11,7 @@ export const SwitchAccount = () => {
       <>
         <p>You need to login in with more than one user to start switching</p>
         <h1>Login to get started</h1>
-        <button onClick={() => identity.login()}>Login</button>
+        <button onClick={() => identity.login()}>Add </button>
       </>
     );
   }
@@ -19,12 +19,7 @@ export const SwitchAccount = () => {
   if (currentUser && !alternateUsers?.length) {
     return (
       <>
-        <p>
-          You are logged in as{" "}
-          {currentUser.ProfileEntryResponse?.Username ??
-            currentUser.PublicKeyBase58Check}
-        </p>
-        <h1>Add another account to start switching</h1>
+        
         <button onClick={() => identity.login()}>Add an account</button>
       </>
     );

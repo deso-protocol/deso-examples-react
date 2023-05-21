@@ -11,9 +11,13 @@ import {
   Group,
   Loader,
   Notification,
+  createStyles,
 } from "@mantine/core";
 
+const useStyles = createStyles((theme) => ({}));
+
 export const SignAndSubmitTx = () => {
+  const { classes } = useStyles();
   const { currentUser, isLoading } = useContext(UserContext);
   const formRef = useRef(null);
 
@@ -51,7 +55,14 @@ export const SignAndSubmitTx = () => {
   } else {
     return (
       <>
-        <Paper m="md" shadow="lg" radius="xl" p="xl" withBorder>
+        <Paper
+          m="md"
+          shadow="lg"
+          radius="sm"
+          p="xl"
+          withBorder
+          className={classes.inner}
+        >
           <form
             ref={formRef}
             onSubmit={async (e) => {
@@ -104,15 +115,15 @@ export const SignAndSubmitTx = () => {
           >
             <Textarea
               name="body"
-              radius="xl"
+              radius="md"
               autosize
               placeholder="Let them hear your voice!"
               variant="filled"
               size="md"
             />
             <Space h="sm" />
-            <Group align="right">
-              <Button type="submit" radius="xl">
+            <Group postion="apart">
+              <Button raduis="sm" type="submit">
                 Create
               </Button>
             </Group>

@@ -11,6 +11,7 @@ import {
   Button,
   Text,
   Divider,
+  Space,
   Box,
   Burger,
   Drawer,
@@ -27,6 +28,8 @@ import {
   IconHome2,
   IconDeviceDesktopAnalytics,
   IconReceipt2,
+  IconLogout,
+  IconSwitchHorizontal,
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
@@ -124,7 +127,7 @@ const data = [
 ];
 
 export const MantineHeader = () => {
-  const { currentUser, isLoading } = useContext(UserContext);
+  const { currentUser, isLoading, alternateUsers } = useContext(UserContext);
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme, cx } = useStyles();
@@ -175,6 +178,12 @@ export const MantineHeader = () => {
                         {!currentUser && (
                           <>
                             <Button
+                              variant="default"
+                              onClick={() => identity.login()}
+                            >
+                              Login
+                            </Button>
+                            <Button
                               leftIcon={<GiWaveCrest size="1rem" />}
                               variant="gradient"
                               gradient={{ from: "cyan", to: "indigo" }}
@@ -204,8 +213,36 @@ export const MantineHeader = () => {
                             </Menu.Target>
 
                             <Menu.Dropdown>
-                              <Menu.Label>Account</Menu.Label>
-                              <Menu.Item onClick={() => identity.logout()}>
+                              {alternateUsers?.length > 0 && (
+                                <Menu.Label>Accounts</Menu.Label>
+                              )}
+
+                              {alternateUsers?.map((user) => (
+                                <Menu.Item
+                                  icon={<IconUser size={14} />}
+                                  key={user.PublicKeyBase58Check}
+                                  onClick={() =>
+                                    identity.setActiveUser(
+                                      user.PublicKeyBase58Check
+                                    )
+                                  }
+                                >
+                                  {getDisplayName(user)}
+                                </Menu.Item>
+                              ))}
+
+                              <Menu.Divider />
+                              <Menu.Item
+                                icon={<IconSwitchHorizontal size={14} />}
+                                onClick={() => identity.login()}
+                              >
+                                Add Account
+                              </Menu.Item>
+
+                              <Menu.Item
+                                icon={<IconLogout size={14} />}
+                                onClick={() => identity.logout()}
+                              >
                                 Logout
                               </Menu.Item>
                             </Menu.Dropdown>
