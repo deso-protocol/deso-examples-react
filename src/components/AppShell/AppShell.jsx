@@ -1,6 +1,7 @@
 import { AppShell, useMantineTheme } from "@mantine/core";
 import { MantineNavBar } from "./MantineNavBar";
 import { MantineHeader } from "./MantineHeader";
+import { MantineFooter } from "./MantineFooter";
 import { ReactNode } from "react";
 export const MantineAppShell = ({ children }: { children: ReactNode }) => {
   const theme = useMantineTheme();
@@ -19,6 +20,7 @@ export const MantineAppShell = ({ children }: { children: ReactNode }) => {
       asideOffsetBreakpoint="sm"
       navbar={<MantineNavBar />}
       header={<MantineHeader />}
+      footer={<MantineFooter />}
     >
       {children}
     </AppShell>
