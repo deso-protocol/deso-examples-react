@@ -315,14 +315,58 @@ export const MantineHeader = () => {
                         )}
 
                         {!!currentUser && (
-                          <Button
-                            leftIcon={<GiWaveCrest size="1rem" />}
-                            variant="gradient"
-                            gradient={{ from: "cyan", to: "indigo" }}
-                            onClick={() => identity.logout()}
+                          <Menu
+                            trigger="hover"
+                            openDelay={100}
+                            closeDelay={400}
+                            shadow="md"
+                            width={200}
                           >
-                            Logout
-                          </Button>
+                            <Menu.Target>
+                              <Button
+                                leftIcon={<GiWaveCrest size="1rem" />}
+                                variant="gradient"
+                                gradient={{ from: "cyan", to: "indigo" }}
+                              >
+                                {getDisplayName(currentUser)}
+                              </Button>
+                            </Menu.Target>
+
+                            <Menu.Dropdown>
+                              {alternateUsers?.length > 0 && (
+                                <Menu.Label>Accounts</Menu.Label>
+                              )}
+
+                              {alternateUsers?.map((user) => (
+                                <Menu.Item
+                                  icon={<IconUser size={14} />}
+                                  key={user.PublicKeyBase58Check}
+                                  onClick={() =>
+                                    identity.setActiveUser(
+                                      user.PublicKeyBase58Check
+                                    )
+                                  }
+                                >
+                                  {getDisplayName(user)}
+                                </Menu.Item>
+                              ))}
+
+                              <Menu.Divider />
+                              <Menu.Item
+                                icon={<IconSwitchHorizontal size={14} />}
+                                onClick={() => identity.login()}
+                              >
+                                Add Account
+                              </Menu.Item>
+
+                              <Menu.Item
+                                icon={<IconLogout size={14} />}
+                                onClick={() => identity.logout()}
+                              >
+                                Logout
+                              </Menu.Item>
+                            </Menu.Dropdown>
+                          </Menu>
                         )}
                       </>
                     )}
