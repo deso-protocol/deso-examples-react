@@ -29,11 +29,14 @@ import {
   IconReceipt2,
   IconLogout,
   IconSwitchHorizontal,
-  IconChevronRight 
+  IconChevronRight,
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
+  buttonBox: {
+    maxWidth: "222px",
+  },
   link: {
     display: "flex",
     alignItems: "center",
@@ -328,6 +331,7 @@ export const MantineHeader = () => {
                                 leftIcon={<GiWaveCrest size="1rem" />}
                                 variant="gradient"
                                 gradient={{ from: "cyan", to: "indigo" }}
+                                className={classes.buttonBox}
                               >
                                 {getDisplayName(currentUser)}
                               </Button>
