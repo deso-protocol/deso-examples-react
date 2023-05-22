@@ -21,7 +21,7 @@ export const NotificationsPage = () => {
         const notificationData = await getNotifications({
           PublicKeyBase58Check: userPublicKey,
           NumToFetch: 50,
-          FetchStartIndex: 1000,
+          FetchStartIndex: -1,
         });
         console.log(notificationData.Notifications);
         setNotifications(notificationData.Notifications);

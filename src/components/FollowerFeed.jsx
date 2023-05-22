@@ -50,9 +50,10 @@ export const FollowerFeed = () => {
         const followerFeedData = await getPostsStateless({
           ReaderPublicKeyBase58Check: userPublicKey,
           NumToFetch: 30,
-          GetPostsForFollowerFeed: true,
+          GetPostsForFollowFeed: true,
+          FetchSubcomments: true,
         });
-
+        console.log(followerFeedData.PostsFound);
         setFollowerFeed(followerFeedData.PostsFound);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
