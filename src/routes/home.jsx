@@ -68,6 +68,7 @@ export const Home = () => {
               </Text>
             </Paper>
           </Center>
+          <Space h={222} />
         </Tabs.Panel>
         <Tabs.Panel value="second">
           <FollowerFeed />
