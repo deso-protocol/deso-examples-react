@@ -1,6 +1,6 @@
 import { Welcome } from "../components/Welcome";
 import { SignAndSubmitTx } from "../routes/sign-and-submit-tx";
-import { Space, Tabs } from "@mantine/core";
+import { Space, Tabs, Divider } from "@mantine/core";
 import { HotFeed } from "../components/HotFeed";
 import { FollowerFeed } from "../components/FollowerFeed";
 import { useState } from "react";
@@ -14,6 +14,8 @@ export const Home = () => {
       <SignAndSubmitTx />
       <Space h="md" />
       <Welcome />
+      <Space h="md" />
+      <Divider size="sm" />
       <Space h="md" />
       <Tabs
         variant="pills"
@@ -33,6 +35,7 @@ export const Home = () => {
           <FollowerFeed />
         </Tabs.Panel>
       </Tabs>
+
       <Space h="md" />
     </>
   );

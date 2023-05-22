@@ -17,6 +17,8 @@ configure({
       SUBMIT_POST: "UNLIMITED",
     },
   },
+
+  appName: "Your moms house.",
 });
 
 export const Root = () => {

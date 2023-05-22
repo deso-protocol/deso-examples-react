@@ -33,7 +33,6 @@ export const Profile = () => {
           GetEntriesFollowingUsername: true,
         });
 
-        console.log(profileData);
         setFollowers({ following, followers });
         setProfile(profileData);
       } catch (error) {
