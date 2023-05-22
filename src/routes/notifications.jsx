@@ -23,7 +23,7 @@ export const NotificationsPage = () => {
           NumToFetch: 50,
           FetchStartIndex: -1,
         });
-        console.log(notificationData.Notifications);
+
         setNotifications(notificationData.Notifications);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);

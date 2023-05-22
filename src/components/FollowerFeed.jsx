@@ -53,7 +53,7 @@ export const FollowerFeed = () => {
           GetPostsForFollowFeed: true,
           FetchSubcomments: true,
         });
-        console.log(followerFeedData.PostsFound);
+
         setFollowerFeed(followerFeedData.PostsFound);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
