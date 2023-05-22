@@ -70,10 +70,10 @@ export const Home = () => {
           </Center>
         </Tabs.Panel>
         <Tabs.Panel value="second">
-          <HotFeed />
+          <FollowerFeed />
         </Tabs.Panel>
         <Tabs.Panel value="third">
-          <FollowerFeed />
+          <HotFeed />
         </Tabs.Panel>
       </Tabs>
 
