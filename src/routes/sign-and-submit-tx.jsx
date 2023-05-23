@@ -1,5 +1,5 @@
 import { ERROR_TYPES, identity, submitPost, getHotFeed } from "deso-protocol";
-import { useContext, useRef, useEffect } from "react";
+import { useContext, useRef, useEffect, useState } from "react";
 import { UserContext } from "../contexts";
 import { IconCheck } from "@tabler/icons-react";
 import {
@@ -19,9 +19,8 @@ import { getDisplayName } from "../helpers";
 
 export const SignAndSubmitTx = () => {
   const { currentUser, isLoading } = useContext(UserContext);
-  const formRef = useRef(null);
 
-  
+  const formRef = useRef(null);
 
   if (isLoading) {
     return (
@@ -108,9 +107,17 @@ export const SignAndSubmitTx = () => {
               form.reset();
             }}
           >
-            <Text fz="lg" fw={777} variant="gradient" truncate>
-              {getDisplayName(currentUser)}
-            </Text>
+            <Group>
+              <Avatar
+                size="lg"
+                radius="xl"
+                src={`https://node.deso.org/api/v0/get-single-profile-picture/${currentUser?.PublicKeyBase58Check}`}
+                alt="Profile Picture"
+              />
+              <Text fz="lg" fw={777} variant="gradient" truncate>
+                {getDisplayName(currentUser)}
+              </Text>
+            </Group>
             <Space h="sm" />
             <Textarea
               name="body"

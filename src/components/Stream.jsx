@@ -1,7 +1,10 @@
-import { Player, useCreateStream } from "@livepeer/react";
-
-import { useMemo, useState } from "react";
-
+import {
+  Player,
+  useCreateStream,
+  useUpdateStream,
+  TimeDisplay,
+} from "@livepeer/react";
+import { useMemo, useState, useCallback } from "react";
 import {
   Text,
   Paper,
@@ -14,6 +17,7 @@ import {
   ActionIcon,
   Tooltip,
   Card,
+  Badge,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 
@@ -70,9 +74,8 @@ export const Stream = () => {
                 </CopyButton>
               </Group>
 
-              <Group>
+              <Group position="center">
                 <h4>Stream Key:</h4>
-                <code>{stream.streamKey}</code>
 
                 <CopyButton value={stream.streamKey} timeout={2000}>
                   {({ copied, copy }) => (
@@ -96,16 +99,9 @@ export const Stream = () => {
                 </CopyButton>
               </Group>
 
-              <Text
-                variant="gradient"
-                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-                sx={{ fontFamily: "Greycliff CF, sans-serif" }}
-                fz="xl"
-                ta="center"
-                fw={700}
-              >
-                {streamName}
-              </Text>
+              <Group position="center">
+                <Badge size="xl">{streamName}</Badge>
+              </Group>
               <Space h="md" />
             </Card>
           </Center>

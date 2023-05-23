@@ -92,7 +92,11 @@ export const FollowerFeed = () => {
                       }
                     />
                   ) : (
-                    <Avatar size={44} radius={33} />
+                    <Avatar
+                    size={44}
+                    radius={33}
+                    src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`}
+                  />
                   )}
 
                   <Space w="xs" />

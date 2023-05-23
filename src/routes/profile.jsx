@@ -13,6 +13,8 @@ import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../contexts";
 import { getSingleProfile, getFollowersForUser } from "deso-protocol";
 import { Stream } from "../components/Stream";
+import { getDisplayName } from "../helpers";
+
 export const Profile = () => {
   const { currentUser, isLoading } = useContext(UserContext);
   const [profile, setProfile] = useState([]);
@@ -32,7 +34,7 @@ export const Profile = () => {
           PublicKeyBase58Check: userPublicKey,
           GetEntriesFollowingUsername: true,
         });
-
+        console.log(profileData);
         setFollowers({ following, followers });
         setProfile(profileData);
       } catch (error) {
@@ -57,9 +59,18 @@ export const Profile = () => {
                 withPlaceholder
               />
             </Card.Section>
+            <Space h="sm" />
             <Center>
-              <Text align="center" size="lg" weight={777} mt="md">
-                {profile?.Profile?.Username && "@" + profile?.Profile?.Username}
+              <Avatar
+                size="lg"
+                radius="xl"
+                src={`https://node.deso.org/api/v0/get-single-profile-picture/${currentUser?.PublicKeyBase58Check}`}
+                alt="Profile Picture"
+              />
+            </Center>
+            <Center>
+              <Text fz="lg" fw={777} variant="gradient" truncate>
+                {getDisplayName(currentUser)}
               </Text>
             </Center>
             <Space h="md" />

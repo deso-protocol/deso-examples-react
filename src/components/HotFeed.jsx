@@ -49,7 +49,7 @@ export const HotFeed = () => {
         const hotFeed = await getHotFeed({
           ResponseLimit: 30,
         });
-
+        console.log(hotFeed.HotFeedPage);
         setHotFeed(hotFeed.HotFeedPage);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
@@ -81,7 +81,11 @@ export const HotFeed = () => {
                     src={post.ProfileEntryResponse.ExtraData.LargeProfilePicURL}
                   />
                 ) : (
-                  <Avatar size={44} radius={33} />
+                  <Avatar
+                    size={44}
+                    radius={33}
+                    src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`}
+                  />
                 )}
 
                 <Space w="xs" />
