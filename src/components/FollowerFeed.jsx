@@ -53,7 +53,7 @@ export const FollowerFeed = () => {
           GetPostsForFollowFeed: true,
           FetchSubcomments: true,
         });
-
+        console.log(followerFeedData.PostsFound);
         setFollowerFeed(followerFeedData.PostsFound);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
@@ -93,10 +93,10 @@ export const FollowerFeed = () => {
                     />
                   ) : (
                     <Avatar
-                    size={44}
-                    radius={33}
-                    src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`}
-                  />
+                      size={44}
+                      radius={33}
+                      src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`}
+                    />
                   )}
 
                   <Space w="xs" />
@@ -113,6 +113,63 @@ export const FollowerFeed = () => {
                 </TypographyStylesProvider>
 
                 <Space h="md" />
+                {post.RepostedPostEntryResponse && (
+                  <Paper
+                    m="md"
+                    shadow="lg"
+                    radius="md"
+                    p="xl"
+                    withBorder
+                    key={post.RepostedPostEntryResponse.PostHashHex}
+                    className={classes.comment}
+                  >
+                    <Center>
+                      {post.ProfileEntryResponse?.ExtraData
+                        ?.LargeProfilePicURL ? (
+                        <Avatar
+                          size={44}
+                          radius={33}
+                          src={
+                            post.RepostedPostEntryResponse.ProfileEntryResponse
+                              .ExtraData.LargeProfilePicURL
+                          }
+                        />
+                      ) : (
+                        <Avatar
+                          size={44}
+                          radius={33}
+                          src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.RepostedPostEntryResponse.ProfileEntryResponse.PublicKeyBase58Check}`}
+                        />
+                      )}
+
+                      <Space w="xs" />
+                      <Text weight="bold" size="sm">
+                        {
+                          post.RepostedPostEntryResponse.ProfileEntryResponse
+                            .Username
+                        }
+                      </Text>
+                    </Center>
+                    <TypographyStylesProvider>
+                      <Space h="sm" />
+                      <Text align="center" size="md" className={classes.body}>
+                        {post.RepostedPostEntryResponse.Body}
+                      </Text>
+                    </TypographyStylesProvider>
+
+                    <Space h="md" />
+                    {post.RepostedPostEntryResponse.ImageURLs && (
+                      <Group position="center">
+                        <Image
+                          src={post.RepostedPostEntryResponse.ImageURLs[0]}
+                          radius="md"
+                          alt="post-image"
+                          width={311}
+                        />
+                      </Group>
+                    )}
+                  </Paper>
+                )}
 
                 {post.ImageURLs && (
                   <Group position="center">
