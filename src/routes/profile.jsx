@@ -47,6 +47,17 @@ export const Profile = () => {
 
   return (
     <>
+      <Divider
+        my="xs"
+        label={
+          <>
+            <Text fw={444} fz="xl">
+              Profile
+            </Text>
+          </>
+        }
+        labelPosition="center"
+      />
       {currentUser ? (
         <>
           <Card shadow="sm" padding="lg" radius="md" withBorder>
