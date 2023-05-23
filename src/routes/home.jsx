@@ -40,12 +40,14 @@ export const Home = () => {
             </Center>
             <Text fz="sm">Waves</Text>
           </Tabs.Tab>
+          <Divider size="xs" orientation="vertical" />
           <Tabs.Tab value="second">
             <Center>
               <IconUsers />
             </Center>
             <Text fz="sm">Follower Feed</Text>
           </Tabs.Tab>
+          <Divider size="xs" orientation="vertical" />
           <Tabs.Tab value="third">
             <Center>
               <IconCampfire />
