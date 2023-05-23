@@ -12,7 +12,6 @@ import { SignAndSubmitTx } from "./routes/sign-and-submit-tx";
 import { SwitchAccount } from "./routes/switch-account";
 import { User } from "./routes/user";
 import { MantineProvider } from "@mantine/core";
-import { Notifications } from "@mantine/notifications";
 
 const router = createBrowserRouter([
   {
@@ -64,7 +63,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       withNormalizeCSS
     >
       <RouterProvider router={router} />
-      <Notifications />
     </MantineProvider>
   </React.StrictMode>
 );

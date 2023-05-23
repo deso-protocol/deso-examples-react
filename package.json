@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.0",
+    "@livepeer/react": "^2.4.4",
     "@mantine/core": "^6.0.10",
     "@mantine/form": "^6.0.10",
     "@mantine/hooks": "^6.0.10",

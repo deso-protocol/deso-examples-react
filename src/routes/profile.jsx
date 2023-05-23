@@ -12,7 +12,7 @@ import {
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../contexts";
 import { getSingleProfile, getFollowersForUser } from "deso-protocol";
-
+import { Stream } from "../components/Stream";
 export const Profile = () => {
   const { currentUser, isLoading } = useContext(UserContext);
   const [profile, setProfile] = useState([]);
@@ -47,17 +47,6 @@ export const Profile = () => {
 
   return (
     <>
-      <Divider
-        my="xs"
-        label={
-          <>
-            <Text fw={444} fz="xl">
-              Profile
-            </Text>
-          </>
-        }
-        labelPosition="center"
-      />
       {currentUser ? (
         <>
           <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -94,21 +83,48 @@ export const Profile = () => {
               </Text>
             </Center>
           </Card>
-          <Space h={222} />
+          <Space h={77} />
+          <Divider
+            my="xs"
+            label={
+              <>
+                <Text fw={444} fz="xl">
+                  Go Live
+                </Text>
+              </>
+            }
+            labelPosition="center"
+          />
+          <Space h="md" />
+          <Stream />
         </>
       ) : (
-        <Center>
-          <Paper shadow="xl" radius="lg" p="xl" withBorder>
-            <Text
-              size="xl"
-              lineClamp={4}
-              variant="gradient"
-              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-            >
-              Please login to view your Profile.
-            </Text>
-          </Paper>
-        </Center>
+        <>
+          <Divider
+            my="xs"
+            label={
+              <>
+                <Text fw={444} fz="xl">
+                  Profile
+                </Text>
+              </>
+            }
+            labelPosition="center"
+          />
+          <Space h="xl" />
+          <Center>
+            <Paper shadow="xl" radius="lg" p="xl" withBorder>
+              <Text
+                size="xl"
+                lineClamp={4}
+                variant="gradient"
+                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              >
+                Please login to view your Profile.
+              </Text>
+            </Paper>
+          </Center>
+        </>
       )}
     </>
   );
