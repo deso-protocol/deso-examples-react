@@ -127,7 +127,7 @@ export const Profile = () => {
             <Paper shadow="xl" radius="lg" p="xl" withBorder>
               <Text
                 size="xl"
-                lineClamp={4}
+                noBreak
                 variant="gradient"
                 gradient={{ from: "indigo", to: "cyan", deg: 45 }}
               >
