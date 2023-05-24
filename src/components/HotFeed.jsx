@@ -117,23 +117,16 @@ export const HotFeed = () => {
                   className={classes.comment}
                 >
                   <Center>
-                    {post.ProfileEntryResponse &&
-                    post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ? (
-                      <Avatar
-                        size={44}
-                        radius={33}
-                        src={
-                          post.RepostedPostEntryResponse.ProfileEntryResponse
-                            ?.ExtraData?.LargeProfilePicURL
-                        }
-                      />
-                    ) : (
-                      <Avatar
-                        size={44}
-                        radius={33}
-                        src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.RepostedPostEntryResponse.ProfileEntryResponse?.PublicKeyBase58Check}`}
-                      />
-                    )}
+                    <Avatar
+                      size={44}
+                      radius={33}
+                      src={
+                        post.RepostedPostEntryResponse?.ProfileEntryResponse
+                          ?.ExtraData?.LargeProfilePicURL ||
+                        `https://node.deso.org/api/v0/get-single-profile-picture/${post.RepostedPostEntryResponse?.ProfileEntryResponse?.PublicKeyBase58Check}`
+                      }
+                    />
+
                     <Space w="xs" />
                     <Text weight="bold" size="sm">
                       {
