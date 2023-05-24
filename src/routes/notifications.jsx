@@ -86,8 +86,8 @@ export const NotificationsPage = () => {
         <Center>
           <Paper shadow="xl" radius="lg" p="xl" withBorder>
             <Text
-              size="xl"
-              noBreak
+              size="md"
+                lineClamp={1}
               variant="gradient"
               gradient={{ from: "indigo", to: "cyan", deg: 45 }}
             >
