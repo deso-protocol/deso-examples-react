@@ -1,4 +1,10 @@
-import { AppShell, useMantineTheme } from "@mantine/core";
+import {
+  AppShell,
+  useMantineTheme,
+  MediaQuery,
+  Aside,
+  Text,
+} from "@mantine/core";
 import { MantineNavBar } from "./MantineNavBar";
 import { MantineHeader } from "./MantineHeader";
 import { MantineFooter } from "./MantineFooter";
@@ -15,7 +21,7 @@ const livepeerClient = createReactClient({
   }),
 });
 
-export const MantineAppShell = ({ children }: { children: ReactNode }) => {
+export const MantineAppShell = ({ children }) => {
   const theme = useMantineTheme();
 
   return (
@@ -31,8 +37,18 @@ export const MantineAppShell = ({ children }: { children: ReactNode }) => {
         }}
         navbarOffsetBreakpoint="sm"
         asideOffsetBreakpoint="sm"
-        navbar={<MantineNavBar />}
+        aside={
+          <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+            <Aside
+              zIndex={10}
+              p="md"
+              hiddenBreakpoint="sm"
+              width={{ sm: 200, lg: 300 }}
+            ></Aside>
+          </MediaQuery>
+        }
         header={<MantineHeader />}
+        navbar={<MantineNavBar />}
         footer={<MantineFooter />}
       >
         {children}

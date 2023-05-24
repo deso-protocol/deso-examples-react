@@ -4,8 +4,9 @@ import { Space, Tabs, Divider, Text, Center, Paper } from "@mantine/core";
 import { HotFeed } from "../components/HotFeed";
 import { FollowerFeed } from "../components/FollowerFeed";
 import { useState } from "react";
+import { BsFire } from "react-icons/bs";
 import { GiWaveCrest } from "react-icons/gi";
-import { IconCampfire, IconUsers } from "@tabler/icons-react";
+import { FaUsers } from "react-icons/fa";
 
 export const Home = () => {
   const [activeTab, setActiveTab] = useState("third");
@@ -28,21 +29,21 @@ export const Home = () => {
         <Tabs.List position="center">
           <Tabs.Tab value="first">
             <Center>
-              <GiWaveCrest size="1.2rem" />
+              <GiWaveCrest size="1.4rem" />
             </Center>
             <Text fz="sm">Waves</Text>
           </Tabs.Tab>
           <Divider size="xs" orientation="vertical" />
           <Tabs.Tab value="second">
             <Center>
-              <IconUsers />
+              <FaUsers size="1.4rem" />
             </Center>
             <Text fz="sm">Follower Feed</Text>
           </Tabs.Tab>
           <Divider size="xs" orientation="vertical" />
           <Tabs.Tab value="third">
             <Center>
-              <IconCampfire />
+              <BsFire size="1.4rem" />
             </Center>
             <Text fz="sm">Hot Feed</Text>
           </Tabs.Tab>

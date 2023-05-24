@@ -1,5 +1,6 @@
 import { getHotFeed } from "deso-protocol";
 import { useEffect, useState } from "react";
+import { Player } from "@livepeer/react";
 import {
   Text,
   Avatar,
@@ -148,21 +149,26 @@ export const HotFeed = () => {
                         <Image
                           src={post.RepostedPostEntryResponse.ImageURLs[0]}
                           radius="md"
-                          alt="post-image"
-                          width={311}
+                          alt="repost-image"
+                          fit="contain"
                         />
                       </Group>
                     )}
                 </Paper>
               )}
 
+              {post.VideoURLs && (
+                <Group position="center">
+                  <Player src={post.VideoURLs} />
+                </Group>
+              )}
               {post.ImageURLs && (
                 <Group position="center">
                   <Image
                     src={post.ImageURLs[0]}
                     radius="md"
                     alt="post-image"
-                    width={311}
+                    fit="contain"
                   />
                 </Group>
               )}

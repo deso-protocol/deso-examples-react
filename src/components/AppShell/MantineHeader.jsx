@@ -203,6 +203,7 @@ export const MantineHeader = () => {
                             closeDelay={400}
                             shadow="md"
                             width={200}
+                            zIndex={1000000}
                           >
                             <Menu.Target>
                               <Button

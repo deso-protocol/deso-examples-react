@@ -1,6 +1,7 @@
 import { getPostsStateless } from "deso-protocol";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../contexts";
+import { Player } from "@livepeer/react";
 import {
   Text,
   Avatar,
@@ -54,6 +55,7 @@ export const FollowerFeed = () => {
           FetchSubcomments: true,
         });
         console.log(followerFeedData.PostsFound);
+
         setFollowerFeed(followerFeedData.PostsFound);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
@@ -68,8 +70,6 @@ export const FollowerFeed = () => {
   return (
     <>
       <div>
-        <Space h="md" />
-
         {currentUser ? (
           followerFeed && followerFeed.length > 0 ? (
             followerFeed.map((post) => (
@@ -149,6 +149,15 @@ export const FollowerFeed = () => {
                         {post.RepostedPostEntryResponse.Body}
                       </Text>
                     </TypographyStylesProvider>
+
+                    {post.RepostedPostEntryResponse.VideoURLs &&
+                      post.RepostedPostEntryResponse.VideoURLs.length > 0 && (
+                        <Group position="center">
+                          <Player
+                            src={post.RepostedPostEntryResponse.VideoURLs[0]}
+                          />
+                        </Group>
+                      )}
                     <Space h="md" />
                     {post.RepostedPostEntryResponse.ImageURLs &&
                       post.RepostedPostEntryResponse.ImageURLs.length > 0 && (
@@ -156,21 +165,25 @@ export const FollowerFeed = () => {
                           <Image
                             src={post.RepostedPostEntryResponse.ImageURLs[0]}
                             radius="md"
-                            alt="post-image"
-                            width={311}
+                            alt="repost-image"
+                            fit="contain"
                           />
                         </Group>
                       )}
                   </Paper>
                 )}
-
+                {post.VideoURLs && (
+                  <Group position="center">
+                    <Player src={post.VideoURLs} />
+                  </Group>
+                )}
                 {post.ImageURLs && (
                   <Group position="center">
                     <Image
                       src={post.ImageURLs[0]}
                       radius="md"
                       alt="post-image"
-                      width={311}
+                      fit="contain"
                     />
                   </Group>
                 )}
