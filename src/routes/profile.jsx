@@ -63,7 +63,7 @@ export const Profile = () => {
             <Center>
               <Avatar
                 size="lg"
-                radius="xl"
+                radius="lg"
                 src={`https://node.deso.org/api/v0/get-single-profile-picture/${currentUser?.PublicKeyBase58Check}`}
                 alt="Profile Picture"
               />

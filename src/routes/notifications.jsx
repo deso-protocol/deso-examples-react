@@ -3,13 +3,16 @@ import {
   Paper,
   Group,
   Text,
-  Space,
+  ThemeIcon,
   Center,
   Divider,
+  List,
 } from "@mantine/core";
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../contexts";
 import { getNotifications } from "deso-protocol";
+import { GiWaveSurfer } from "react-icons/gi";
+
 export const NotificationsPage = () => {
   const { currentUser, isLoading } = useContext(UserContext);
   const [notifications, setNotifications] = useState([]);
@@ -20,10 +23,10 @@ export const NotificationsPage = () => {
       try {
         const notificationData = await getNotifications({
           PublicKeyBase58Check: userPublicKey,
-          NumToFetch: 50,
+          NumToFetch: 25,
           FetchStartIndex: -1,
         });
-
+        console.log(notificationData.Notifications);
         setNotifications(notificationData.Notifications);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
@@ -51,19 +54,33 @@ export const NotificationsPage = () => {
 
       {currentUser ? (
         <>
-          {notifications.map((notification, index) => (
-            <div key={index}>
-              <Space h="sm" />
-              <Center>
-                <Paper shadow="lg" p="md" withBorder>
-                  <Group>
-                    <Text>{notification.Metadata.TxnType}</Text>
-                  </Group>
-                </Paper>
-              </Center>
-              <Space h="sm" />
-            </div>
-          ))}
+          <Center>
+            <List listStyleType="none" spacing="sm">
+              {notifications.map((notification, index) => (
+                <List.Item key={index}>
+                  <Paper radius="lg" shadow="lg" p="md" withBorder>
+                    <Group>
+                      <Avatar
+                        radius="sm"
+                        size="sm"
+                        src={
+                          `https://node.deso.org/api/v0/get-single-profile-picture/${notification.Metadata.TransactorPublicKeyBase58Check}` ||
+                          null
+                        }
+                      />
+                      <Text
+                        variant="gradient"
+                        gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+                        fw={500}
+                      >
+                        {notification.Metadata.TxnType}
+                      </Text>
+                    </Group>
+                  </Paper>
+                </List.Item>
+              ))}
+            </List>
+          </Center>
         </>
       ) : (
         <Center>

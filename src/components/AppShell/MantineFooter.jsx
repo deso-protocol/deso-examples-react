@@ -2,21 +2,22 @@ import {
   createStyles,
   Footer,
   rem,
-  MediaQuery,
+  Modal,
   ActionIcon,
   Group,
   getStylesRef,
 } from "@mantine/core";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   IconBellRinging,
   IconUser,
-  IconSettings,
   IconHome2,
-  IconDeviceDesktopAnalytics,
   IconReceipt2,
 } from "@tabler/icons-react";
+import { RxCardStackPlus } from "react-icons/rx";
+import { SignAndSubmitTx } from "../../routes/sign-and-submit-tx";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../contexts";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -80,100 +81,93 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const MantineFooter = () => {
+  const [slowTransitionOpened, setSlowTransitionOpened] = useState(false);
+  const { currentUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [active, setActive] = useState("Home");
   const { classes, cx } = useStyles();
 
   return (
-    <Footer p="md" className={classes.footer}>
-      <Group position="center" spacing="lg" grow noWrap>
-        <ActionIcon
-          size="xl"
-          radius="xs"
-          className={cx(classes.link, {
-            [classes.linkActive]: active === "/",
-          })}
-          onClick={() => {
-            setActive("/");
-            navigate("/");
-          }}
-        >
-          <IconHome2 size="1.4rem" className={classes.actionIcon} />
-        </ActionIcon>
+    <>
+      <Modal
+        opened={slowTransitionOpened}
+        onClose={() => setSlowTransitionOpened(false)}
+        transitionProps={{ transition: "pop" }}
+      >
+        <SignAndSubmitTx />
+      </Modal>
 
-        <ActionIcon
-          size="xl"
-          radius="xs"
-          className={cx(classes.link, {
-            [classes.linkActive]: active === "/discover",
-          })}
-          onClick={() => {
-            setActive("/discover");
-            navigate("/discover");
-          }}
-        >
-          <IconDeviceDesktopAnalytics
-            size="1.4rem"
-            className={classes.actionIcon}
-          />
-        </ActionIcon>
+      <Footer p="md" className={classes.footer}>
+        <Group position="center" spacing="lg" grow noWrap>
+          <ActionIcon
+            size="xl"
+            radius="xs"
+            className={cx(classes.link, {
+              [classes.linkActive]: active === "/",
+            })}
+            onClick={() => {
+              setActive("/");
+              navigate("/");
+            }}
+          >
+            <IconHome2 size="1.4rem" className={classes.actionIcon} />
+          </ActionIcon>
 
-        <ActionIcon
-          size="xl"
-          radius="xs"
-          className={cx(classes.link, {
-            [classes.linkActive]: active === "/profile",
-          })}
-          onClick={() => {
-            setActive("/profile");
-            navigate("/profile");
-          }}
-        >
-          <IconUser size="1.4rem" className={classes.actionIcon} />
-        </ActionIcon>
+          <ActionIcon
+            size="xl"
+            radius="xs"
+            className={cx(classes.link, {
+              [classes.linkActive]: active === "/profile",
+            })}
+            onClick={() => {
+              setActive("/profile");
+              navigate("/profile");
+            }}
+          >
+            <IconUser size="1.4rem" className={classes.actionIcon} />
+          </ActionIcon>
 
-        <ActionIcon
-          size="xl"
-          radius="xs"
-          className={cx(classes.link, {
-            [classes.linkActive]: active === "/wallet",
-          })}
-          onClick={() => {
-            setActive("/wallet");
-            navigate("/wallet");
-          }}
-        >
-          <IconReceipt2 size="1.4rem" className={classes.actionIcon} />
-        </ActionIcon>
+          {currentUser && (
+            <ActionIcon
+              onClick={() => setSlowTransitionOpened(true)}
+              color="blue"
+              size="xl"
+              radius="xl"
+              variant="light"
+            >
+              <RxCardStackPlus size="1.7rem" />
+            </ActionIcon>
+          )}
 
-        <ActionIcon
-          size="xl"
-          radius="xs"
-          className={cx(classes.link, {
-            [classes.linkActive]: active === "/notifications",
-          })}
-          onClick={() => {
-            setActive("/notifications");
-            navigate("/notifications");
-          }}
-        >
-          <IconBellRinging size="1.4rem" className={classes.actionIcon} />
-        </ActionIcon>
+          <ActionIcon
+            size="xl"
+            radius="xs"
+            className={cx(classes.link, {
+              [classes.linkActive]: active === "/wallet",
+            })}
+            onClick={() => {
+              setActive("/wallet");
+              navigate("/wallet");
+            }}
+          >
+            <IconReceipt2 size="1.4rem" className={classes.actionIcon} />
+          </ActionIcon>
 
-        <ActionIcon
-          size="xl"
-          radius="xs"
-          className={cx(classes.link, {
-            [classes.linkActive]: active === "/settings",
-          })}
-          onClick={() => {
-            setActive("/settings");
-            navigate("/settings");
-          }}
-        >
-          <IconSettings size="1.4rem" className={classes.actionIcon} />
-        </ActionIcon>
-      </Group>
-    </Footer>
+          <ActionIcon
+            size="xl"
+            radius="xs"
+            className={cx(classes.link, {
+              [classes.linkActive]: active === "/notifications",
+            })}
+            onClick={() => {
+              setActive("/notifications");
+              navigate("/notifications");
+            }}
+          >
+            <IconBellRinging size="1.4rem" className={classes.actionIcon} />
+          </ActionIcon>
+        </Group>
+      </Footer>
+    </>
   );
 };

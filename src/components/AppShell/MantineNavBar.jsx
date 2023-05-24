@@ -3,7 +3,7 @@ import { createStyles, Navbar, getStylesRef, rem } from "@mantine/core";
 import {
   IconBellRinging,
   IconUser,
-  IconSettings,
+
   IconHome2,
   IconDeviceDesktopAnalytics,
   IconReceipt2,
@@ -80,11 +80,11 @@ const useStyles = createStyles((theme) => ({
 
 const data = [
   { link: "/", label: "Home", icon: IconHome2 },
-  { link: "/discover", label: "Discover", icon: IconDeviceDesktopAnalytics },
+{ link: "/notifications", label: "Notifications", icon: IconBellRinging },
   { link: "/profile", label: "Profile", icon: IconUser },
   { link: "/wallet", label: "Wallet", icon: IconReceipt2 },
-  { link: "/notifications", label: "Notifications", icon: IconBellRinging },
-  { link: "/settings", label: "Settings", icon: IconSettings },
+  
+
 ];
 
 export function MantineNavBar() {
