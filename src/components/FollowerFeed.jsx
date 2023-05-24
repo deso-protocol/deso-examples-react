@@ -86,16 +86,16 @@ export const FollowerFeed = () => {
                   {post.ProfileEntryResponse &&
                   post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ? (
                     <Avatar
-                      size={44}
-                      radius={33}
+                      radius="lg"
+                      size="lg"
                       src={
                         post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
                       }
                     />
                   ) : (
                     <Avatar
-                      size={44}
-                      radius={33}
+                      radius="lg"
+                      size="lg"
                       src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`}
                     />
                   )}
@@ -126,8 +126,8 @@ export const FollowerFeed = () => {
                   >
                     <Center>
                       <Avatar
-                        size={44}
-                        radius={33}
+                        radius="lg"
+                        size="lg"
                         src={
                           post.RepostedPostEntryResponse?.ProfileEntryResponse
                             ?.ExtraData?.LargeProfilePicURL ||

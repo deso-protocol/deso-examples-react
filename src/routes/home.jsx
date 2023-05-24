@@ -18,10 +18,10 @@ export const Home = () => {
       <Space h="md" />
       <Welcome />
       <Space h="md" />
-      <Divider size="sm" />
+
       <Space h="md" />
       <Tabs
-        variant="pills"
+        variant="outline"
         radius="md"
         value={activeTab}
         onTabChange={setActiveTab}
@@ -33,14 +33,14 @@ export const Home = () => {
             </Center>
             <Text fz="sm">Waves</Text>
           </Tabs.Tab>
-          <Divider size="xs" orientation="vertical" />
+
           <Tabs.Tab value="second">
             <Center>
               <FaUsers size="1.4rem" />
             </Center>
             <Text fz="sm">Follower Feed</Text>
           </Tabs.Tab>
-          <Divider size="xs" orientation="vertical" />
+
           <Tabs.Tab value="third">
             <Center>
               <BsFire size="1.4rem" />
