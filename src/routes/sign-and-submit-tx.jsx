@@ -1,7 +1,7 @@
 import { ERROR_TYPES, identity, submitPost, getHotFeed } from "deso-protocol";
 import { useContext, useRef, useEffect, useState } from "react";
 import { UserContext } from "../contexts";
-import { IconCheck } from "@tabler/icons-react";
+
 import {
   Button,
   Center,
@@ -11,8 +11,6 @@ import {
   Textarea,
   Group,
   Loader,
-  Notification,
-  createStyles,
   Avatar,
 } from "@mantine/core";
 import { getDisplayName } from "../helpers";
@@ -94,13 +92,6 @@ export const SignAndSubmitTx = () => {
               }).then((resp) => {
                 console.log(resp);
                 alert("Post submitted!");
-                <Notification
-                  icon={<IconCheck size="1.1rem" />}
-                  color="teal"
-                  title="Teal notification"
-                >
-                  This is teal notification with icon
-                </Notification>;
               });
 
               // Reset the form after submission

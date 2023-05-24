@@ -1,14 +1,6 @@
 import { Welcome } from "../components/Welcome";
 import { SignAndSubmitTx } from "../routes/sign-and-submit-tx";
-import {
-  Space,
-  Tabs,
-  Divider,
-  Text,
-  UnstyledButton,
-  Center,
-  Paper,
-} from "@mantine/core";
+import { Space, Tabs, Divider, Text, Center, Paper } from "@mantine/core";
 import { HotFeed } from "../components/HotFeed";
 import { FollowerFeed } from "../components/FollowerFeed";
 import { useState } from "react";

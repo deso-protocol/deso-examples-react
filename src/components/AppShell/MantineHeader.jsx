@@ -1,5 +1,4 @@
 import { identity } from "deso-protocol";
-
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts";
 import { getDisplayName } from "../../helpers";
@@ -235,6 +234,7 @@ export const MantineHeader = () => {
                               ))}
 
                               <Menu.Divider />
+
                               <Menu.Item
                                 icon={<IconSwitchHorizontal size={14} />}
                                 onClick={() => identity.login()}

@@ -74,11 +74,14 @@ export const HotFeed = () => {
               className={classes.comment}
             >
               <Center>
-                {post.ProfileEntryResponse?.ExtraData?.LargeProfilePicURL ? (
+                {post.ProfileEntryResponse &&
+                post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ? (
                   <Avatar
                     size={44}
                     radius={33}
-                    src={post.ProfileEntryResponse.ExtraData.LargeProfilePicURL}
+                    src={
+                      post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL
+                    }
                   />
                 ) : (
                   <Avatar
@@ -114,29 +117,28 @@ export const HotFeed = () => {
                   className={classes.comment}
                 >
                   <Center>
-                    {post.ProfileEntryResponse?.ExtraData
-                      ?.LargeProfilePicURL ? (
+                    {post.ProfileEntryResponse &&
+                    post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ? (
                       <Avatar
                         size={44}
                         radius={33}
                         src={
                           post.RepostedPostEntryResponse.ProfileEntryResponse
-                            .ExtraData.LargeProfilePicURL
+                            ?.ExtraData?.LargeProfilePicURL
                         }
                       />
                     ) : (
                       <Avatar
                         size={44}
                         radius={33}
-                        src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.RepostedPostEntryResponse.ProfileEntryResponse.PublicKeyBase58Check}`}
+                        src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.RepostedPostEntryResponse.ProfileEntryResponse?.PublicKeyBase58Check}`}
                       />
                     )}
-
                     <Space w="xs" />
                     <Text weight="bold" size="sm">
                       {
                         post.RepostedPostEntryResponse.ProfileEntryResponse
-                          .Username
+                          ?.Username
                       }
                     </Text>
                   </Center>
@@ -146,20 +148,21 @@ export const HotFeed = () => {
                       {post.RepostedPostEntryResponse.Body}
                     </Text>
                   </TypographyStylesProvider>
-
                   <Space h="md" />
-                  {post.RepostedPostEntryResponse.ImageURLs && (
-                    <Group position="center">
-                      <Image
-                        src={post.RepostedPostEntryResponse.ImageURLs[0]}
-                        radius="md"
-                        alt="post-image"
-                        width={311}
-                      />
-                    </Group>
-                  )}
+                  {post.RepostedPostEntryResponse.ImageURLs &&
+                    post.RepostedPostEntryResponse.ImageURLs.length > 0 && (
+                      <Group position="center">
+                        <Image
+                          src={post.RepostedPostEntryResponse.ImageURLs[0]}
+                          radius="md"
+                          alt="post-image"
+                          width={311}
+                        />
+                      </Group>
+                    )}
                 </Paper>
               )}
+
               {post.ImageURLs && (
                 <Group position="center">
                   <Image
@@ -179,7 +182,6 @@ export const HotFeed = () => {
                   withArrow
                   position="bottom"
                   label="Like"
-                  transitionDuration={11}
                 >
                   <ActionIcon variant="subtle" radius="md" size={36}>
                     <IconHeart size={18} stroke={1.5} />
@@ -196,7 +198,6 @@ export const HotFeed = () => {
                   withArrow
                   position="bottom"
                   label="Repost"
-                  transitionDuration={11}
                 >
                   <ActionIcon variant="subtle" radius="md" size={36}>
                     <IconRecycle size={18} stroke={1.5} />
@@ -213,7 +214,6 @@ export const HotFeed = () => {
                   withArrow
                   position="bottom"
                   label="Diamonds"
-                  transitionDuration={11}
                 >
                   <ActionIcon variant="subtle" radius="md" size={36}>
                     <IconDiamond size={18} stroke={1.5} />
@@ -230,7 +230,6 @@ export const HotFeed = () => {
                   withArrow
                   position="bottom"
                   label="Comments"
-                  transitionDuration={11}
                 >
                   <ActionIcon variant="subtle" radius="md" size={36}>
                     <IconMessageCircle size={18} stroke={1.5} />
