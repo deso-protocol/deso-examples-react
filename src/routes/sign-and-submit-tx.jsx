@@ -44,7 +44,7 @@ export const SignAndSubmitTx = () => {
             name="body"
             radius="md"
             autosize
-            placeholder="Let them hear your voice!"
+            placeholder="Login or Signup to Create!"
             variant="filled"
             size="md"
           />
