@@ -10,6 +10,7 @@ import { Wallet } from "./routes/wallet";
 import { Settings } from "./routes/settings";
 import { SignAndSubmitTx } from "./routes/sign-and-submit-tx";
 import { SwitchAccount } from "./routes/switch-account";
+import { Wave } from "./routes/wave";
 import { User } from "./routes/user";
 import { MantineProvider } from "@mantine/core";
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/wallet",
         element: <Wallet />,
+      },
+      {
+        path: "/wave/:username",
+        element: <Wave />,
       },
     ],
   },

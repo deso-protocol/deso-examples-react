@@ -58,7 +58,7 @@ export const Profile = () => {
   const [NFTs, setNFTs] = useState([]);
   const [followerInfo, setFollowers] = useState({ followers: 0, following: 0 });
   const userPublicKey = currentUser?.PublicKeyBase58Check;
-  const [activeTab, setActiveTab] = useState("third");
+  const [activeTab, setActiveTab] = useState("first");
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -80,7 +80,6 @@ export const Profile = () => {
           UserPublicKeyBase58Check: userPublicKey,
         });
 
-        console.log(nftData.NFTsMap);
         setNFTs(nftData.NFTsMap);
         setPosts(postData.Posts);
         setFollowers({ following, followers });
@@ -125,12 +124,21 @@ export const Profile = () => {
               </Text>
             </Center>
             <Space h="md" />
-            <Group>
-              <Text fz="sm">
+            <Paper shadow="xl" radius="md" p="xl">
+              <Text
+                fz="sm"
+                style={{
+                  maxWidth: "100%",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "wrap",
+                }}
+              >
                 {profile?.Profile?.Description && profile?.Profile?.Description}
               </Text>
-            </Group>
+            </Paper>
             <Space h="sm" />
+
             <Center>
               {followerInfo.followers && followerInfo.followers.NumFollowers ? (
                 <Text fz="sm">

@@ -14,7 +14,6 @@ import {
   Tooltip,
   Image,
   Loader,
-  
 } from "@mantine/core";
 import {
   IconHeart,
@@ -22,6 +21,7 @@ import {
   IconRecycle,
   IconMessageCircle,
 } from "@tabler/icons-react";
+import { useNavigate } from "react-router";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -44,14 +44,14 @@ const useStyles = createStyles((theme) => ({
 export const HotFeed = () => {
   const { classes } = useStyles();
   const [hotFeed, setHotFeed] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchHotFeed = async () => {
       try {
         const hotFeed = await getHotFeed({
           ResponseLimit: 30,
         });
-
+        console.log(hotFeed.HotFeedPage);
         setHotFeed(hotFeed.HotFeedPage);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
@@ -76,27 +76,54 @@ export const HotFeed = () => {
               className={classes.comment}
             >
               <Center>
-                {post.ProfileEntryResponse &&
-                post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ? (
-                  <Avatar
-                    radius="lg"
-                    size="lg"
-                    src={
-                      post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL
-                    }
-                  />
-                ) : (
-                  <Avatar
-                    radius="lg"
-                    size="lg"
-                    src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`}
-                  />
-                )}
+                <ActionIcon
+                  onClick={() => {
+                    const state = {
+                      userPublicKey: post.PosterPublicKeyBase58Check,
+                      userName: post.ProfileEntryResponse.Username
+                        ? post.ProfileEntryResponse.Username
+                        : null,
+                      description: post.ProfileEntryResponse.Description
+                        ? post.ProfileEntryResponse.Description
+                        : null,
+                      largeProfPic: post.ProfileEntryResponse.ExtraData
+                        .LargeProfilePicURL
+                        ? post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
+                        : null,
+                      featureImage: post.ProfileEntryResponse.ExtraData
+                        .FeaturedImageURL
+                        ? post.ProfileEntryResponse.ExtraData.FeaturedImageURL
+                        : null,
+                    };
 
-                <Space w="xs" />
-                <Text weight="bold" size="sm">
-                  {post.ProfileEntryResponse.Username}
-                </Text>
+                    navigate(`/wave/${post.ProfileEntryResponse.Username}`, {
+                      state,
+                    });
+                  }}
+                  variant="transparent"
+                >
+                  {post.ProfileEntryResponse &&
+                  post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ? (
+                    <Avatar
+                      radius="lg"
+                      size="lg"
+                      src={
+                        post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL
+                      }
+                    />
+                  ) : (
+                    <Avatar
+                      radius="lg"
+                      size="lg"
+                      src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`}
+                    />
+                  )}
+
+                  <Space w="xs" />
+                  <Text weight="bold" size="sm">
+                    {post.ProfileEntryResponse.Username}
+                  </Text>
+                </ActionIcon>
               </Center>
 
               <TypographyStylesProvider>
