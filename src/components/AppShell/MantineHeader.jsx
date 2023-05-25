@@ -19,13 +19,13 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { GiWaveCrest } from "react-icons/gi";
+
 import {
   IconBellRinging,
   IconUser,
-  IconSettings,
+  IconReceipt2,
   IconHome2,
   IconDeviceDesktopAnalytics,
-  IconReceipt2,
   IconLogout,
   IconSwitchHorizontal,
   IconChevronRight,
@@ -123,7 +123,7 @@ const data = [
   { link: "/", label: "Home", icon: IconHome2 },
 
   { link: "/profile", label: "Profile", icon: IconUser },
-  { link: "/wallet", label: "Wallet", icon: IconReceipt2 },
+  { link: "/discover", label: "Discover", icon: IconDeviceDesktopAnalytics },
   { link: "/notifications", label: "Notifications", icon: IconBellRinging },
 ];
 
@@ -221,7 +221,7 @@ export const MantineHeader = () => {
 
                               {alternateUsers?.map((user) => (
                                 <Menu.Item
-                                  icon={<IconUser size={14} />}
+                                  icon={<IconUser size={17} />}
                                   key={user.PublicKeyBase58Check}
                                   onClick={() =>
                                     identity.setActiveUser(
@@ -236,14 +236,26 @@ export const MantineHeader = () => {
                               <Menu.Divider />
 
                               <Menu.Item
-                                icon={<IconSwitchHorizontal size={14} />}
+                                onClick={() =>
+                                  window.open(
+                                    "https://wallet.deso.com/",
+                                    "_blank"
+                                  )
+                                }
+                                icon={<IconReceipt2 size={17} />}
+                              >
+                                DeSo Wallet
+                              </Menu.Item>
+
+                              <Menu.Item
+                                icon={<IconSwitchHorizontal size={17} />}
                                 onClick={() => identity.login()}
                               >
                                 Add Account
                               </Menu.Item>
 
                               <Menu.Item
-                                icon={<IconLogout size={14} />}
+                                icon={<IconLogout size={17} />}
                                 onClick={() => identity.logout()}
                               >
                                 Logout
@@ -344,7 +356,7 @@ export const MantineHeader = () => {
 
                               {alternateUsers?.map((user) => (
                                 <Menu.Item
-                                  icon={<IconUser size={14} />}
+                                  icon={<IconUser size={17} />}
                                   key={user.PublicKeyBase58Check}
                                   onClick={() =>
                                     identity.setActiveUser(
@@ -358,14 +370,25 @@ export const MantineHeader = () => {
 
                               <Menu.Divider />
                               <Menu.Item
-                                icon={<IconSwitchHorizontal size={14} />}
+                                onClick={() =>
+                                  window.open(
+                                    "https://wallet.deso.com/",
+                                    "_blank"
+                                  )
+                                }
+                                icon={<IconReceipt2 size={17} />}
+                              >
+                                DeSo Wallet
+                              </Menu.Item>
+                              <Menu.Item
+                                icon={<IconSwitchHorizontal size={17} />}
                                 onClick={() => identity.login()}
                               >
                                 Add Account
                               </Menu.Item>
 
                               <Menu.Item
-                                icon={<IconLogout size={14} />}
+                                icon={<IconLogout size={17} />}
                                 onClick={() => identity.logout()}
                               >
                                 Logout

@@ -132,8 +132,8 @@ export const MantineFooter = () => {
               onClick={() => setSlowTransitionOpened(true)}
               color="blue"
               size="xl"
-              radius="xl"
-              variant="light"
+              radius="md"
+              variant="filled"
             >
               <RxCardStackPlus size="1.7rem" />
             </ActionIcon>

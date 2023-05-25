@@ -13,7 +13,7 @@ export const Settings = () => {
         }
         labelPosition="center"
       />
-      <Space h={222} />
+       <Space h="xl" />
       <Center>
         <Paper shadow="xl" radius="lg" p="xl" withBorder>
           <Text

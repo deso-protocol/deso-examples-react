@@ -18,7 +18,7 @@ configure({
     },
   },
 
-  appName: "Your moms house.",
+  appName: "Your Mom's House.",
 });
 
 export const Root = () => {

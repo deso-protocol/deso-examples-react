@@ -3,7 +3,7 @@ import {
   Paper,
   Group,
   Text,
-  ThemeIcon,
+  Space,
   Center,
   Divider,
   List,
@@ -11,7 +11,6 @@ import {
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../contexts";
 import { getNotifications } from "deso-protocol";
-import { GiWaveSurfer } from "react-icons/gi";
 
 export const NotificationsPage = () => {
   const { currentUser, isLoading } = useContext(UserContext);
@@ -83,18 +82,21 @@ export const NotificationsPage = () => {
           </Center>
         </>
       ) : (
-        <Center>
-          <Paper shadow="xl" radius="lg" p="xl" withBorder>
-            <Text
-              size="md"
+        <>
+          <Space h="xl" />
+          <Center>
+            <Paper shadow="xl" radius="lg" p="xl" withBorder>
+              <Text
+                size="md"
                 lineClamp={1}
-              variant="gradient"
-              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-            >
-              Please login to view your Notifications.
-            </Text>
-          </Paper>
-        </Center>
+                variant="gradient"
+                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              >
+                Please login to view your Notifications.
+              </Text>
+            </Paper>
+          </Center>
+        </>
       )}
     </div>
   );
