@@ -54,7 +54,6 @@ export const FollowerFeed = () => {
           GetPostsForFollowFeed: true,
           FetchSubcomments: true,
         });
-        console.log(followerFeedData.PostsFound);
 
         setFollowerFeed(followerFeedData.PostsFound);
       } catch (error) {

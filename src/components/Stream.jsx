@@ -45,9 +45,8 @@ export const Stream = () => {
         (!stream?.playbackUrl || !stream.isActive) && (
           <Center>
             <Card shadow="sm" p="lg" radius="md" withBorder>
-              <Group>
-                <h4>Stream Server:</h4>
-                <Text>rtmp://rtmp.livepeer.com/live</Text>
+              <Group position="center">
+                <h4 lineClamp={1}>Stream Server:</h4>
 
                 <CopyButton
                   value="rtmp://rtmp.livepeer.com/live"
@@ -100,7 +99,7 @@ export const Stream = () => {
               </Group>
 
               <Group position="center">
-                <Badge size="xl">{streamName}</Badge>
+                <Badge radius='sm' size="xl">{streamName}</Badge>
               </Group>
               <Space h="md" />
             </Card>

@@ -228,6 +228,12 @@ export const MantineHeader = () => {
                                       user.PublicKeyBase58Check
                                     )
                                   }
+                                  style={{
+                                     maxWidth: "190px",  // Adjust the maximum width as needed
+                                    whiteSpace: "nowrap",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                  }}
                                 >
                                   {getDisplayName(user)}
                                 </Menu.Item>
@@ -356,6 +362,12 @@ export const MantineHeader = () => {
 
                               {alternateUsers?.map((user) => (
                                 <Menu.Item
+                                  style={{
+                                    maxWidth: "190px", // Adjust the maximum width as needed
+                                    whiteSpace: "nowrap",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                  }}
                                   icon={<IconUser size={17} />}
                                   key={user.PublicKeyBase58Check}
                                   onClick={() =>
@@ -364,7 +376,9 @@ export const MantineHeader = () => {
                                     )
                                   }
                                 >
-                                  {getDisplayName(user)}
+                                  <Text fs="sm" truncate="end">
+                                    {getDisplayName(user)}
+                                  </Text>
                                 </Menu.Item>
                               ))}
 

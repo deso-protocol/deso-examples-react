@@ -14,6 +14,7 @@ import {
   Tooltip,
   Image,
   Loader,
+  
 } from "@mantine/core";
 import {
   IconHeart,
@@ -50,7 +51,7 @@ export const HotFeed = () => {
         const hotFeed = await getHotFeed({
           ResponseLimit: 30,
         });
-        console.log(hotFeed.HotFeedPage);
+
         setHotFeed(hotFeed.HotFeedPage);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
