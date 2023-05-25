@@ -7,6 +7,7 @@ import {
   Center,
   Divider,
   List,
+  Loader,
 } from "@mantine/core";
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../contexts";
@@ -54,31 +55,36 @@ export const NotificationsPage = () => {
       {currentUser ? (
         <>
           <Center>
-            <List listStyleType="none" spacing="sm">
-              {notifications.map((notification, index) => (
-                <List.Item key={index}>
-                  <Paper radius="lg" shadow="lg" p="md" withBorder>
-                    <Group>
-                      <Avatar
-                        radius="sm"
-                        size="sm"
-                        src={
-                          `https://node.deso.org/api/v0/get-single-profile-picture/${notification.Metadata.TransactorPublicKeyBase58Check}` ||
-                          null
-                        }
-                      />
-                      <Text
-                        variant="gradient"
-                        gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-                        fw={500}
-                      >
-                        {notification.Metadata.TxnType}
-                      </Text>
-                    </Group>
-                  </Paper>
-                </List.Item>
-              ))}
-            </List>
+            {isLoading ? (
+              <Loader variant="bars" />
+            ) : (
+              /* Render the notifications once loaded */
+              <List listStyleType="none" spacing="sm">
+                {notifications.map((notification, index) => (
+                  <List.Item key={index}>
+                    <Paper radius="lg" shadow="lg" p="md" withBorder>
+                      <Group>
+                        <Avatar
+                          radius="sm"
+                          size="sm"
+                          src={
+                            `https://node.deso.org/api/v0/get-single-profile-picture/${notification.Metadata.TransactorPublicKeyBase58Check}` ||
+                            null
+                          }
+                        />
+                        <Text
+                          variant="gradient"
+                          gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+                          fw={500}
+                        >
+                          {notification.Metadata.TxnType}
+                        </Text>
+                      </Group>
+                    </Paper>
+                  </List.Item>
+                ))}
+              </List>
+            )}
           </Center>
         </>
       ) : (
