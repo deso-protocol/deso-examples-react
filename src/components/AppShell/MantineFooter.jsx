@@ -12,7 +12,7 @@ import {
   IconBellRinging,
   IconUser,
   IconHome2,
-  IconReceipt2,
+  IconDeviceDesktopAnalytics,
 } from "@tabler/icons-react";
 import { RxCardStackPlus } from "react-icons/rx";
 import { SignAndSubmitTx } from "../../routes/sign-and-submit-tx";
@@ -143,14 +143,14 @@ export const MantineFooter = () => {
             size="xl"
             radius="xs"
             className={cx(classes.link, {
-              [classes.linkActive]: active === "/wallet",
+              [classes.linkActive]: active === "/discover",
             })}
             onClick={() => {
-              setActive("/wallet");
-              navigate("/wallet");
+              setActive("/discover");
+              navigate("/discover");
             }}
           >
-            <IconReceipt2 size="1.4rem" className={classes.actionIcon} />
+            <IconDeviceDesktopAnalytics size="1.4rem" className={classes.actionIcon} />
           </ActionIcon>
 
           <ActionIcon

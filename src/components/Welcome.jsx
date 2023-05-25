@@ -6,8 +6,12 @@ import {
   Text,
   List,
   ThemeIcon,
+  Group,
+  Button,
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
+import { ERROR_TYPES, identity } from "deso-protocol";
+import { GiWaveCrest } from "react-icons/gi";
 
 const useStyles = createStyles((theme) => ({
   inner: {
@@ -105,6 +109,49 @@ export function Welcome() {
             </div>
           </div>
         </Center>
+        <Group spacing="xs" grow>
+          <Button
+            variant="default"
+            radius="lg"
+            onClick={() => {
+              identity
+                .login({
+                  getFreeDeso: true,
+                })
+                .catch((err) => {
+                  if (err?.type === ERROR_TYPES.NO_MONEY) {
+                    alert("You need DESO in order to post!");
+                  } else {
+                    alert(err);
+                  }
+                });
+            }}
+          >
+            Login
+          </Button>
+
+          <Button
+            leftIcon={<GiWaveCrest size="1rem" />}
+            variant="gradient"
+            radius="lg"
+            gradient={{ from: "cyan", to: "indigo" }}
+            onClick={() => {
+              identity
+                .login({
+                  getFreeDeso: true,
+                })
+                .catch((err) => {
+                  if (err?.type === ERROR_TYPES.NO_MONEY) {
+                    alert("You need DESO in order to post!");
+                  } else {
+                    alert(err);
+                  }
+                });
+            }}
+          >
+            Sign Up
+          </Button>
+        </Group>
       </Card>
     </Center>
   );
