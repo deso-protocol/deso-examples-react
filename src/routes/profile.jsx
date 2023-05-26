@@ -321,8 +321,14 @@ export const Profile = () => {
                     )}
 
                     {post.VideoURLs && (
-                      <Group position="center">
-                        <iframe title={post.PostHashHex} src={post.VideoURLs} />
+                      <Group style={{
+                            width: "100%",
+                            height: "100%",
+                            position: "relative",
+                          }}
+                          position="center"
+                        >
+                        <iframe style={{ width: "100%", height: "100%" }} title={post.PostHashHex} src={post.VideoURLs} />
                       </Group>
                     )}
                     {post.ImageURLs && (
@@ -457,8 +463,19 @@ export const Profile = () => {
                       </TypographyStylesProvider>
                       <Space h="md" />
                       {nft.PostEntryResponse.VideoURLs && (
-                        <Group position="center">
-                          <iframe src={nft.VideoURLs} title={nft.PostHashHex} />
+                        <Group
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            position: "relative",
+                          }}
+                          position="center"
+                        >
+                          <iframe
+                            style={{ width: "100%", height: "100%" }}
+                            src={nft.VideoURLs}
+                            title={nft.PostHashHex}
+                          />
                         </Group>
                       )}
                       {nft.PostEntryResponse.ImageURLs && (

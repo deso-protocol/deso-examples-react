@@ -28,7 +28,6 @@ import {
   Tooltip,
 } from "@mantine/core";
 
-
 const useStyles = createStyles((theme) => ({
   comment: {
     padding: `${theme.spacing.lg}px ${theme.spacing.xl}px`,
@@ -258,6 +257,24 @@ export const Wave = () => {
                       </Text>
                     </TypographyStylesProvider>
                     <Space h="md" />
+
+                    {post.RepostedPostEntryResponse.VideoURLs && (
+                      <Group
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          position: "relative",
+                        }}
+                        position="center"
+                      >
+                        <iframe
+                          style={{ width: "100%", height: "100%" }}
+                          src={post.RepostedPostEntryResponse.VideoURLs}
+                          title={post.RepostedPostEntryResponse.PostHashHex}
+                        />
+                      </Group>
+                    )}
+
                     {post.RepostedPostEntryResponse.ImageURLs &&
                       post.RepostedPostEntryResponse.ImageURLs.length > 0 && (
                         <Group position="center">
@@ -273,8 +290,19 @@ export const Wave = () => {
                 )}
 
                 {post.VideoURLs && (
-                  <Group position="center">
-                    <iframe title={post.PostHashHex} src={post.VideoURLs} />
+                  <Group
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      position: "relative",
+                    }}
+                    position="center"
+                  >
+                    <iframe
+                      style={{ width: "100%", height: "100%" }}
+                      title={post.PostHashHex}
+                      src={post.VideoURLs}
+                    />
                   </Group>
                 )}
                 {post.ImageURLs && (
@@ -409,8 +437,19 @@ export const Wave = () => {
                   </TypographyStylesProvider>
                   <Space h="md" />
                   {nft.PostEntryResponse.VideoURLs && (
-                    <Group position="center">
-                      <iframe src={nft.VideoURLs} title={nft.PostHashHex}/>
+                    <Group
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        position: "relative",
+                      }}
+                      position="center"
+                    >
+                      <iframe
+                        style={{ width: "100%", height: "100%" }}
+                        src={nft.VideoURLs}
+                        title={nft.PostHashHex}
+                      />
                     </Group>
                   )}
                   {nft.PostEntryResponse.ImageURLs && (

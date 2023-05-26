@@ -179,20 +179,19 @@ export const FollowerFeed = () => {
                       </Text>
                     </TypographyStylesProvider>
 
-                    {post.RepostedPostEntryResponse.VideoURLs &&
-                      post.RepostedPostEntryResponse.VideoURLs.length > 0 && (
-                        <Group position="center">
-                          <iframe
-                            title={post.RepostedPostEntryResponse.PostHashHex}
-                            src={post.RepostedPostEntryResponse.VideoURLs[0]}
-                          />
-                        </Group>
-                      )}
                     <Space h="md" />
 
                     {post.RepostedPostEntryResponse.VideoURLs && (
-                      <Group position="center">
+                      <Group
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          position: "relative",
+                        }}
+                        position="center"
+                      >
                         <iframe
+                          style={{ width: "100%", height: "100%" }}
                           src={post.RepostedPostEntryResponse.VideoURLs}
                           title={post.RepostedPostEntryResponse.PostHashHex}
                         />
@@ -212,8 +211,19 @@ export const FollowerFeed = () => {
                   </Paper>
                 )}
                 {post.VideoURLs && (
-                  <Group position="center">
-                    <iframe src={post.VideoURLs} title={post.PostHashHex} />
+                  <Group
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      position: "relative",
+                    }}
+                    position="center"
+                  >
+                    <iframe
+                      style={{ width: "100%", height: "100%" }}
+                      src={post.VideoURLs}
+                      title={post.PostHashHex}
+                    />
                   </Group>
                 )}
                 {post.ImageURLs && (
