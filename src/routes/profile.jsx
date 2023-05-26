@@ -18,7 +18,7 @@ import {
   Textarea,
   TextInput,
 } from "@mantine/core";
-import { Player } from "@livepeer/react";
+
 import { useState, useContext, useEffect } from "react";
 import { DeSoIdentityContext } from "react-deso-protocol";
 import {
@@ -194,12 +194,7 @@ export const Profile = () => {
 
           <Space h="xl" />
 
-          <Tabs
-            
-            radius="sm"
-            value={activeTab}
-            onTabChange={setActiveTab}
-          >
+          <Tabs radius="sm" value={activeTab} onTabChange={setActiveTab}>
             <Tabs.List grow position="center">
               <Tabs.Tab value="first">
                 <Text fz="sm">Go Live</Text>
@@ -327,7 +322,7 @@ export const Profile = () => {
 
                     {post.VideoURLs && (
                       <Group position="center">
-                        <Player src={post.VideoURLs} />
+                        <iframe title={post.PostHashHex} src={post.VideoURLs} />
                       </Group>
                     )}
                     {post.ImageURLs && (
@@ -463,7 +458,7 @@ export const Profile = () => {
                       <Space h="md" />
                       {nft.PostEntryResponse.VideoURLs && (
                         <Group position="center">
-                          <Player src={nft.VideoURLs} />
+                          <iframe src={nft.VideoURLs} title={nft.PostHashHex} />
                         </Group>
                       )}
                       {nft.PostEntryResponse.ImageURLs && (

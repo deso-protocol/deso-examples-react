@@ -1,7 +1,7 @@
 import { getPostsStateless } from "deso-protocol";
 import { useEffect, useState, useContext } from "react";
 import { DeSoIdentityContext } from "react-deso-protocol";
-import { Player } from "@livepeer/react";
+
 import {
   Text,
   Avatar,
@@ -182,12 +182,22 @@ export const FollowerFeed = () => {
                     {post.RepostedPostEntryResponse.VideoURLs &&
                       post.RepostedPostEntryResponse.VideoURLs.length > 0 && (
                         <Group position="center">
-                          <Player
+                          <iframe
+                            title={post.RepostedPostEntryResponse.PostHashHex}
                             src={post.RepostedPostEntryResponse.VideoURLs[0]}
                           />
                         </Group>
                       )}
                     <Space h="md" />
+
+                    {post.RepostedPostEntryResponse.VideoURLs && (
+                      <Group position="center">
+                        <iframe
+                          src={post.RepostedPostEntryResponse.VideoURLs}
+                          title={post.RepostedPostEntryResponse.PostHashHex}
+                        />
+                      </Group>
+                    )}
                     {post.RepostedPostEntryResponse.ImageURLs &&
                       post.RepostedPostEntryResponse.ImageURLs.length > 0 && (
                         <Group position="center">
@@ -203,7 +213,7 @@ export const FollowerFeed = () => {
                 )}
                 {post.VideoURLs && (
                   <Group position="center">
-                    <Player src={post.VideoURLs} />
+                    <iframe src={post.VideoURLs} title={post.PostHashHex} />
                   </Group>
                 )}
                 {post.ImageURLs && (

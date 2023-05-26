@@ -1,6 +1,6 @@
 import { getHotFeed } from "deso-protocol";
 import { useEffect, useState } from "react";
-import { Player } from "@livepeer/react";
+
 import {
   Text,
   Avatar,
@@ -171,6 +171,14 @@ export const HotFeed = () => {
                     </Text>
                   </TypographyStylesProvider>
                   <Space h="md" />
+                  {post.RepostedPostEntryResponse.VideoURLs && (
+                    <Group position="center">
+                      <iframe
+                        src={post.RepostedPostEntryResponse.VideoURLs}
+                        title={post.RepostedPostEntryResponse.PostHashHex}
+                      />
+                    </Group>
+                  )}
                   {post.RepostedPostEntryResponse.ImageURLs &&
                     post.RepostedPostEntryResponse.ImageURLs.length > 0 && (
                       <Group position="center">
@@ -187,7 +195,7 @@ export const HotFeed = () => {
 
               {post.VideoURLs && (
                 <Group position="center">
-                  <Player src={post.VideoURLs} />
+                  <iframe src={post.VideoURLs} title={post.PostHashHex} />
                 </Group>
               )}
               {post.ImageURLs && (

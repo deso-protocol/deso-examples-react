@@ -27,7 +27,7 @@ import {
   ActionIcon,
   Tooltip,
 } from "@mantine/core";
-import { Player } from "@livepeer/react";
+
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -274,7 +274,7 @@ export const Wave = () => {
 
                 {post.VideoURLs && (
                   <Group position="center">
-                    <Player src={post.VideoURLs} />
+                    <iframe title={post.PostHashHex} src={post.VideoURLs} />
                   </Group>
                 )}
                 {post.ImageURLs && (
@@ -410,7 +410,7 @@ export const Wave = () => {
                   <Space h="md" />
                   {nft.PostEntryResponse.VideoURLs && (
                     <Group position="center">
-                      <Player src={nft.VideoURLs} />
+                      <iframe src={nft.VideoURLs} title={nft.PostHashHex}/>
                     </Group>
                   )}
                   {nft.PostEntryResponse.ImageURLs && (
