@@ -1,4 +1,11 @@
-import { AppShell, useMantineTheme, MediaQuery, Aside } from "@mantine/core";
+import {
+  AppShell,
+  useMantineTheme,
+  MediaQuery,
+  Aside,
+  Container,
+  createStyles,
+} from "@mantine/core";
 import { MantineNavBar } from "./MantineNavBar";
 import { MantineHeader } from "./MantineHeader";
 import { MantineFooter } from "./MantineFooter";
@@ -9,6 +16,15 @@ import {
   studioProvider,
 } from "@livepeer/react";
 
+const useStyles = createStyles((theme) => ({
+  main: {
+    width: "100%",
+    maxWidth: "555px",
+    margin: "0 auto",
+    overflowX: "hidden",
+  },
+}));
+
 const livepeerClient = createReactClient({
   provider: studioProvider({
     apiKey: "306f0789-aff0-4ac5-890f-eac0dccf3bcc",
@@ -17,7 +33,7 @@ const livepeerClient = createReactClient({
 
 export const MantineAppShell = ({ children }) => {
   const theme = useMantineTheme();
-
+  const { classes } = useStyles();
   return (
     <LivepeerConfig client={livepeerClient}>
       <AppShell
@@ -45,7 +61,7 @@ export const MantineAppShell = ({ children }) => {
         navbar={<MantineNavBar />}
         footer={<MantineFooter />}
       >
-        {children}
+        <Container className={classes.main}>{children}</Container>
       </AppShell>
     </LivepeerConfig>
   );

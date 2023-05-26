@@ -42,7 +42,7 @@ const useStyles = createStyles((theme) => ({
 
 export const FollowerFeed = () => {
   const navigate = useNavigate();
-  const { currentUser, alternateUsers, isLoading } = useContext(DeSoIdentityContext);
+  const { currentUser, isLoading } = useContext(DeSoIdentityContext);
   const { classes } = useStyles();
   const [followerFeed, setFollowerFeed] = useState([]);
   const userPublicKey = currentUser?.PublicKeyBase58Check;
@@ -90,7 +90,7 @@ export const FollowerFeed = () => {
                         userPublicKey: post.PosterPublicKeyBase58Check,
                         userName: post.ProfileEntryResponse.Username
                           ? post.ProfileEntryResponse.Username
-                          : null,
+                          : post.PosterPublicKeyBase58Check,
                         description: post.ProfileEntryResponse.Description
                           ? post.ProfileEntryResponse.Description
                           : null,

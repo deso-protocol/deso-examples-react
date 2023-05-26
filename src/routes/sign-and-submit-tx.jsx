@@ -16,7 +16,7 @@ import {
 } from "@mantine/core";
 import { getDisplayName } from "../helpers";
 import { DeSoIdentityContext } from "react-deso-protocol";
-
+import { Welcome } from "../components/Welcome";
 export const SignAndSubmitTx = () => {
   const { currentUser, isLoading } = useContext(DeSoIdentityContext);
 
@@ -32,37 +32,41 @@ export const SignAndSubmitTx = () => {
 
   if (!currentUser || !currentUser.BalanceNanos) {
     return (
-      <Container size="30rem" px={0}>
-        <Paper m="md" shadow="lg" radius="sm" p="xl" withBorder>
-          <Group>
-            <Avatar size="lg" radius="lg" alt="Profile Picture" />
-            <Text fz="lg" fw={777} variant="gradient" truncate></Text>
-          </Group>
-          <Space h="sm" />
-          <Textarea
-            disabled
-            name="body"
-            radius="md"
-            autosize
-            placeholder="Login or Sign Up to Create!"
-            variant="filled"
-            size="md"
-          />
-          <Space h="sm" />
-          <Group postion="apart">
-            <Tooltip label="Login or Sign Up to Create!">
-              <Button
-                raduis="sm"
-                data-disabled
-                sx={{ "&[data-disabled]": { pointerEvents: "all" } }}
-                onClick={(event) => event.preventDefault()}
-              >
-                Create
-              </Button>
-            </Tooltip>
-          </Group>
-        </Paper>
-      </Container>
+      <>
+        <Container size="30rem" px={0}>
+          <Paper m="md" shadow="lg" radius="sm" p="xl" withBorder>
+            <Group>
+              <Avatar size="lg" radius="lg" alt="Profile Picture" />
+              <Text fz="lg" fw={777} variant="gradient" truncate></Text>
+            </Group>
+            <Space h="sm" />
+            <Textarea
+              disabled
+              name="body"
+              radius="md"
+              autosize
+              placeholder="Login or Sign Up to Create!"
+              variant="filled"
+              size="md"
+            />
+            <Space h="sm" />
+            <Group postion="apart">
+              <Tooltip label="Login or Sign Up to Create!">
+                <Button
+                  raduis="sm"
+                  data-disabled
+                  sx={{ "&[data-disabled]": { pointerEvents: "all" } }}
+                  onClick={(event) => event.preventDefault()}
+                >
+                  Create
+                </Button>
+              </Tooltip>
+            </Group>
+          </Paper>
+        </Container>
+        <Space h="md" />
+        <Welcome />
+      </>
     );
   } else {
     return (

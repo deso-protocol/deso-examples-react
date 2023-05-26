@@ -82,7 +82,7 @@ export const HotFeed = () => {
                       userPublicKey: post.PosterPublicKeyBase58Check,
                       userName: post.ProfileEntryResponse.Username
                         ? post.ProfileEntryResponse.Username
-                        : null,
+                        : post.PosterPublicKeyBase58Check,
                       description: post.ProfileEntryResponse.Description
                         ? post.ProfileEntryResponse.Description
                         : null,

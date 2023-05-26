@@ -10,6 +10,7 @@ configure({
     GlobalDESOLimit: 10000000, // 0.01 DESO
     TransactionCountLimitMap: {
       SUBMIT_POST: "UNLIMITED",
+      UPDATE_PROFILE: "UNLIMITED",
     },
   },
 
