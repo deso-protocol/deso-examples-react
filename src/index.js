@@ -9,10 +9,11 @@ import { Discover } from "./routes/discover";
 import { Wallet } from "./routes/wallet";
 import { Settings } from "./routes/settings";
 import { SignAndSubmitTx } from "./routes/sign-and-submit-tx";
-import { SwitchAccount } from "./routes/switch-account";
+import { MantineProvider } from "@mantine/core";
 import { Wave } from "./routes/wave";
 import { User } from "./routes/user";
-import { MantineProvider } from "@mantine/core";
+
+import { DeSoIdentityProvider } from "react-deso-protocol";
 
 const router = createBrowserRouter([
   {
@@ -28,10 +29,7 @@ const router = createBrowserRouter([
         path: "/sign-and-submit-tx",
         element: <SignAndSubmitTx />,
       },
-      {
-        path: "/switch-account",
-        element: <SwitchAccount />,
-      },
+
       {
         path: "/notifications",
         element: <NotificationsPage />,
@@ -67,7 +65,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       withGlobalStyles
       withNormalizeCSS
     >
-      <RouterProvider router={router} />
+      <DeSoIdentityProvider>
+        <RouterProvider router={router} />
+      </DeSoIdentityProvider>
     </MantineProvider>
   </React.StrictMode>
 );

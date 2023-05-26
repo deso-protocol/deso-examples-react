@@ -146,12 +146,7 @@ export const Wave = () => {
       </Card>
       <Space h="xl" />
 
-      <Tabs
-        variant="pills"
-        radius="sm"
-        value={activeTab}
-        onTabChange={setActiveTab}
-      >
+      <Tabs radius="sm" value={activeTab} onTabChange={setActiveTab}>
         <Tabs.List grow position="center">
           <Tabs.Tab value="first">
             <Text fz="sm">{userName}'s Wave</Text>

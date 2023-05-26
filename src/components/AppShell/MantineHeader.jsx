@@ -1,6 +1,6 @@
 import { identity } from "deso-protocol";
 import { useContext, useState } from "react";
-import { UserContext } from "../../contexts";
+import { DeSoIdentityContext } from "react-deso-protocol";
 import { getDisplayName } from "../../helpers";
 import {
   createStyles,
@@ -16,6 +16,7 @@ import {
   ScrollArea,
   getStylesRef,
   rem,
+  Loader,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { GiWaveCrest } from "react-icons/gi";
@@ -128,7 +129,8 @@ const data = [
 ];
 
 export const MantineHeader = () => {
-  const { currentUser, isLoading, alternateUsers } = useContext(UserContext);
+  const { currentUser, alternateUsers, isLoading } =
+    useContext(DeSoIdentityContext);
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme, cx } = useStyles();
@@ -155,7 +157,7 @@ export const MantineHeader = () => {
     <nav className="main-nav">
       <div className="main-nav__user-actions">
         {isLoading ? (
-          <div>Loading...</div>
+          <Loader variant="bars" />
         ) : (
           <>
             <Box pb={5}>
@@ -229,7 +231,7 @@ export const MantineHeader = () => {
                                     )
                                   }
                                   style={{
-                                     maxWidth: "190px",  // Adjust the maximum width as needed
+                                    maxWidth: "190px", // Adjust the maximum width as needed
                                     whiteSpace: "nowrap",
                                     overflow: "hidden",
                                     textOverflow: "ellipsis",

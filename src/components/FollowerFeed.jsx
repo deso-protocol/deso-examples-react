@@ -1,6 +1,6 @@
 import { getPostsStateless } from "deso-protocol";
 import { useEffect, useState, useContext } from "react";
-import { UserContext } from "../contexts";
+import { DeSoIdentityContext } from "react-deso-protocol";
 import { Player } from "@livepeer/react";
 import {
   Text,
@@ -42,7 +42,7 @@ const useStyles = createStyles((theme) => ({
 
 export const FollowerFeed = () => {
   const navigate = useNavigate();
-  const { currentUser, isLoading } = useContext(UserContext);
+  const { currentUser, alternateUsers, isLoading } = useContext(DeSoIdentityContext);
   const { classes } = useStyles();
   const [followerFeed, setFollowerFeed] = useState([]);
   const userPublicKey = currentUser?.PublicKeyBase58Check;

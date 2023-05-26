@@ -17,7 +17,7 @@ import {
 import { RxCardStackPlus } from "react-icons/rx";
 import { SignAndSubmitTx } from "../../routes/sign-and-submit-tx";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../contexts";
+import { DeSoIdentityContext } from "react-deso-protocol";
 
 const useStyles = createStyles((theme) => ({
   footer: {
@@ -82,7 +82,7 @@ const useStyles = createStyles((theme) => ({
 
 export const MantineFooter = () => {
   const [slowTransitionOpened, setSlowTransitionOpened] = useState(false);
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = useContext(DeSoIdentityContext);
   const navigate = useNavigate();
   const [active, setActive] = useState("Home");
   const { classes, cx } = useStyles();
@@ -150,7 +150,10 @@ export const MantineFooter = () => {
               navigate("/discover");
             }}
           >
-            <IconDeviceDesktopAnalytics size="1.4rem" className={classes.actionIcon} />
+            <IconDeviceDesktopAnalytics
+              size="1.4rem"
+              className={classes.actionIcon}
+            />
           </ActionIcon>
 
           <ActionIcon

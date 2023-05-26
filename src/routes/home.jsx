@@ -20,12 +20,7 @@ export const Home = () => {
       <Space h="md" />
 
       <Space h="md" />
-      <Tabs
-        variant="outline"
-        radius="md"
-        value={activeTab}
-        onTabChange={setActiveTab}
-      >
+      <Tabs radius="md" value={activeTab} onTabChange={setActiveTab}>
         <Tabs.List position="center">
           <Tabs.Tab value="first">
             <Center>

@@ -8,6 +8,7 @@ import {
   IconReceipt2,
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+
 const useStyles = createStyles((theme) => ({
   header: {
     paddingBottom: theme.spacing.md,

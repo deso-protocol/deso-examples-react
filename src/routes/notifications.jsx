@@ -10,11 +10,11 @@ import {
   Loader,
 } from "@mantine/core";
 import { useState, useContext, useEffect } from "react";
-import { UserContext } from "../contexts";
+import { DeSoIdentityContext } from "react-deso-protocol";
 import { getNotifications } from "deso-protocol";
 
 export const NotificationsPage = () => {
-  const { currentUser, isLoading } = useContext(UserContext);
+  const { currentUser, isLoading } = useContext(DeSoIdentityContext);
   const [notifications, setNotifications] = useState([]);
   const userPublicKey = currentUser?.PublicKeyBase58Check;
 

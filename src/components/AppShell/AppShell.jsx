@@ -1,14 +1,8 @@
-import {
-  AppShell,
-  useMantineTheme,
-  MediaQuery,
-  Aside,
-  Text,
-} from "@mantine/core";
+import { AppShell, useMantineTheme, MediaQuery, Aside } from "@mantine/core";
 import { MantineNavBar } from "./MantineNavBar";
 import { MantineHeader } from "./MantineHeader";
 import { MantineFooter } from "./MantineFooter";
-import { ReactNode } from "react";
+
 import {
   LivepeerConfig,
   createReactClient,

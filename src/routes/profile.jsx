@@ -13,15 +13,20 @@ import {
   createStyles,
   ActionIcon,
   Tooltip,
+  Button,
+  Modal,
+  Textarea,
+  TextInput,
 } from "@mantine/core";
 import { Player } from "@livepeer/react";
 import { useState, useContext, useEffect } from "react";
-import { UserContext } from "../contexts";
+import { DeSoIdentityContext } from "react-deso-protocol";
 import {
   getSingleProfile,
   getFollowersForUser,
   getPostsForUser,
   getNFTsForUser,
+  updateProfile,
 } from "deso-protocol";
 import { Stream } from "../components/Stream";
 import { getDisplayName } from "../helpers";
@@ -30,7 +35,9 @@ import {
   IconDiamond,
   IconRecycle,
   IconMessageCircle,
+  IconSettings,
 } from "@tabler/icons-react";
+import { useDisclosure } from "@mantine/hooks";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -52,13 +59,15 @@ const useStyles = createStyles((theme) => ({
 
 export const Profile = () => {
   const { classes } = useStyles();
-  const { currentUser, isLoading } = useContext(UserContext);
+  const [opened, { open, close }] = useDisclosure(false);
+  const { currentUser } = useContext(DeSoIdentityContext);
   const [profile, setProfile] = useState([]);
   const [posts, setPosts] = useState([]);
   const [NFTs, setNFTs] = useState([]);
   const [followerInfo, setFollowers] = useState({ followers: 0, following: 0 });
   const userPublicKey = currentUser?.PublicKeyBase58Check;
   const [activeTab, setActiveTab] = useState("first");
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -96,6 +105,27 @@ export const Profile = () => {
 
   return (
     <>
+      <Modal opened={opened} onClose={close} title="Update Profile" centered>
+        <Group position="center" grow>
+          <TextInput
+            lineClamp={1}
+            type="text"
+            label="Username"
+            placeholder="New username"
+          />
+        </Group>
+
+        <Space h="sm" />
+
+        <Group position="center" grow>
+          <Textarea label="Bio" placeholder="New description" />
+        </Group>
+        <Space h="sm" />
+        <Group position="right">
+          <Button>Update</Button>
+        </Group>
+      </Modal>
+
       {currentUser ? (
         <>
           <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -107,6 +137,7 @@ export const Profile = () => {
               />
             </Card.Section>
             <Space h="sm" />
+
             <Center>
               <Avatar
                 size="lg"
@@ -160,9 +191,11 @@ export const Profile = () => {
               )}
             </Center>
           </Card>
+
           <Space h="xl" />
+
           <Tabs
-            variant="pills"
+            
             radius="sm"
             value={activeTab}
             onTabChange={setActiveTab}

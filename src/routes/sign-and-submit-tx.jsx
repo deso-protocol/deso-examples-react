@@ -1,7 +1,6 @@
 import { ERROR_TYPES, identity, submitPost } from "deso-protocol";
 import { useContext, useRef } from "react";
-import { UserContext } from "../contexts";
-import { GiWaveCrest } from "react-icons/gi";
+
 import {
   Button,
   Center,
@@ -16,9 +15,10 @@ import {
   Tooltip,
 } from "@mantine/core";
 import { getDisplayName } from "../helpers";
+import { DeSoIdentityContext } from "react-deso-protocol";
 
 export const SignAndSubmitTx = () => {
-  const { currentUser, isLoading } = useContext(UserContext);
+  const { currentUser, isLoading } = useContext(DeSoIdentityContext);
 
   const formRef = useRef(null);
 
