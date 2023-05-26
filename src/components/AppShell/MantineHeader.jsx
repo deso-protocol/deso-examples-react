@@ -243,6 +243,7 @@ export const MantineHeader = () => {
 
                               <Menu.Divider />
 
+                              <Menu.Label>Visit DeSo Wallet</Menu.Label>
                               <Menu.Item
                                 onClick={() =>
                                   window.open(
@@ -254,6 +255,8 @@ export const MantineHeader = () => {
                               >
                                 DeSo Wallet
                               </Menu.Item>
+
+                              <Menu.Divider />
 
                               <Menu.Item
                                 icon={<IconSwitchHorizontal size={17} />}
@@ -385,6 +388,7 @@ export const MantineHeader = () => {
                               ))}
 
                               <Menu.Divider />
+                               <Menu.Label>Visit DeSo Wallet</Menu.Label>
                               <Menu.Item
                                 onClick={() =>
                                   window.open(
@@ -396,6 +400,7 @@ export const MantineHeader = () => {
                               >
                                 DeSo Wallet
                               </Menu.Item>
+                              <Menu.Divider />
                               <Menu.Item
                                 icon={<IconSwitchHorizontal size={17} />}
                                 onClick={() => identity.login()}
