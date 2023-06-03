@@ -12,6 +12,7 @@ import {
   Tooltip,
   Card,
   Badge,
+  Loader,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 import { updateProfile } from "deso-protocol";
@@ -20,33 +21,13 @@ import { DeSoIdentityContext } from "react-deso-protocol";
 export const Stream = () => {
   const { currentUser } = useContext(DeSoIdentityContext);
   const [streamName, setStreamName] = useState("");
-  
   const {
     mutate: createStream,
     data: stream,
     status,
   } = useCreateStream(streamName ? { name: streamName } : null);
 
-  useEffect(() => {
-    if (stream?.playbackId && stream?.name) {
-      updateProfile({
-        UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-        ProfilePublicKeyBase58Check: "",
-        NewUsername: currentUser,
-        MinFeeRateNanosPerKB: 1000,
-        NewCreatorBasisPoints: 100,
-        NewStakeMultipleBasisPoints: 12500,
-        ExtraData: {
-          WavesStreamId: stream.playbackId,
-          WavesStreamTitle: stream.name,
-        },
-      });
-    }
-  }, [stream, currentUser]);
-
   const isLoading = useMemo(() => status === "loading", [status]);
-
-  
 
   return (
     <Paper shadow="sm" p="lg" withBorder>
@@ -125,6 +106,7 @@ export const Stream = () => {
           </Center>
         )}
       <Space h="xl" />
+
       {stream?.playbackId && (
         <Group position="center">
           <Player
@@ -136,18 +118,32 @@ export const Stream = () => {
         </Group>
       )}
 
+      {stream?.isLoading && (
+        <Group position="center">
+          <Loader size="sm" />
+        </Group>
+      )}
+
+      {stream?.isIdle && (
+        <Group position="center">
+          <p>Stream is idle.</p>
+        </Group>
+      )}
+
+      {stream?.isError && (
+        <Group position="center">
+          <p>Error occurred while creating the stream.</p>
+        </Group>
+      )}
+
       <Space h="md" />
       {!stream && (
         <Group position="center">
           <Button
             radius="xl"
-            onClick={() => {
-              createStream?.();
-              
-            }}
-            disabled={isLoading || !createStream}
+            disabled={status === "loading" || !createStream}
+            onClick={() => createStream?.()}
           >
-            {isLoading}
             Create Stream
           </Button>
         </Group>

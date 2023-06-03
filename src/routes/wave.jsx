@@ -166,7 +166,7 @@ export const Wave = () => {
             <Paper shadow="xl" radius="lg" p="xl" withBorder>
               <Text
                 size="md"
-                lineClamp={1}
+                lineclamp={1}
                 variant="gradient"
                 gradient={{ from: "indigo", to: "cyan", deg: 45 }}
               >
@@ -389,7 +389,7 @@ export const Wave = () => {
               <Paper shadow="xl" radius="lg" p="xl" withBorder>
                 <Text
                   size="md"
-                  lineClamp={1}
+                  lineclamp={1}
                   variant="gradient"
                   gradient={{ from: "indigo", to: "cyan", deg: 45 }}
                 >
@@ -537,7 +537,7 @@ export const Wave = () => {
               <Paper shadow="xl" radius="lg" p="xl" withBorder>
                 <Text
                   size="md"
-                  lineClamp={1}
+                  lineclamp={1}
                   variant="gradient"
                   gradient={{ from: "indigo", to: "cyan", deg: 45 }}
                 >
