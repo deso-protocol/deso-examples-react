@@ -18,7 +18,6 @@ export const Discover = () => {
         <Paper shadow="xl" radius="lg" p="xl" withBorder>
           <Text
             size="xl"
-            noBreak
             variant="gradient"
             gradient={{ from: "indigo", to: "cyan", deg: 45 }}
           >

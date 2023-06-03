@@ -10,11 +10,7 @@ import { MantineNavBar } from "./MantineNavBar";
 import { MantineHeader } from "./MantineHeader";
 import { MantineFooter } from "./MantineFooter";
 
-import {
-  LivepeerConfig,
-  createReactClient,
-  studioProvider,
-} from "@livepeer/react";
+
 
 const useStyles = createStyles((theme) => ({
   main: {
@@ -25,17 +21,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const livepeerClient = createReactClient({
-  provider: studioProvider({
-    apiKey: "306f0789-aff0-4ac5-890f-eac0dccf3bcc",
-  }),
-});
+
 
 export const MantineAppShell = ({ children }) => {
   const theme = useMantineTheme();
   const { classes } = useStyles();
   return (
-    <LivepeerConfig client={livepeerClient}>
+   
       <AppShell
         styles={{
           main: {
@@ -63,6 +55,6 @@ export const MantineAppShell = ({ children }) => {
       >
         <Container className={classes.main}>{children}</Container>
       </AppShell>
-    </LivepeerConfig>
+   
   );
 };

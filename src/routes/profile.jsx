@@ -117,6 +117,7 @@ export const Profile = () => {
 
         <Space h="sm" />
 
+        <Space h="sm" />
         <Group position="center" grow>
           <Textarea label="Bio" placeholder="New description" />
         </Group>
@@ -149,6 +150,7 @@ export const Profile = () => {
                 alt="Profile Picture"
               />
             </Center>
+
             <Center>
               <Text fz="lg" fw={777} variant="gradient" truncate>
                 {getDisplayName(currentUser)}
@@ -321,14 +323,19 @@ export const Profile = () => {
                     )}
 
                     {post.VideoURLs && (
-                      <Group style={{
-                            width: "100%",
-                            height: "100%",
-                            position: "relative",
-                          }}
-                          position="center"
-                        >
-                        <iframe style={{ width: "100%", height: "100%" }} title={post.PostHashHex} src={post.VideoURLs} />
+                      <Group
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          position: "relative",
+                        }}
+                        position="center"
+                      >
+                        <iframe
+                          style={{ width: "100%", height: "100%" }}
+                          title={post.PostHashHex}
+                          src={post.VideoURLs}
+                        />
                       </Group>
                     )}
                     {post.ImageURLs && (

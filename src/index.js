@@ -12,8 +12,19 @@ import { SignAndSubmitTx } from "./routes/sign-and-submit-tx";
 import { MantineProvider } from "@mantine/core";
 import { Wave } from "./routes/wave";
 import { User } from "./routes/user";
+import {
+  LivepeerConfig,
+  createReactClient,
+  studioProvider,
+} from "@livepeer/react";
 
 import { DeSoIdentityProvider } from "react-deso-protocol";
+
+const livepeerClient = createReactClient({
+  provider: studioProvider({
+    apiKey: "f8ceedee-51e6-4717-99a8-bf4dbcb202de",
+  }),
+});
 
 const router = createBrowserRouter([
   {
@@ -60,14 +71,16 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <MantineProvider
-      theme={{ colorScheme: "dark" }}
-      withGlobalStyles
-      withNormalizeCSS
-    >
-      <DeSoIdentityProvider>
-        <RouterProvider router={router} />
-      </DeSoIdentityProvider>
-    </MantineProvider>
+    <LivepeerConfig client={livepeerClient}>
+      <MantineProvider
+        theme={{ colorScheme: "dark" }}
+        withGlobalStyles
+        withNormalizeCSS
+      >
+        <DeSoIdentityProvider>
+          <RouterProvider router={router} />
+        </DeSoIdentityProvider>
+      </MantineProvider>
+    </LivepeerConfig>
   </React.StrictMode>
 );

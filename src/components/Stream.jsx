@@ -1,12 +1,6 @@
+import { Player, useCreateStream, useEndStream } from "@livepeer/react";
+import { useMemo, useState, useEffect, useContext } from "react";
 import {
-  Player,
-  useCreateStream,
-  useUpdateStream,
-  TimeDisplay,
-} from "@livepeer/react";
-import { useMemo, useState, useCallback } from "react";
-import {
-  Text,
   Paper,
   Textarea,
   Group,
@@ -20,16 +14,39 @@ import {
   Badge,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
+import { updateProfile } from "deso-protocol";
+import { DeSoIdentityContext } from "react-deso-protocol";
 
 export const Stream = () => {
+  const { currentUser } = useContext(DeSoIdentityContext);
   const [streamName, setStreamName] = useState("");
+  
   const {
     mutate: createStream,
     data: stream,
     status,
   } = useCreateStream(streamName ? { name: streamName } : null);
 
+  useEffect(() => {
+    if (stream?.playbackId && stream?.name) {
+      updateProfile({
+        UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+        ProfilePublicKeyBase58Check: "",
+        NewUsername: currentUser,
+        MinFeeRateNanosPerKB: 1000,
+        NewCreatorBasisPoints: 100,
+        NewStakeMultipleBasisPoints: 12500,
+        ExtraData: {
+          WavesStreamId: stream.playbackId,
+          WavesStreamTitle: stream.name,
+        },
+      });
+    }
+  }, [stream, currentUser]);
+
   const isLoading = useMemo(() => status === "loading", [status]);
+
+  
 
   return (
     <Paper shadow="sm" p="lg" withBorder>
@@ -99,7 +116,9 @@ export const Stream = () => {
               </Group>
 
               <Group position="center">
-                <Badge radius='sm' size="xl">{streamName}</Badge>
+                <Badge radius="sm" size="xl">
+                  {streamName}
+                </Badge>
               </Group>
               <Space h="md" />
             </Card>
@@ -124,6 +143,7 @@ export const Stream = () => {
             radius="xl"
             onClick={() => {
               createStream?.();
+              
             }}
             disabled={isLoading || !createStream}
           >
