@@ -1,11 +1,5 @@
-import {
-  Player,
-  useCreateStream,
-  useEndStream,
-  useUpdateStream,
-  updateStream,
-} from "@livepeer/react";
-import { useMemo, useState, useEffect, useContext } from "react";
+import { Player, useCreateStream, useUpdateStream } from "@livepeer/react";
+import { useMemo, useState, useContext } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import {
   Paper,
@@ -20,7 +14,6 @@ import {
   Card,
   Badge,
   Loader,
-  LoadingOverlay,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 import { updateProfile } from "deso-protocol";
@@ -29,13 +22,13 @@ import { DeSoIdentityContext } from "react-deso-protocol";
 export const Stream = () => {
   const { currentUser } = useContext(DeSoIdentityContext);
   const [streamName, setStreamName] = useState("");
- const [disable, { toggle }] = useDisclosure(false);
+  const [disable, { toggle }] = useDisclosure(false);
   const {
     mutate: createStream,
     data: stream,
     status,
   } = useCreateStream(streamName ? { name: streamName } : null);
-  console.log(stream);
+
   const isLoading = useMemo(() => status === "loading", [status]);
 
   const streamId = stream?.id;
@@ -47,12 +40,31 @@ export const Stream = () => {
   const handleEndStream = () => {
     updateStream?.();
     setStreamName("");
-   
   };
 
   const handleCreateStream = () => {
     createStream?.();
     toggle();
+
+    const request = {
+      UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+      MinFeeRateNanosPerKB: 1000,
+      NewCreatorBasisPoints: 100,
+      NewStakeMultipleBasisPoints: 12500,
+      ExtraData: {
+        WavesPlaybackId: stream.playbackId,
+        WavesStreamName: stream.name,
+      },
+    };
+
+    try {
+      const response = updateProfile(request);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+
+    console.log(currentUser);
   };
 
   return (
@@ -136,7 +148,6 @@ export const Stream = () => {
               </Center>
               <Space h="md" />
               <Group position="center">
-                
                 <Player
                   title={stream?.name}
                   playbackId={stream?.playbackId}
