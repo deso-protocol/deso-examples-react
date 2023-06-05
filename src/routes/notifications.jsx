@@ -8,6 +8,7 @@ import {
   Divider,
   List,
   Loader,
+  Badge,
 } from "@mantine/core";
 import { useState, useContext, useEffect } from "react";
 import { DeSoIdentityContext } from "react-deso-protocol";
@@ -26,7 +27,7 @@ export const NotificationsPage = () => {
           NumToFetch: 25,
           FetchStartIndex: -1,
         });
-        console.log(notificationData.Notifications);
+
         setNotifications(notificationData.Notifications);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
@@ -91,16 +92,14 @@ export const NotificationsPage = () => {
         <>
           <Space h="xl" />
           <Center>
-            <Paper shadow="xl" radius="lg" p="xl" withBorder>
-              <Text
-                size="md"
-                lineClamp={1}
-                variant="gradient"
-                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-              >
-                Please login to view your Notifications.
-              </Text>
-            </Paper>
+            <Badge
+              size="md"
+              radius="sm"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+            >
+              Please login to view your Notifications.
+            </Badge>
           </Center>
         </>
       )}

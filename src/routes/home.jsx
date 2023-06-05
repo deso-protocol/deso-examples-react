@@ -1,5 +1,5 @@
 import { SignAndSubmitTx } from "../routes/sign-and-submit-tx";
-import { Space, Tabs, Text, Center, Paper } from "@mantine/core";
+import { Space, Tabs, Text, Center, Paper, Badge } from "@mantine/core";
 import { HotFeed } from "../components/HotFeed";
 import { FollowerFeed } from "../components/FollowerFeed";
 import { useState } from "react";
@@ -42,17 +42,16 @@ export const Home = () => {
         </Tabs.List>
 
         <Tabs.Panel value="first">
-          <Space h={222} />
+          <Space h={77} />
           <Center>
-            <Paper shadow="xl" radius="lg" p="xl" withBorder>
-              <Text
-                size="xl"
-                variant="gradient"
-                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-              >
-                Coming soon
-              </Text>
-            </Paper>
+            <Badge
+              size="md"
+              radius="sm"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+            >
+              Coming Soon
+            </Badge>
           </Center>
           <Space h={222} />
         </Tabs.Panel>

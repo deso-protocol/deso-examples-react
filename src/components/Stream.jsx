@@ -22,7 +22,11 @@ import { DeSoIdentityContext } from "react-deso-protocol";
 export const Stream = () => {
   const { currentUser } = useContext(DeSoIdentityContext);
   const [streamName, setStreamName] = useState("");
+  const [playbackId, setPlaybackId] = useState("");
+  const [streamTitle, setStreamTitle] = useState("");
   const [disable, { toggle }] = useDisclosure(false);
+
+  //Allowing user to create streams via livepeers useCreateStream hook
   const {
     mutate: createStream,
     data: stream,
@@ -32,10 +36,35 @@ export const Stream = () => {
   const isLoading = useMemo(() => status === "loading", [status]);
 
   const streamId = stream?.id;
+
+  //Allowing user to stop streaming via livepeers useUpdateStream hook to change suspend to true
   const { mutate: updateStream } = useUpdateStream({
     streamId,
     suspend: true,
   });
+
+  //The way we link users livepeer streams to their DeSo Profiles
+  const AttachStreamInfoToProfile = async () => {
+    try {
+      const request = {
+        UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+        ProfilePublicKeyBase58Check: "",
+        NewUsername: "",
+        MinFeeRateNanosPerKB: 1000,
+        NewCreatorBasisPoints: 100,
+        NewDescription: "",
+        NewStakeMultipleBasisPoints: 12500,
+        ExtraData: {
+          WavesStreamPlaybackId: stream.playbackId,
+          WavesStreamTitle: stream.name,
+        },
+      };
+
+      const response = await updateProfile(request);
+    } catch (error) {
+      
+    }
+  };
 
   const handleEndStream = () => {
     updateStream?.();
@@ -46,25 +75,8 @@ export const Stream = () => {
     createStream?.();
     toggle();
 
-    const request = {
-      UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-      MinFeeRateNanosPerKB: 1000,
-      NewCreatorBasisPoints: 100,
-      NewStakeMultipleBasisPoints: 12500,
-      ExtraData: {
-        WavesPlaybackId: stream.playbackId,
-        WavesStreamName: stream.name,
-      },
-    };
-
-    try {
-      const response = updateProfile(request);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-
-    console.log(currentUser);
+    setPlaybackId(stream?.playbackId);
+    setStreamTitle(stream?.name);
   };
 
   return (
@@ -87,7 +99,7 @@ export const Stream = () => {
               <Center>
                 <Card shadow="sm" p="lg" radius="md" withBorder>
                   <Group position="center">
-                    <h4 lineClamp={1}>Stream Server:</h4>
+                    <h4>Stream Server:</h4>
                     <CopyButton
                       value="rtmp://rtmp.livepeer.com/live"
                       timeout={2000}

@@ -22,7 +22,7 @@ import { DeSoIdentityProvider } from "react-deso-protocol";
 
 const livepeerClient = createReactClient({
   provider: studioProvider({
-    apiKey: "f8ceedee-51e6-4717-99a8-bf4dbcb202de",
+    apiKey: "058d7448-6480-4668-b6b7-229c310f0d6a",
   }),
 });
 

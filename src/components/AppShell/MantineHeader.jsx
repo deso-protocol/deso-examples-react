@@ -17,10 +17,11 @@ import {
   getStylesRef,
   rem,
   Loader,
+  ActionIcon,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { GiWaveCrest } from "react-icons/gi";
-
+import { Search } from "../Search";
 import {
   IconBellRinging,
   IconUser,
@@ -30,6 +31,7 @@ import {
   IconLogout,
   IconSwitchHorizontal,
   IconChevronRight,
+  IconSearch,
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
@@ -178,6 +180,7 @@ export const MantineHeader = () => {
                       <div>Loading...</div>
                     ) : (
                       <>
+                        <Search />
                         {!currentUser && (
                           <>
                             <Button
@@ -278,11 +281,15 @@ export const MantineHeader = () => {
                     )}
                   </Group>
 
-                  <Burger
-                    opened={drawerOpened}
-                    onClick={toggleDrawer}
-                    className={classes.hiddenDesktop}
-                  />
+                  <Group position="right" className={classes.hiddenDesktop}>
+                    <Search />
+
+                    <Burger
+                      opened={drawerOpened}
+                      onClick={toggleDrawer}
+                      className={classes.hiddenDesktop}
+                    />
+                  </Group>
                 </Group>
               </Header>
 
@@ -388,7 +395,7 @@ export const MantineHeader = () => {
                               ))}
 
                               <Menu.Divider />
-                               <Menu.Label>Visit DeSo Wallet</Menu.Label>
+                              <Menu.Label>Visit DeSo Wallet</Menu.Label>
                               <Menu.Item
                                 onClick={() =>
                                   window.open(

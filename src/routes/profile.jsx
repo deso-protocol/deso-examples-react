@@ -17,6 +17,7 @@ import {
   Modal,
   Textarea,
   TextInput,
+  Badge,
 } from "@mantine/core";
 
 import { useState, useContext, useEffect } from "react";
@@ -107,12 +108,7 @@ export const Profile = () => {
     <>
       <Modal opened={opened} onClose={close} title="Update Profile" centered>
         <Group position="center" grow>
-          <TextInput
-            lineClamp={1}
-            type="text"
-            label="Username"
-            placeholder="New username"
-          />
+          <TextInput type="text" label="Username" placeholder="New username" />
         </Group>
 
         <Space h="sm" />
@@ -419,16 +415,16 @@ export const Profile = () => {
               ) : (
                 <Center>
                   <Space h="md" />
-                  <Paper shadow="xl" radius="lg" p="xl" withBorder>
-                    <Text
-                      size="md"
-                      lineClamp={1}
-                      variant="gradient"
-                      gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-                    >
-                      Post something to view them here!
-                    </Text>
-                  </Paper>
+
+                  <Badge
+                    size="md"
+                    radius="sm"
+                    variant="gradient"
+                    gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+                  >
+                    Post something to view them here!
+                  </Badge>
+
                   <Space h={222} />
                 </Center>
               )}
@@ -567,16 +563,16 @@ export const Profile = () => {
               ) : (
                 <Center>
                   <Space h="md" />
-                  <Paper shadow="xl" radius="lg" p="xl" withBorder>
-                    <Text
-                      size="md"
-                      lineClamp={1}
-                      variant="gradient"
-                      gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-                    >
-                      Mint/Buy some NFTs to view them here!
-                    </Text>
-                  </Paper>
+
+                  <Badge
+                    size="md"
+                    radius="sm"
+                    variant="gradient"
+                    gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+                  >
+                    Mint/Buy some NFTs to view them here!
+                  </Badge>
+
                   <Space h={222} />
                 </Center>
               )}
@@ -599,16 +595,14 @@ export const Profile = () => {
           />
           <Space h="xl" />
           <Center>
-            <Paper shadow="xl" radius="lg" p="xl" withBorder>
-              <Text
-                size="md"
-                lineclamp={1}
-                variant="gradient"
-                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-              >
-                Please login to view your Profile.
-              </Text>
-            </Paper>
+            <Badge
+              size="md"
+              radius="sm"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+            >
+              Please login to view your Profile.
+            </Badge>
           </Center>
         </>
       )}

@@ -1,4 +1,4 @@
-import { Space, Center, Paper, Text, Divider } from "@mantine/core";
+import { Space, Center, Paper, Text, Divider, Badge } from "@mantine/core";
 export const Discover = () => {
   return (
     <>
@@ -15,15 +15,16 @@ export const Discover = () => {
       />
       <Space h="xl" />
       <Center>
-        <Paper shadow="xl" radius="lg" p="xl" withBorder>
-          <Text
-            size="xl"
-            variant="gradient"
-            gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+        
+          <Badge
+             size="md"
+               radius="sm"
+                variant="gradient"
+                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
           >
             Coming soon
-          </Text>
-        </Paper>
+          </Badge>
+      
       </Center>
       <Space h={222} />
     </>

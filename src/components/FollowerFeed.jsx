@@ -6,6 +6,7 @@ import {
   Text,
   Avatar,
   Group,
+  Badge,
   createStyles,
   Paper,
   TypographyStylesProvider,
@@ -310,9 +311,14 @@ export const FollowerFeed = () => {
               {isLoading ? (
                 <Loader variant="bars" />
               ) : (
-                <Paper m="md" shadow="lg" radius="md" p="xl" withBorder>
-                  <Text>No posts found in the follower feed.</Text>{" "}
-                </Paper>
+                <Badge
+                  size="md"
+                  radius="sm"
+                  variant="gradient"
+                  gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+                >
+                  No posts found in the follower feed.
+                </Badge>
               )}
               <Space h={222} />
             </Center>
@@ -320,16 +326,16 @@ export const FollowerFeed = () => {
         ) : (
           <Center>
             <Space h="md" />
-            <Paper shadow="xl" radius="lg" p="xl" withBorder>
-              <Text
-                size="md"
-                lineClamp={1}
-                variant="gradient"
-                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-              >
-                Please login to view your Follower Feed.
-              </Text>
-            </Paper>
+
+            <Badge
+              size="md"
+              radius="sm"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+            >
+              Please login to view your Follower Feed.
+            </Badge>
+
             <Space h={222} />
           </Center>
         )}

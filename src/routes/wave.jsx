@@ -22,6 +22,7 @@ import {
   Divider,
   Image,
   Tabs,
+  Badge,
   TypographyStylesProvider,
   createStyles,
   ActionIcon,
@@ -82,7 +83,8 @@ export const Wave = () => {
     };
 
     fetchProfile();
-  }, []);
+  }, [userPublicKey]);
+
   return (
     <>
       <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -163,16 +165,16 @@ export const Wave = () => {
         <Tabs.Panel value="first">
           <Center>
             <Space h="md" />
-            <Paper shadow="xl" radius="lg" p="xl" withBorder>
-              <Text
-                size="md"
-                lineclamp={1}
-                variant="gradient"
-                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-              >
-                Coming Soon
-              </Text>
-            </Paper>
+
+            <Badge
+              size="md"
+              radius="sm"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+            >
+              Coming Soon
+            </Badge>
+
             <Space h={222} />
           </Center>
         </Tabs.Panel>
@@ -386,16 +388,16 @@ export const Wave = () => {
           ) : (
             <Center>
               <Space h="md" />
-              <Paper shadow="xl" radius="lg" p="xl" withBorder>
-                <Text
-                  size="md"
-                  lineclamp={1}
-                  variant="gradient"
-                  gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-                >
-                  Post something to view them here!
-                </Text>
-              </Paper>
+
+              <Badge
+                size="md"
+                radius="sm"
+                variant="gradient"
+                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              >
+                Post something to view them here!
+              </Badge>
+
               <Space h={222} />
             </Center>
           )}
@@ -534,16 +536,16 @@ export const Wave = () => {
           ) : (
             <Center>
               <Space h="md" />
-              <Paper shadow="xl" radius="lg" p="xl" withBorder>
-                <Text
-                  size="md"
-                  lineclamp={1}
-                  variant="gradient"
-                  gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-                >
-                  Mint/Buy some NFTs to view them here!
-                </Text>
-              </Paper>
+
+              <Badge
+                size="md"
+                radius="sm"
+                variant="gradient"
+                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              >
+                Mint/Buy some NFTs to view them here!
+              </Badge>
+
               <Space h={222} />
             </Center>
           )}
