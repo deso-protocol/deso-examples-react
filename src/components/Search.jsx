@@ -55,7 +55,7 @@ export const Search = () => {
           value={value}
           onChange={(event) => setValue(event.currentTarget.value)}
           icon={<IconSearch size="0.8rem" />}
-          placeholder="Enter Username or Public Key"
+          placeholder="Enter Username"
           variant="filled"
           error={userNotFound ? userNotFound : null}
           withAsterisk
