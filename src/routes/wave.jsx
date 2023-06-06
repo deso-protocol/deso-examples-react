@@ -147,38 +147,23 @@ export const Wave = () => {
       </Card>
       <Space h="xl" />
 
-      <Tabs radius="sm" value={activeTab} onTabChange={setActiveTab}>
+      <Tabs  radius="sm" value={activeTab} onTabChange={setActiveTab}>
+      
         <Tabs.List grow position="center">
           <Tabs.Tab value="first">
-            <Text fz="sm">{userName}'s Wave</Text>
+           <Text fz="sm">Posts</Text>
           </Tabs.Tab>
 
           <Tabs.Tab value="second">
-            <Text fz="sm">Posts</Text>
+             <Text style={{ maxWidth: "150px" }} fz="sm">{userName}'s Wave</Text>
+            
           </Tabs.Tab>
 
           <Tabs.Tab value="third">
             <Text fz="sm">NFTs</Text>
           </Tabs.Tab>
         </Tabs.List>
-
-        <Tabs.Panel value="first">
-          <Center>
-            <Space h="md" />
-
-            <Badge
-              size="md"
-              radius="sm"
-              variant="gradient"
-              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-            >
-              Coming Soon
-            </Badge>
-
-            <Space h={222} />
-          </Center>
-        </Tabs.Panel>
-        <Tabs.Panel value="second">
+  <Tabs.Panel value="first">
           {posts.length > 0 ? (
             posts.map((post, index) => (
               <Paper
@@ -402,6 +387,23 @@ export const Wave = () => {
             </Center>
           )}
         </Tabs.Panel>
+        <Tabs.Panel value="second">
+          <Center>
+            <Space h="md" />
+
+            <Badge
+              size="md"
+              radius="sm"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+            >
+              Coming Soon
+            </Badge>
+
+            <Space h={222} />
+          </Center>
+        </Tabs.Panel>
+      
         <Tabs.Panel value="third">
           {Object.keys(NFTs).length > 0 ? (
             Object.keys(NFTs).map((key, index) => {

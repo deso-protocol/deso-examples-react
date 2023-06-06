@@ -171,13 +171,13 @@ export const Stream = () => {
               <Space h="md" />
               <Group position="center">
                 <Button radius="xl" onClick={handleEndStream}>
-                  End Stream
+                  End Wave
                 </Button>
               </Group>
             </>
           ) : (
             <Group position="center">
-              <p>Stream suspended. Refresh to create a new stream.</p>
+              <p>Wave suspended. Refresh to create a new Wave.</p>
             </Group>
           )}
         </>
@@ -199,7 +199,7 @@ export const Stream = () => {
       {!stream && (
         <Group position="center">
           <Button radius="xl" onClick={handleCreateStream}>
-            Create Stream
+            Create Wave
           </Button>
         </Group>
       )}

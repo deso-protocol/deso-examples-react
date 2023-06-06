@@ -195,11 +195,12 @@ export const Profile = () => {
           <Tabs radius="sm" value={activeTab} onTabChange={setActiveTab}>
             <Tabs.List grow position="center">
               <Tabs.Tab value="first">
-                <Text fz="sm">Go Live</Text>
+                  <Text fz="sm">Posts</Text>
               </Tabs.Tab>
 
               <Tabs.Tab value="second">
-                <Text fz="sm">Posts</Text>
+              
+                <Text fz="sm">Your Wave</Text>
               </Tabs.Tab>
 
               <Tabs.Tab value="third">
@@ -207,13 +208,8 @@ export const Profile = () => {
               </Tabs.Tab>
             </Tabs.List>
 
+           
             <Tabs.Panel value="first">
-              <Space h="sm" />
-
-              <Stream />
-              <Space h={222} />
-            </Tabs.Panel>
-            <Tabs.Panel value="second">
               {posts.length > 0 ? (
                 posts.map((post, index) => (
                   <Paper
@@ -428,6 +424,12 @@ export const Profile = () => {
                   <Space h={222} />
                 </Center>
               )}
+            </Tabs.Panel>
+             <Tabs.Panel value="second">
+              <Space h="sm" />
+
+              <Stream />
+              <Space h={222} />
             </Tabs.Panel>
             <Tabs.Panel value="third">
               {Object.keys(NFTs).length > 0 ? (
