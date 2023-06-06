@@ -40,14 +40,12 @@ export const Search = () => {
         ? response.Profile.ExtraData.FeaturedImageURL
         : null,
     };
-    
+
     close();
 
     navigate(`/wave/${response.Profile.Username}`, {
       state,
     });
-    
-   
   };
 
   return (
@@ -69,7 +67,7 @@ export const Search = () => {
             SearchUser();
           }}
           variant="light"
-          color="green"
+          color="blue"
           radius="xl"
           size="xs"
         >
