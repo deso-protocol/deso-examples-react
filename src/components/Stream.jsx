@@ -23,10 +23,10 @@ export const Stream = () => {
   const { currentUser } = useContext(DeSoIdentityContext);
   const [streamName, setStreamName] = useState("");
   const [playbackId, setPlaybackId] = useState("");
-  const [streamTitle, setStreamTitle] = useState("");
+
   const [disable, { toggle }] = useDisclosure(false);
 
-  //Allowing user to create streams via livepeers useCreateStream hook
+  // Allowing user to create streams via livepeers useCreateStream hook
   const {
     mutate: createStream,
     data: stream,
@@ -43,41 +43,48 @@ export const Stream = () => {
     suspend: true,
   });
 
-  //The way we link users livepeer streams to their DeSo Profiles
-  const AttachStreamInfoToProfile = async () => {
-    try {
-      const request = {
-        UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-        ProfilePublicKeyBase58Check: "",
-        NewUsername: "",
-        MinFeeRateNanosPerKB: 1000,
-        NewCreatorBasisPoints: 100,
-        NewDescription: "",
-        NewStakeMultipleBasisPoints: 12500,
-        ExtraData: {
-          WavesStreamPlaybackId: stream.playbackId,
-          WavesStreamTitle: stream.name,
-        },
-      };
-
-      const response = await updateProfile(request);
-    } catch (error) {
-      
-    }
-  };
-
-  const handleEndStream = () => {
+  const handleEndStream = async () => {
     updateStream?.();
     setStreamName("");
+    try {
+    await updateProfile({
+      UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+      ProfilePublicKeyBase58Check: "",
+      NewUsername: "",
+      MinFeeRateNanosPerKB: 1000,
+      NewCreatorBasisPoints: 100,
+      NewDescription: "",
+      NewStakeMultipleBasisPoints: 12500,
+      ExtraData: {
+        WavesStreamPlaybackId: "",
+        WavesStreamTitle: "",
+      },
+    });
+  } catch (error) {
+    console.log("something happened: " + error);
+  }
+    console.log(currentUser);
   };
 
-  const handleCreateStream = () => {
-    createStream?.();
-    toggle();
-
-    setPlaybackId(stream?.playbackId);
-    setStreamTitle(stream?.name);
-  };
+  const attachStreamToDesoProfile = async () => {
+  try {
+    await updateProfile({
+      UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+      ProfilePublicKeyBase58Check: "",
+      NewUsername: "",
+      MinFeeRateNanosPerKB: 1000,
+      NewCreatorBasisPoints: 100,
+      NewDescription: "",
+      NewStakeMultipleBasisPoints: 12500,
+      ExtraData: {
+        WavesStreamPlaybackId: stream?.playbackId,
+        WavesStreamTitle: stream?.name,
+      },
+    });
+  } catch (error) {
+    console.log("something happened: " + error);
+  }
+};
 
   return (
     <Paper shadow="sm" p="lg" withBorder>
@@ -98,6 +105,10 @@ export const Stream = () => {
             <>
               <Center>
                 <Card shadow="sm" p="lg" radius="md" withBorder>
+                  <Button radius="xl" onClick={attachStreamToDesoProfile}>
+                  Launch Wave to DeSo Profile
+                </Button>
+                  
                   <Group position="center">
                     <h4>Stream Server:</h4>
                     <CopyButton
@@ -191,14 +202,24 @@ export const Stream = () => {
 
       {status === "error" && (
         <Group position="center">
-          <p>Error occurred while creating the stream.</p>
+          <p>Error occurred while creating your wave.</p>
         </Group>
       )}
 
       <Space h="md" />
       {!stream && (
         <Group position="center">
-          <Button radius="xl" onClick={handleCreateStream}>
+          <Button
+            radius="xl"
+            onClick={ () => {
+              toggle();
+           
+              createStream?.(); // Create the stream and store the result
+              
+            }}disabled={isLoading || !createStream}
+            
+          >
+          
             Create Wave
           </Button>
         </Group>

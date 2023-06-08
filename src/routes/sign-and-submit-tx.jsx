@@ -76,7 +76,7 @@ export const SignAndSubmitTx = () => {
             <form
               ref={formRef}
               onSubmit={async (e) => {
-                e.preventDefault();
+                e.preventDefault(); 
                 const form = formRef.current;
 
                 // check if the user can make a post

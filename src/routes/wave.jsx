@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Player } from "@livepeer/react";
 import {
   IconHeart,
   IconDiamond,
@@ -10,6 +11,7 @@ import {
   getFollowersForUser,
   getPostsForUser,
   getNFTsForUser,
+  getSingleProfile
 } from "deso-protocol";
 import {
   Avatar,
@@ -46,6 +48,8 @@ const useStyles = createStyles((theme) => ({
     },
   },
 }));
+
+
 export const Wave = () => {
   const { classes } = useStyles();
   const location = useLocation();
@@ -53,6 +57,7 @@ export const Wave = () => {
     location.state;
   const [posts, setPosts] = useState([]);
   const [NFTs, setNFTs] = useState([]);
+  const [profile, setProfile] = useState([]);
   const [followerInfo, setFollowers] = useState({ followers: 0, following: 0 });
   const [activeTab, setActiveTab] = useState("first");
 
@@ -73,7 +78,13 @@ export const Wave = () => {
         const nftData = await getNFTsForUser({
           UserPublicKeyBase58Check: userPublicKey,
         });
-
+        
+        const profileData = await getSingleProfile({
+          Username: userName,
+        });
+        
+console.log(profileData.Profile)
+setProfile(profileData.Profile)
         setNFTs(nftData.NFTsMap);
         setPosts(postData.Posts);
         setFollowers({ following, followers });
@@ -388,20 +399,47 @@ export const Wave = () => {
           )}
         </Tabs.Panel>
         <Tabs.Panel value="second">
-          <Center>
-            <Space h="md" />
+        {profile && profile.ExtraData ? (
+  profile.ExtraData.WavesStreamPlaybackId ? (
+    <Player
+      playbackId={profile.ExtraData.WavesStreamPlaybackId}
+      title={profile.ExtraData.WavesStreamTitle}
+      autoPlay
+      muted
+    />
+  ) : (
+    <Center>
+              <Space h="md" />
 
-            <Badge
-              size="md"
-              radius="sm"
-              variant="gradient"
-              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-            >
-              Coming Soon
-            </Badge>
+              <Badge
+                size="md"
+                radius="sm"
+                variant="gradient"
+                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              >
+               Not live right now
+              </Badge>
 
-            <Space h={222} />
-          </Center>
+              <Space h={222} />
+            </Center>
+  )
+) : (
+  <Center>
+              <Space h="md" />
+
+              <Badge
+                size="md"
+                radius="sm"
+                variant="gradient"
+                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              >
+               Not live right now
+              </Badge>
+
+              <Space h={222} />
+            </Center>
+)}
+          
         </Tabs.Panel>
       
         <Tabs.Panel value="third">

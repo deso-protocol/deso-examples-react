@@ -95,15 +95,14 @@ export const FollowerFeed = () => {
                         description: post.ProfileEntryResponse.Description
                           ? post.ProfileEntryResponse.Description
                           : null,
-                        largeProfPic: post.ProfileEntryResponse.ExtraData
-                          .LargeProfilePicURL
-                          ? post.ProfileEntryResponse.ExtraData
-                              .LargeProfilePicURL
-                          : null,
-                        featureImage: post.ProfileEntryResponse.ExtraData
-                          .FeaturedImageURL
-                          ? post.ProfileEntryResponse.ExtraData.FeaturedImageURL
-                          : null,
+                       largeProfPic: post.ProfileEntryResponse.ExtraData &&
+    post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
+    ? post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
+    : null,
+  featureImage: post.ProfileEntryResponse.ExtraData &&
+    post.ProfileEntryResponse.ExtraData.FeaturedImageURL
+    ? post.ProfileEntryResponse.ExtraData.FeaturedImageURL
+    : null,
                       };
 
                       navigate(`/wave/${post.ProfileEntryResponse.Username}`, {
