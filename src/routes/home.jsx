@@ -52,6 +52,15 @@ export const Home = () => {
             >
               Coming Soon
             </Badge>
+          </Center><Center>
+            <Badge
+              size="md"
+              radius="sm"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+            >
+              Coming Soon
+            </Badge>
           </Center>
           <Space h={222} />
         </Tabs.Panel>

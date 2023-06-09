@@ -11,6 +11,7 @@ configure({
     TransactionCountLimitMap: {
       SUBMIT_POST: "UNLIMITED",
       UPDATE_PROFILE: "UNLIMITED",
+      FOLLOW: 30,
     },
   },
 

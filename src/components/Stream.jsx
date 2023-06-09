@@ -1,6 +1,7 @@
 import { Player, useCreateStream, useUpdateStream } from "@livepeer/react";
-import { useMemo, useState, useContext } from "react";
+import { useMemo, useState, useContext, useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
+import { updateProfile, getIsFollowing, updateFollowingStatus } from "deso-protocol";
 import {
   Paper,
   Textarea,
@@ -16,13 +17,13 @@ import {
   Loader,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
-import { updateProfile } from "deso-protocol";
+
 import { DeSoIdentityContext } from "react-deso-protocol";
 
 export const Stream = () => {
   const { currentUser } = useContext(DeSoIdentityContext);
   const [streamName, setStreamName] = useState("");
-  const [playbackId, setPlaybackId] = useState("");
+  const [isFollowingWaves, setisFollowingWaves] = useState(false);
 
   const [disable, { toggle }] = useDisclosure(false);
 
@@ -47,44 +48,73 @@ export const Stream = () => {
     updateStream?.();
     setStreamName("");
     try {
-    await updateProfile({
-      UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-      ProfilePublicKeyBase58Check: "",
-      NewUsername: "",
-      MinFeeRateNanosPerKB: 1000,
-      NewCreatorBasisPoints: 100,
-      NewDescription: "",
-      NewStakeMultipleBasisPoints: 12500,
-      ExtraData: {
-        WavesStreamPlaybackId: "",
-        WavesStreamTitle: "",
-      },
-    });
-  } catch (error) {
-    console.log("something happened: " + error);
-  }
+      await updateProfile({
+        UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+        ProfilePublicKeyBase58Check: "",
+        NewUsername: "",
+        MinFeeRateNanosPerKB: 1000,
+        NewCreatorBasisPoints: 100,
+        NewDescription: "",
+        NewStakeMultipleBasisPoints: 12500,
+        ExtraData: {
+          WavesStreamPlaybackId: "",
+          WavesStreamTitle: "",
+        },
+      });
+    } catch (error) {
+      console.log("something happened: " + error);
+    }
     console.log(currentUser);
   };
 
+  useEffect(() => {
+    const isFollowingPublicKey = async () => {
+      try {
+        const result = await getIsFollowing({
+          PublicKeyBase58Check: currentUser?.PublicKeyBase58Check,
+          IsFollowingPublicKeyBase58Check:
+            "BC1YLfjx3jKZeoShqr2r3QttepoYmvJGEs7vbYx1WYoNmNW9FY5VUu6",
+        });
+        console.log("Is Following:", result.IsFollowing);
+        setisFollowingWaves(result.IsFollowing);
+      } catch (error) {
+        console.log("Something went wrong:", error);
+      }
+    };
+
+    isFollowingPublicKey();
+  }, [currentUser]);
+
   const attachStreamToDesoProfile = async () => {
-  try {
-    await updateProfile({
-      UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-      ProfilePublicKeyBase58Check: "",
-      NewUsername: "",
-      MinFeeRateNanosPerKB: 1000,
-      NewCreatorBasisPoints: 100,
-      NewDescription: "",
-      NewStakeMultipleBasisPoints: 12500,
-      ExtraData: {
-        WavesStreamPlaybackId: stream?.playbackId,
-        WavesStreamTitle: stream?.name,
-      },
-    });
-  } catch (error) {
-    console.log("something happened: " + error);
-  }
-};
+    try {
+      
+      if (isFollowingWaves === false) {
+      
+      await updateFollowingStatus({
+        MinFeeRateNanosPerKB: 1000,
+        IsUnfollow: false,
+        FollowedPublicKeyBase58Check:  "BC1YLfjx3jKZeoShqr2r3QttepoYmvJGEs7vbYx1WYoNmNW9FY5VUu6",
+        FollowerPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+      });
+    
+    }
+      await updateProfile({
+        UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+        ProfilePublicKeyBase58Check: "",
+        NewUsername: "",
+        MinFeeRateNanosPerKB: 1000,
+        NewCreatorBasisPoints: 100,
+        NewDescription: "",
+        NewStakeMultipleBasisPoints: 12500,
+        ExtraData: {
+          WavesStreamPlaybackId: stream?.playbackId,
+          WavesStreamTitle: stream?.name,
+        },
+      });
+    } catch (error) {
+      console.log("something happened: " + error);
+    }
+  };
 
   return (
     <Paper shadow="sm" p="lg" withBorder>
@@ -106,9 +136,9 @@ export const Stream = () => {
               <Center>
                 <Card shadow="sm" p="lg" radius="md" withBorder>
                   <Button radius="xl" onClick={attachStreamToDesoProfile}>
-                  Launch Wave to DeSo Profile
-                </Button>
-                  
+                    Launch Wave to DeSo Profile
+                  </Button>
+
                   <Group position="center">
                     <h4>Stream Server:</h4>
                     <CopyButton
@@ -211,15 +241,13 @@ export const Stream = () => {
         <Group position="center">
           <Button
             radius="xl"
-            onClick={ () => {
+            onClick={() => {
               toggle();
-           
+
               createStream?.(); // Create the stream and store the result
-              
-            }}disabled={isLoading || !createStream}
-            
+            }}
+            disabled={isLoading || !createStream}
           >
-          
             Create Wave
           </Button>
         </Group>
