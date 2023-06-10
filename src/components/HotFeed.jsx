@@ -63,7 +63,7 @@ export const HotFeed = () => {
   return (
     <>
       <div>
-        <Space h="md" />
+        
         {hotFeed && hotFeed.length > 0 ? (
           hotFeed.map((post) => (
             <Paper
@@ -103,22 +103,16 @@ export const HotFeed = () => {
                   }}
                   variant="transparent"
                 >
-                  {post.ProfileEntryResponse &&
-                  post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ? (
-                    <Avatar
-                      radius="lg"
-                      size="lg"
-                      src={
-                        post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL
-                      }
-                    />
-                  ) : (
-                    <Avatar
-                      radius="lg"
-                      size="lg"
-                      src={`https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`}
-                    />
-                  )}
+                  <Avatar
+   radius="xl"
+  size="lg"
+  src={
+    post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ||
+    `https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`|| null
+  }
+/>
+
+                
 
                   <Space w="xs" />
                   <Text weight="bold" size="sm">
@@ -148,7 +142,7 @@ export const HotFeed = () => {
                 >
                   <Center>
                     <Avatar
-                      radius="lg"
+                      radius="xl"
                       size="lg"
                       src={
                         post.RepostedPostEntryResponse?.ProfileEntryResponse

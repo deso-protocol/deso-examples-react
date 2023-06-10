@@ -36,7 +36,7 @@ export const SignAndSubmitTx = () => {
         <Container size="30rem" px={0}>
           <Paper m="md" shadow="lg" radius="sm" p="xl" withBorder>
             <Group>
-              <Avatar size="lg" radius="lg" alt="Profile Picture" />
+              <Avatar size="xl" radius="xl" alt="Profile Picture" />
               <Text fz="lg" fw={777} variant="gradient" truncate></Text>
             </Group>
             <Space h="sm" />
@@ -117,10 +117,11 @@ export const SignAndSubmitTx = () => {
               }}
             >
               <Group>
+                
                 <Avatar
                   size="lg"
-                  radius="lg"
-                  src={`https://node.deso.org/api/v0/get-single-profile-picture/${currentUser?.PublicKeyBase58Check}`}
+                  radius="xl"
+                  src={`https://node.deso.org/api/v0/get-single-profile-picture/${currentUser?.PublicKeyBase58Check}` }
                   alt="Profile Picture"
                 />
                 <Text fz="lg" fw={777} variant="gradient" truncate>

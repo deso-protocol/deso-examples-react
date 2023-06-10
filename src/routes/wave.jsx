@@ -59,7 +59,7 @@ export const Wave = () => {
   const [NFTs, setNFTs] = useState([]);
   const [profile, setProfile] = useState([]);
   const [followerInfo, setFollowers] = useState({ followers: 0, following: 0 });
-  const [activeTab, setActiveTab] = useState("first");
+  const [activeTab, setActiveTab] = useState("second");
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -106,7 +106,7 @@ setProfile(profileData.Profile)
         <Center>
           <Avatar
             size="lg"
-            radius="lg"
+            radius="xl"
             src={
               `https://node.deso.org/api/v0/get-single-profile-picture/${userPublicKey}` || {
                 largeProfPic,
@@ -157,6 +157,7 @@ setProfile(profileData.Profile)
         </Center>
       </Card>
       <Space h="xl" />
+         
 
       <Tabs  radius="sm" value={activeTab} onTabChange={setActiveTab}>
       
@@ -190,7 +191,7 @@ setProfile(profileData.Profile)
                   {post.ProfileEntryResponse &&
                   post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ? (
                     <Avatar
-                      radius="lg"
+                    radius="xl"
                       size="lg"
                       src={
                         post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL
@@ -198,7 +199,7 @@ setProfile(profileData.Profile)
                     />
                   ) : (
                     <Avatar
-                      radius="lg"
+                    radius="xl"
                       size="lg"
                       src={`https://node.deso.org/api/v0/get-single-profile-picture/${userPublicKey}`}
                     />
@@ -231,7 +232,7 @@ setProfile(profileData.Profile)
                   >
                     <Center>
                       <Avatar
-                        radius="lg"
+                       radius="xl"
                         size="lg"
                         src={
                           post.RepostedPostEntryResponse?.ProfileEntryResponse
@@ -459,7 +460,7 @@ setProfile(profileData.Profile)
                   <Center>
                     <Avatar
                       size="lg"
-                      radius="lg"
+                      radius="xl"
                       src={
                         `https://node.deso.org/api/v0/get-single-profile-picture/${userPublicKey}` ||
                         null

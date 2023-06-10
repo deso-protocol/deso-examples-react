@@ -12,7 +12,10 @@
     "start": {
       "name": "start",
       "command": "npm run start",
-      "runAtStart": true
+      "runAtStart": true,
+      "preview": {
+        "port": 3000
+      }
     },
     "build": {
       "name": "build",

@@ -66,7 +66,7 @@ export const NotificationsPage = () => {
                     <Paper radius="lg" shadow="lg" p="md" withBorder>
                       <Group>
                         <Avatar
-                          radius="sm"
+                           radius="xl"
                           size="sm"
                           src={
                             `https://node.deso.org/api/v0/get-single-profile-picture/${notification.Metadata.TransactorPublicKeyBase58Check}` ||

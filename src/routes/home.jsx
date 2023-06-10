@@ -1,6 +1,7 @@
 import { SignAndSubmitTx } from "../routes/sign-and-submit-tx";
 import { Space, Tabs, Text, Center, Paper, Badge } from "@mantine/core";
 import { HotFeed } from "../components/HotFeed";
+import { WavesFeed } from "../components/WavesFeed";
 import { FollowerFeed } from "../components/FollowerFeed";
 import { useState } from "react";
 import { BsFire } from "react-icons/bs";
@@ -8,7 +9,7 @@ import { GiWaveCrest } from "react-icons/gi";
 import { FaUsers } from "react-icons/fa";
 
 export const Home = () => {
-  const [activeTab, setActiveTab] = useState("third");
+  const [activeTab, setActiveTab] = useState("first");
 
   return (
     <>
@@ -43,25 +44,7 @@ export const Home = () => {
 
         <Tabs.Panel value="first">
           <Space h={77} />
-          <Center>
-            <Badge
-              size="md"
-              radius="sm"
-              variant="gradient"
-              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-            >
-              Coming Soon
-            </Badge>
-          </Center><Center>
-            <Badge
-              size="md"
-              radius="sm"
-              variant="gradient"
-              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-            >
-              Coming Soon
-            </Badge>
-          </Center>
+         <WavesFeed />
           <Space h={222} />
         </Tabs.Panel>
         <Tabs.Panel value="second">
