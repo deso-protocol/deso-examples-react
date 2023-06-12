@@ -22,7 +22,7 @@ import { DeSoIdentityProvider } from "react-deso-protocol";
 
 const livepeerClient = createReactClient({
   provider: studioProvider({
-    apiKey: "058d7448-6480-4668-b6b7-229c310f0d6a",
+    apiKey: "2ff0453c-bfb5-461a-87d7-1e421ce7c5e2",
   }),
 });
 
@@ -71,7 +71,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    
     <LivepeerConfig client={livepeerClient}>
       <MantineProvider
         theme={{ colorScheme: "dark" }}
