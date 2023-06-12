@@ -230,7 +230,7 @@ export function MantineNavBar() {
           ))
         ) : (
           <Text fz="xs" fw={500} lineClamp={2}>
-            None of your followers are livestreams.
+            None of your followers are live.
           </Text>
         )
       ) : (
