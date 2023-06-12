@@ -108,7 +108,7 @@ export const SignAndSubmitTx = () => {
                     VideoURLs: [],
                   },
                 }).then((resp) => {
-                  console.log(resp);
+                  
                   alert("Post submitted!");
                 });
 

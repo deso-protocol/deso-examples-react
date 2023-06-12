@@ -70,7 +70,6 @@ export const Stream = () => {
     } catch (error) {
       console.log("something happened: " + error);
     }
-    console.log(currentUser);
   };
 
   //On the instance where a user clicks off their profile while streaming or the 'end wave' doesnt work
@@ -93,7 +92,6 @@ export const Stream = () => {
     } catch (error) {
       console.log("something happened: " + error);
     }
-    console.log(currentUser);
   };
 
   useEffect(() => {

@@ -1,4 +1,8 @@
-import { getPostsStateless, getFollowersForUser, getIsFollowing } from "deso-protocol";
+import {
+  getPostsStateless,
+  getFollowersForUser,
+  getIsFollowing,
+} from "deso-protocol";
 import { useEffect, useState, useContext } from "react";
 import { DeSoIdentityContext } from "react-deso-protocol";
 
@@ -59,129 +63,122 @@ export const FollowerFeed = () => {
           GetPostsForFollowFeed: true,
           FetchSubcomments: true,
         });
-      
-     setFollowerFeed(followerFeedData.PostsFound);
+
+        setFollowerFeed(followerFeedData.PostsFound);
       } catch (error) {
         console.error("Error fetching user hotFeed:", error);
       }
     };
-    
+
     const fetchWaves = async () => {
       try {
-          
         //Getting Profiles that are following the Waves_Streams Account
         const result = await getFollowersForUser({
           Username: "Waves_Streams",
-          GetEntriesFollowingUsername: true, 
+          GetEntriesFollowingUsername: true,
           //Will have to increase as the followers increase
           NumToFetch: 20,
         });
-       
-        console.log("Waves:", result.PublicKeyToProfileEntry);
-        setWaves(Object.values(result.PublicKeyToProfileEntry))
+
+        setWaves(Object.values(result.PublicKeyToProfileEntry));
       } catch (error) {
         console.log("Something went wrong:", error);
       }
-    }
-    
-    const filteredPosts = waves.filter(
-    (post) =>
-      post.ExtraData?.WavesStreamPlaybackId &&
-      post.ExtraData?.WavesStreamPlaybackId !== "" &&
-      post.ExtraData?.WavesStreamTitle &&
-      post.ExtraData?.WavesStreamTitle !== ""
-  );
-  
-  // Check if the current user is following the profiles in filteredPosts
-const fetchFollowingPosts = async () => {
-  const followingPosts = [];
-  for (const post of filteredPosts) {
-    const request = {
-      PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-      IsFollowingPublicKeyBase58Check: post.PublicKeyBase58Check,
     };
-    const response = await getIsFollowing(request);
-    if (response.IsFollowing === true) {
-      followingPosts.push(post);
-    }
-  }
-  setFollowingWaves(followingPosts);
-};
-    
+
+    const filteredPosts = waves.filter(
+      (post) =>
+        post.ExtraData?.WavesStreamPlaybackId &&
+        post.ExtraData?.WavesStreamPlaybackId !== "" &&
+        post.ExtraData?.WavesStreamTitle &&
+        post.ExtraData?.WavesStreamTitle !== ""
+    );
+
+    // Check if the current user is following the profiles in filteredPosts
+    const fetchFollowingPosts = async () => {
+      const followingPosts = [];
+      for (const post of filteredPosts) {
+        const request = {
+          PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+          IsFollowingPublicKeyBase58Check: post.PublicKeyBase58Check,
+        };
+        const response = await getIsFollowing(request);
+        if (response.IsFollowing === true) {
+          followingPosts.push(post);
+        }
+      }
+      setFollowingWaves(followingPosts);
+    };
+
     if (currentUser) {
       fetchFollowerFeed();
       fetchWaves();
       fetchFollowingPosts();
     }
   }, [currentUser, userPublicKey]);
-  
-  
 
   return (
     <>
-    
-    <div>
-     {currentUser ? (
-  followingWaves.length > 0 ? (
-    followingWaves.map((post) => (
-            <Paper
-      m="md"
-      shadow="lg"
-      radius="md"
-      p="xl"
-      withBorder
-      key={post.PublicKeyBase58Check}
-      className={classes.comment}
-    >
-      <Center>
-        <ActionIcon
-          onClick={() => {
-            const state = {
-              userPublicKey: post.PublicKeyBase58Check,
-              userName: post.Username || post.PublicKeyBase58Check,
-              description: post.Description || null,
-              largeProfPic: post.ExtraData?.LargeProfilePicURL || null,
-              featureImage: post.ExtraData?.FeaturedImageURL || null,
-            };
+      <div>
+        {currentUser
+          ? followingWaves.length > 0
+            ? followingWaves.map((post) => (
+                <Paper
+                  m="md"
+                  shadow="lg"
+                  radius="md"
+                  p="xl"
+                  withBorder
+                  key={post.PublicKeyBase58Check}
+                  className={classes.comment}
+                >
+                  <Center>
+                    <ActionIcon
+                      onClick={() => {
+                        const state = {
+                          userPublicKey: post.PublicKeyBase58Check,
+                          userName: post.Username || post.PublicKeyBase58Check,
+                          description: post.Description || null,
+                          largeProfPic:
+                            post.ExtraData?.LargeProfilePicURL || null,
+                          featureImage:
+                            post.ExtraData?.FeaturedImageURL || null,
+                        };
 
-            navigate(`/wave/${post.Username}`, {
-              state,
-            });
-          }}
-          variant="transparent"
-        >
-          <Avatar
-            radius="xl"
-            size="lg"
-            src={
-              post.ExtraData?.LargeProfilePicURL ||
-              `https://node.deso.org/api/v0/get-single-profile-picture/${post.PublicKeyBase58Check}` ||
-              null
-            }
-          />
-          <Space w="xs" />
-          <Text weight="bold" size="sm">
-            {post.Username}
-          </Text>
-        </ActionIcon>
-      </Center>
-      <Space h="xl" />
-      <Player
-        playbackId={post.ExtraData.WavesStreamPlaybackId}
-        title={post.ExtraData.WavesStreamTitle}
-        automute
-      />
-    </Paper>
-          ))
-        ) : (
-          null
-        )
-      ) : (
-        null
-      )}
-    </div>
-    
-      <div>    
+                        navigate(`/wave/${post.Username}`, {
+                          state,
+                        });
+                      }}
+                      variant="transparent"
+                    >
+                      <Avatar
+                        radius="xl"
+                        size="lg"
+                        src={
+                          post.ExtraData?.LargeProfilePicURL ||
+                          `https://node.deso.org/api/v0/get-single-profile-picture/${post.PublicKeyBase58Check}` ||
+                          null
+                        }
+                      />
+                      <Space w="xs" />
+                      <Text weight="bold" size="sm">
+                        {post.Username}
+                      </Text>
+                    </ActionIcon>
+                  </Center>
+                  <Space h="xl" />
+                  <Player
+                    playbackId={post.ExtraData.WavesStreamPlaybackId}
+                    title={post.ExtraData.WavesStreamTitle}
+                    automute
+                  />
+                </Paper>
+              ))
+            : null
+          : null}
+      </div>
+
+      <div>
         {currentUser ? (
           followerFeed && followerFeed.length > 0 ? (
             followerFeed.map((post) => (
@@ -205,14 +202,18 @@ const fetchFollowingPosts = async () => {
                         description: post.ProfileEntryResponse.Description
                           ? post.ProfileEntryResponse.Description
                           : null,
-                       largeProfPic: post.ProfileEntryResponse.ExtraData &&
-    post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
-    ? post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
-    : null,
-  featureImage: post.ProfileEntryResponse.ExtraData &&
-    post.ProfileEntryResponse.ExtraData.FeaturedImageURL
-    ? post.ProfileEntryResponse.ExtraData.FeaturedImageURL
-    : null,
+                        largeProfPic:
+                          post.ProfileEntryResponse.ExtraData &&
+                          post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
+                            ? post.ProfileEntryResponse.ExtraData
+                                .LargeProfilePicURL
+                            : null,
+                        featureImage:
+                          post.ProfileEntryResponse.ExtraData &&
+                          post.ProfileEntryResponse.ExtraData.FeaturedImageURL
+                            ? post.ProfileEntryResponse.ExtraData
+                                .FeaturedImageURL
+                            : null,
                       };
 
                       navigate(`/wave/${post.ProfileEntryResponse.Username}`, {
@@ -265,7 +266,7 @@ const fetchFollowingPosts = async () => {
                   >
                     <Center>
                       <Avatar
-                         radius="xl"
+                        radius="xl"
                         size="lg"
                         src={
                           post.RepostedPostEntryResponse?.ProfileEntryResponse

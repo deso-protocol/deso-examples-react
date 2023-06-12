@@ -82,7 +82,6 @@ export const Wave = () => {
           Username: userName,
         });
 
-        console.log(profileData.Profile);
         setProfile(profileData.Profile);
         setNFTs(nftData.NFTsMap);
         setPosts(postData.Posts);

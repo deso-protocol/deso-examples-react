@@ -12,14 +12,12 @@ export const Search = () => {
   const navigate = useNavigate();
 
   const SearchUser = async () => {
-    
     const request = {
       Username: value,
       NoErrorOnMissing: true,
     };
 
     const response = await getSingleProfile(request);
-    console.log(response);
 
     if (response === null) {
       setuserNotFound("User not found");
@@ -34,12 +32,16 @@ export const Search = () => {
       description: response.Profile.Description
         ? response.Profile.Description
         : null,
-     largeProfPic: response.Profile.ExtraData && response.Profile.ExtraData.LargeProfilePicURL
-        ? response.Profile.ExtraData.LargeProfilePicURL
-        : null,
-      featureImage: response.Profile.ExtraData && response.Profile.ExtraData.FeaturedImageURL
-        ? response.Profile.ExtraData.FeaturedImageURL
-        : null,
+      largeProfPic:
+        response.Profile.ExtraData &&
+        response.Profile.ExtraData.LargeProfilePicURL
+          ? response.Profile.ExtraData.LargeProfilePicURL
+          : null,
+      featureImage:
+        response.Profile.ExtraData &&
+        response.Profile.ExtraData.FeaturedImageURL
+          ? response.Profile.ExtraData.FeaturedImageURL
+          : null,
     };
 
     close();
