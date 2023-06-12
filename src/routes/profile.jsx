@@ -39,6 +39,7 @@ import {
   IconSettings,
 } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
+import { SetUsername } from "../components/SetUsername";
 
 const useStyles = createStyles((theme) => ({
   comment: {
@@ -68,7 +69,9 @@ export const Profile = () => {
   const [followerInfo, setFollowers] = useState({ followers: 0, following: 0 });
   const userPublicKey = currentUser?.PublicKeyBase58Check;
   const [activeTab, setActiveTab] = useState("first");
-
+  const [newUsername, setNewUsername] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -104,23 +107,95 @@ export const Profile = () => {
     }
   }, [currentUser, userPublicKey]);
 
+  const handleUpdateUsername = async () => {
+    try {
+      await updateProfile({
+        UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+        ProfilePublicKeyBase58Check: "",
+        NewUsername: newUsername,
+        MinFeeRateNanosPerKB: 1000,
+        NewCreatorBasisPoints: 100,
+        NewDescription: "",
+        NewStakeMultipleBasisPoints: 12500,
+      });
+    } catch (error) {
+      console.log("something happened: " + error);
+    }
+
+    window.location.reload();
+  };
+
   return (
     <>
       <Modal opened={opened} onClose={close} title="Update Profile" centered>
-        <Group position="center" grow>
-          <TextInput type="text" label="Username" placeholder="New username" />
-        </Group>
+        <Paper m="md" shadow="lg" radius="sm" p="xl" withBorder>
+          <Center>
+            <Badge
+              size="md"
+              radius="sm"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+            >
+              Enter Username
+            </Badge>
 
-        <Space h="sm" />
+            <Space h="xs" />
+          </Center>
+          <Group position="center" grow>
+            <TextInput
+              type="text"
+              label="Username"
+              value={newUsername}
+              placeholder="New username"
+              onChange={async (e) => {
+                setNewUsername(e.target.value);
+                e.preventDefault();
 
-        <Space h="sm" />
-        <Group position="center" grow>
-          <Textarea label="Bio" placeholder="New description" />
-        </Group>
-        <Space h="sm" />
-        <Group position="right">
-          <Button>Update</Button>
-        </Group>
+                let regex = /^[a-zA-Z0-9_]*$/;
+                if (!regex.test(e.target.value)) {
+                  setErrorMessage("Username cannot contain special characters");
+                  setIsButtonDisabled(true);
+                } else {
+                  setErrorMessage("");
+
+                  try {
+                    const request = {
+                      PublicKeyBase58Check: "",
+                      Username: e.target.value,
+                      NoErrorOnMissing: true,
+                    };
+
+                    try {
+                      const userFound = await getSingleProfile(request);
+
+                      if (userFound === null) {
+                        setErrorMessage("");
+                        setIsButtonDisabled(false);
+                      } else {
+                        setErrorMessage("Username is not available");
+                        setIsButtonDisabled(true);
+                      }
+                    } catch (error) {
+                      setIsButtonDisabled(true);
+                      setErrorMessage("");
+                    }
+                  } catch (error) {
+                    console.log(error);
+                  }
+                }
+              }}
+              error={errorMessage}
+            />
+          </Group>
+
+          <Space h="sm" />
+
+          <Group position="right">
+            <Button disabled={isButtonDisabled} onClick={handleUpdateUsername}>
+              Update
+            </Button>
+          </Group>
+        </Paper>
       </Modal>
 
       {currentUser ? (
@@ -134,7 +209,9 @@ export const Profile = () => {
               />
             </Card.Section>
             <Space h="sm" />
-
+            <Button variant="light" compact>
+              <IconSettings onClick={open} />
+            </Button>
             <Center>
               <Avatar
                 size="lg"
@@ -152,9 +229,31 @@ export const Profile = () => {
                 {getDisplayName(currentUser)}
               </Text>
             </Center>
-            <Space h="md" />
-            <Stream />
-            <Space h="md" />
+
+            {currentUser.ProfileEntryResponse === null ? (
+              <>
+                <Divider my="sm" />
+                <Space h="sm" />
+                <Center>
+                  <Badge
+                    size="md"
+                    radius="sm"
+                    variant="gradient"
+                    gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+                  >
+                    Go To Settings and Create A Username to Stream
+                  </Badge>
+                </Center>
+                <Space h="sm" />
+                <Divider my="sm" />
+              </>
+            ) : (
+              <>
+                <Stream />
+              </>
+            )}
+            <Space h="sm" />
+
             <Paper shadow="xl" radius="md" p="xl">
               <Text
                 fz="sm"
@@ -206,7 +305,7 @@ export const Profile = () => {
             </Tabs.List>
 
             <Tabs.Panel value="first">
-              {posts.length > 0 ? (
+              {posts && posts.length > 0 ? (
                 posts.map((post, index) => (
                   <Paper
                     m="md"
@@ -423,7 +522,7 @@ export const Profile = () => {
             </Tabs.Panel>
 
             <Tabs.Panel value="second">
-              {Object.keys(NFTs).length > 0 ? (
+              {NFTs && Object.keys(NFTs).length > 0 ? (
                 Object.keys(NFTs).map((key, index) => {
                   const nft = NFTs[key];
                   return (

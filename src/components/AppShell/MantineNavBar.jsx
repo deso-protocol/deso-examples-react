@@ -68,7 +68,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   linkIcon: {
-      ref: getStylesRef("icon"),
+    ref: getStylesRef("icon"),
     color:
       theme.colorScheme === "dark"
         ? theme.colors.dark[2]
@@ -229,13 +229,13 @@ export function MantineNavBar() {
             </div>
           ))
         ) : (
-          <Text fz="xs" fw={500} lineClamp={1}>
-            None of your followers are live.
+          <Text fz="xs" fw={500} lineClamp={2}>
+            None of your followers are livestreams.
           </Text>
         )
       ) : (
-        <Text fz="xs" fw={500} lineClamp={1}>
-          Login to view your followers' lives.
+        <Text fz="xs" fw={500} lineClamp={2}>
+          Login to view your followers livestreams.
         </Text>
       )}
 
