@@ -17,7 +17,8 @@ import {
   getStylesRef,
   rem,
   Loader,
-  ActionIcon,
+  UnstyledButton,
+  Space,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { GiWaveCrest } from "react-icons/gi";
@@ -106,6 +107,15 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
+  linkIcon: {
+    ref: getStylesRef("icon"),
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[2]
+        : theme.colors.gray[6],
+    marginRight: theme.spacing.sm,
+  },
+
   linkActive: {
     "&, &:hover": {
       backgroundColor: theme.fn.variant({
@@ -151,6 +161,7 @@ export const MantineHeader = () => {
       }}
     >
       <item.icon className={classes.linkIcon} stroke={1.5} />
+      <Space h="xs" />
       <span>{item.label}</span>
     </Link>
   ));
@@ -165,15 +176,17 @@ export const MantineHeader = () => {
             <Box pb={5}>
               <Header height={60} px="md">
                 <Group position="apart" sx={{ height: "100%" }}>
-                  <Text
-                    fz="lg"
-                    fw={1000}
-                    inherit
-                    variant="gradient"
-                    component="span"
-                  >
-                    Waves
-                  </Text>
+                  <UnstyledButton to="/" component={Link}>
+                    <Text
+                      fz="lg"
+                      fw={1000}
+                      inherit
+                      variant="gradient"
+                      component="span"
+                    >
+                      Waves
+                    </Text>
+                  </UnstyledButton>
 
                   <Group className={classes.hiddenMobile}>
                     {isLoading ? (
