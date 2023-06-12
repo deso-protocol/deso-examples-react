@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { MantineAppShell } from "../components/AppShell/AppShell";
 import { Loader, Center } from "@mantine/core";
-
+import ScrollToTop from "../components/ScrollToTop";
 configure({
   spendingLimitOptions: {
     GlobalDESOLimit: 10000000, // 0.01 DESO
@@ -31,6 +31,7 @@ export const Root = () => {
         ) : (
           <Outlet />
         )}
+        <ScrollToTop />
       </div>
     </MantineAppShell>
   );

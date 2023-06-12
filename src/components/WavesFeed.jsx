@@ -38,12 +38,12 @@ useEffect(() => {
         //Getting Profiles that are following the Waves_Streams Account
         const result = await getFollowersForUser({
           Username: "Waves_Streams",
-          GetEntriesFollowingUsername: true,
+          GetEntriesFollowingUsername: true, 
           //Will have to increase as the followers increase
           NumToFetch: 20,
         });
        
-        console.log("Waves:", result.PublicKeyToProfileEntry);
+        
         setWavesFeed(Object.values(result.PublicKeyToProfileEntry))
       } catch (error) {
         console.log("Something went wrong:", error);

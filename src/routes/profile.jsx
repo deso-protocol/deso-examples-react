@@ -153,6 +153,8 @@ export const Profile = () => {
               </Text>
             </Center>
             <Space h="md" />
+            <Stream />
+            <Space h="md" />
             <Paper shadow="xl" radius="md" p="xl">
               <Text
                 fz="sm"
@@ -199,10 +201,6 @@ export const Profile = () => {
               </Tabs.Tab>
 
               <Tabs.Tab value="second">
-                <Text fz="sm">Your Wave</Text>
-              </Tabs.Tab>
-
-              <Tabs.Tab value="third">
                 <Text fz="sm">NFTs</Text>
               </Tabs.Tab>
             </Tabs.List>
@@ -423,13 +421,8 @@ export const Profile = () => {
                 </Center>
               )}
             </Tabs.Panel>
-            <Tabs.Panel value="second">
-              <Space h="sm" />
 
-              <Stream />
-              <Space h={222} />
-            </Tabs.Panel>
-            <Tabs.Panel value="third">
+            <Tabs.Panel value="second">
               {Object.keys(NFTs).length > 0 ? (
                 Object.keys(NFTs).map((key, index) => {
                   const nft = NFTs[key];

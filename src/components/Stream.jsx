@@ -1,7 +1,11 @@
 import { Player, useCreateStream, useUpdateStream } from "@livepeer/react";
 import { useMemo, useState, useContext, useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { updateProfile, getIsFollowing, updateFollowingStatus } from "deso-protocol";
+import {
+  updateProfile,
+  getIsFollowing,
+  updateFollowingStatus,
+} from "deso-protocol";
 import {
   Paper,
   Textarea,
@@ -15,6 +19,7 @@ import {
   Card,
   Badge,
   Loader,
+  Text,
 } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons-react";
 
@@ -24,6 +29,7 @@ export const Stream = () => {
   const { currentUser } = useContext(DeSoIdentityContext);
   const [streamName, setStreamName] = useState("");
   const [isFollowingWaves, setisFollowingWaves] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const [disable, { toggle }] = useDisclosure(false);
 
@@ -67,6 +73,29 @@ export const Stream = () => {
     console.log(currentUser);
   };
 
+  //On the instance where a user clicks off their profile while streaming or the 'end wave' doesnt work
+  //Users can clear the playbackid and title
+  const clearWave = async () => {
+    try {
+      await updateProfile({
+        UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+        ProfilePublicKeyBase58Check: "",
+        NewUsername: "",
+        MinFeeRateNanosPerKB: 1000,
+        NewCreatorBasisPoints: 100,
+        NewDescription: "",
+        NewStakeMultipleBasisPoints: 12500,
+        ExtraData: {
+          WavesStreamPlaybackId: "",
+          WavesStreamTitle: "",
+        },
+      });
+    } catch (error) {
+      console.log("something happened: " + error);
+    }
+    console.log(currentUser);
+  };
+
   useEffect(() => {
     const isFollowingPublicKey = async () => {
       try {
@@ -87,17 +116,17 @@ export const Stream = () => {
 
   const attachStreamToDesoProfile = async () => {
     try {
-      
+      setIsButtonDisabled(true);
+
       if (isFollowingWaves === false) {
-      
-      await updateFollowingStatus({
-        MinFeeRateNanosPerKB: 1000,
-        IsUnfollow: false,
-        FollowedPublicKeyBase58Check:  "BC1YLfjx3jKZeoShqr2r3QttepoYmvJGEs7vbYx1WYoNmNW9FY5VUu6",
-        FollowerPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
-      });
-    
-    }
+        await updateFollowingStatus({
+          MinFeeRateNanosPerKB: 1000,
+          IsUnfollow: false,
+          FollowedPublicKeyBase58Check:
+            "BC1YLfjx3jKZeoShqr2r3QttepoYmvJGEs7vbYx1WYoNmNW9FY5VUu6",
+          FollowerPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+        });
+      }
       await updateProfile({
         UpdaterPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
         ProfilePublicKeyBase58Check: "",
@@ -113,12 +142,25 @@ export const Stream = () => {
       });
     } catch (error) {
       console.log("something happened: " + error);
+      setIsButtonDisabled(false);
     }
   };
 
   return (
     <Paper shadow="sm" p="lg" withBorder>
       <>
+        <Tooltip label="Clear Idle Wave from your profile">
+          <Button size="xs" color="red" radius="xl" onClick={clearWave}>
+            Clear Wave
+          </Button>
+        </Tooltip>
+        <Space h="md" />
+        <Center>
+          <Text fz="lg" fw={777} c="dimmed" truncate>
+            Start Streaming
+          </Text>
+        </Center>
+        <Space h="md" />
         <Textarea
           placeholder="Enter Stream Title"
           variant="filled"
@@ -135,7 +177,10 @@ export const Stream = () => {
             <>
               <Center>
                 <Card shadow="sm" p="lg" radius="md" withBorder>
-                  <Button radius="xl" onClick={attachStreamToDesoProfile}>
+                  <Button
+                    disabled={isButtonDisabled}
+                    onClick={attachStreamToDesoProfile}
+                  >
                     Launch Wave to DeSo Profile
                   </Button>
 
@@ -211,7 +256,12 @@ export const Stream = () => {
 
               <Space h="md" />
               <Group position="center">
-                <Button radius="xl" onClick={handleEndStream}>
+                <Button
+                  fullWidth
+                  color="red"
+                  radius="xl"
+                  onClick={handleEndStream}
+                >
                   End Wave
                 </Button>
               </Group>

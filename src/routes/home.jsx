@@ -43,15 +43,17 @@ export const Home = () => {
         </Tabs.List>
 
         <Tabs.Panel value="first">
-          <Space h={77} />
+          
          <WavesFeed />
-          <Space h={222} />
+          <Space h={55} />
         </Tabs.Panel>
         <Tabs.Panel value="second">
           <FollowerFeed />
+          <Space h={55} />
         </Tabs.Panel>
         <Tabs.Panel value="third">
           <HotFeed />
+          <Space h={55} />
         </Tabs.Panel>
       </Tabs>
 

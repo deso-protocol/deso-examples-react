@@ -11,7 +11,7 @@ import {
   getFollowersForUser,
   getPostsForUser,
   getNFTsForUser,
-  getSingleProfile
+  getSingleProfile,
 } from "deso-protocol";
 import {
   Avatar,
@@ -49,7 +49,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-
 export const Wave = () => {
   const { classes } = useStyles();
   const location = useLocation();
@@ -59,7 +58,7 @@ export const Wave = () => {
   const [NFTs, setNFTs] = useState([]);
   const [profile, setProfile] = useState([]);
   const [followerInfo, setFollowers] = useState({ followers: 0, following: 0 });
-  const [activeTab, setActiveTab] = useState("second");
+  const [activeTab, setActiveTab] = useState("first");
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -78,13 +77,13 @@ export const Wave = () => {
         const nftData = await getNFTsForUser({
           UserPublicKeyBase58Check: userPublicKey,
         });
-        
+
         const profileData = await getSingleProfile({
           Username: userName,
         });
-        
-console.log(profileData.Profile)
-setProfile(profileData.Profile)
+
+        console.log(profileData.Profile);
+        setProfile(profileData.Profile);
         setNFTs(nftData.NFTsMap);
         setPosts(postData.Posts);
         setFollowers({ following, followers });
@@ -115,12 +114,46 @@ setProfile(profileData.Profile)
             alt="Profile Picture"
           />
         </Center>
+
         <Center>
           <Text fz="lg" fw={777} variant="gradient" truncate>
-            {userName}
+            {userName}'s Wave
           </Text>
         </Center>
+
         <Space h="md" />
+        <Card.Section>
+          {profile &&
+          profile.ExtraData &&
+          profile.ExtraData.WavesStreamPlaybackId &&
+          profile.ExtraData.WavesStreamTitle ? (
+            <Player
+              playbackId={profile.ExtraData?.WavesStreamPlaybackId}
+              title={profile.ExtraData?.WavesStreamTitle}
+              autoPlay
+              muted
+            />
+          ) : (
+            <Divider
+              my="xs"
+              label={
+                <>
+                  <Badge
+                    size="md"
+                    radius="sm"
+                    variant="gradient"
+                    gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+                  >
+                    Not live right now
+                  </Badge>
+                </>
+              }
+              labelPosition="center"
+            />
+          )}
+        </Card.Section>
+        <Space h="md" />
+
         <Paper shadow="xl" radius="md" p="xl">
           <Text
             fz="sm"
@@ -134,7 +167,9 @@ setProfile(profileData.Profile)
             {description}
           </Text>
         </Paper>
+
         <Space h="sm" />
+
         <Center>
           {followerInfo.followers && followerInfo.followers.NumFollowers ? (
             <Text fz="sm">
@@ -156,26 +191,20 @@ setProfile(profileData.Profile)
           )}
         </Center>
       </Card>
-      <Space h="xl" />
-         
 
-      <Tabs  radius="sm" value={activeTab} onTabChange={setActiveTab}>
-      
+      <Space h="xl" />
+
+      <Tabs radius="sm" value={activeTab} onTabChange={setActiveTab}>
         <Tabs.List grow position="center">
           <Tabs.Tab value="first">
-           <Text fz="sm">Posts</Text>
+            <Text fz="sm">Posts</Text>
           </Tabs.Tab>
 
           <Tabs.Tab value="second">
-             <Text style={{ maxWidth: "150px" }} fz="sm">{userName}'s Wave</Text>
-            
-          </Tabs.Tab>
-
-          <Tabs.Tab value="third">
             <Text fz="sm">NFTs</Text>
           </Tabs.Tab>
         </Tabs.List>
-  <Tabs.Panel value="first">
+        <Tabs.Panel value="first">
           {posts.length > 0 ? (
             posts.map((post, index) => (
               <Paper
@@ -191,7 +220,7 @@ setProfile(profileData.Profile)
                   {post.ProfileEntryResponse &&
                   post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ? (
                     <Avatar
-                    radius="xl"
+                      radius="xl"
                       size="lg"
                       src={
                         post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL
@@ -199,7 +228,7 @@ setProfile(profileData.Profile)
                     />
                   ) : (
                     <Avatar
-                    radius="xl"
+                      radius="xl"
                       size="lg"
                       src={`https://node.deso.org/api/v0/get-single-profile-picture/${userPublicKey}`}
                     />
@@ -232,7 +261,7 @@ setProfile(profileData.Profile)
                   >
                     <Center>
                       <Avatar
-                       radius="xl"
+                        radius="xl"
                         size="lg"
                         src={
                           post.RepostedPostEntryResponse?.ProfileEntryResponse
@@ -400,50 +429,6 @@ setProfile(profileData.Profile)
           )}
         </Tabs.Panel>
         <Tabs.Panel value="second">
-        {profile && profile.ExtraData ? (
-  profile.ExtraData.WavesStreamPlaybackId ? (
-    <Player
-      playbackId={profile.ExtraData.WavesStreamPlaybackId}
-      title={profile.ExtraData.WavesStreamTitle}
-      autoPlay
-      muted
-    />
-  ) : (
-    <Center>
-              <Space h="md" />
-
-              <Badge
-                size="md"
-                radius="sm"
-                variant="gradient"
-                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-              >
-               Not live right now
-              </Badge>
-
-              <Space h={222} />
-            </Center>
-  )
-) : (
-  <Center>
-              <Space h="md" />
-
-              <Badge
-                size="md"
-                radius="sm"
-                variant="gradient"
-                gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-              >
-               Not live right now
-              </Badge>
-
-              <Space h={222} />
-            </Center>
-)}
-          
-        </Tabs.Panel>
-      
-        <Tabs.Panel value="third">
           {Object.keys(NFTs).length > 0 ? (
             Object.keys(NFTs).map((key, index) => {
               const nft = NFTs[key];
