@@ -48,7 +48,6 @@ export const SignAndSubmitTx = () => {
 
     window.location.reload();
   };
-  console.log(currentUser);
 
   const formRef = useRef(null);
 
@@ -63,6 +62,9 @@ export const SignAndSubmitTx = () => {
   if (!currentUser || !currentUser.BalanceNanos) {
     return (
       <>
+        <Welcome />
+        <Space h="md" />
+
         <Container size="30rem" px={0}>
           <Paper m="md" shadow="lg" radius="sm" p="xl" withBorder>
             <Group>
@@ -94,8 +96,6 @@ export const SignAndSubmitTx = () => {
             </Group>
           </Paper>
         </Container>
-        <Space h="md" />
-        <Welcome />
       </>
     );
   } else {

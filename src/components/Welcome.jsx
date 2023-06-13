@@ -8,6 +8,7 @@ import {
   ThemeIcon,
   Group,
   Button,
+  Divider,
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
 import { ERROR_TYPES, identity } from "deso-protocol";
@@ -42,12 +43,26 @@ export function Welcome() {
             <Title
               variant="gradient"
               gradient={{ from: "indigo", to: "cyan" }}
-              order={3}
-              weight={777}
+              order={1}
+              weight={2222}
               align="center"
             >
-              Decentralized Social Literacy
+              Waves
             </Title>
+            <Divider my="sm" />
+            <Divider
+              my="xs"
+              variant="dashed"
+              labelPosition="center"
+              label={
+                <>
+                  <Title c="dimmed" order={3} weight={777} align="center">
+                    Decentralized Social Literacy
+                  </Title>
+                </>
+              }
+            />
+
             <Text color="dimmed" mt="md">
               By embracing decentralized social media, you can take control of
               your online presence and enjoy a more equitable, secure, and

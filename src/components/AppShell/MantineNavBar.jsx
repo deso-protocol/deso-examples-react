@@ -182,60 +182,72 @@ export function MantineNavBar() {
       width={{ sm: 200, lg: 300 }}
     >
       <Text size="xs" weight={500} color="dimmed">
-        Follower Waves
+        Following Waves
       </Text>
       {currentUser ? (
-        followingWaves.length > 0 ? (
-          followingWaves.map((post) => (
-            <div key={post.PublicKeyBase58Check}>
-              <Navbar.Section
-                className={cx(classes.link, {
-                  [classes.linkActive]: post === active,
-                })}
-                onClick={() => {
-                  const state = {
-                    userPublicKey: post.PublicKeyBase58Check,
-                    userName: post.Username || post.PublicKeyBase58Check,
-                    description: post.Description || null,
-                    largeProfPic: post.ExtraData?.LargeProfilePicURL || null,
-                    featureImage: post.ExtraData?.FeaturedImageURL || null,
-                  };
+        followingWaves && followingWaves.length > 0 ? (
+          followingWaves.map((post) => {
+            if (
+              post.PublicKeyBase58Check === currentUser.PublicKeyBase58Check
+            ) {
+              return (
+                <Text fz="xs" fw={500} lineClamp={2}>
+                  No Livestreams found.
+                </Text>
+              ); // Exclude current user from the list
+            }
 
-                  navigate(`/wave/${post.Username}`, {
-                    state,
-                  });
+            return (
+              <div key={post.PublicKeyBase58Check}>
+                <Navbar.Section
+                  className={cx(classes.link, {
+                    [classes.linkActive]: post === active,
+                  })}
+                  onClick={() => {
+                    const state = {
+                      userPublicKey: post.PublicKeyBase58Check,
+                      userName: post.Username || post.PublicKeyBase58Check,
+                      description: post.Description || null,
+                      largeProfPic: post.ExtraData?.LargeProfilePicURL || null,
+                      featureImage: post.ExtraData?.FeaturedImageURL || null,
+                    };
 
-                  setActive(post);
-                }}
-              >
-                <Group className={classes.linkIcon}>
-                  <Avatar
-                    radius="xl"
-                    size="sm"
-                    src={
-                      post.ExtraData?.LargeProfilePicURL ||
-                      `https://node.deso.org/api/v0/get-single-profile-picture/${post.PublicKeyBase58Check}` ||
-                      null
-                    }
-                  />
+                    navigate(`/wave/${post.Username}`, {
+                      state,
+                    });
 
-                  <span>
-                    <Text fz="xs" fw={500} lineClamp={1}>
-                      {post.Username}
-                    </Text>
-                  </span>
-                </Group>
-              </Navbar.Section>
-            </div>
-          ))
+                    setActive(post);
+                  }}
+                >
+                  <Group className={classes.linkIcon}>
+                    <Avatar
+                      radius="xl"
+                      size="sm"
+                      src={
+                        post.ExtraData?.LargeProfilePicURL ||
+                        `https://node.deso.org/api/v0/get-single-profile-picture/${post.PublicKeyBase58Check}` ||
+                        null
+                      }
+                    />
+
+                    <span>
+                      <Text fz="xs" fw={500} lineClamp={1}>
+                        {post.Username}
+                      </Text>
+                    </span>
+                  </Group>
+                </Navbar.Section>
+              </div>
+            );
+          })
         ) : (
           <Text fz="xs" fw={500} lineClamp={2}>
-            None of your followers are live.
+            No Livestreams found.
           </Text>
         )
       ) : (
         <Text fz="xs" fw={500} lineClamp={2}>
-          Login to view your followers livestreams.
+          Login to view your followings' Waves.
         </Text>
       )}
 
@@ -243,7 +255,7 @@ export function MantineNavBar() {
       <Text size="xs" weight={500} color="dimmed">
         Recommended Waves
       </Text>
-      {filteredPosts.length > 0 ? (
+      {filteredPosts && filteredPosts.length > 0 ? (
         filteredPosts.map((post) => (
           <Navbar.Section
             className={cx(classes.link, {
