@@ -204,7 +204,7 @@ export const Wave = () => {
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="first">
-          {posts.length > 0 ? (
+          {posts && posts.length > 0 ? (
             posts.map((post, index) => (
               <Paper
                 m="md"
@@ -428,7 +428,7 @@ export const Wave = () => {
           )}
         </Tabs.Panel>
         <Tabs.Panel value="second">
-          {Object.keys(NFTs).length > 0 ? (
+          {NFTs && Object.keys(NFTs).length > 0 ? (
             Object.keys(NFTs).map((key, index) => {
               const nft = NFTs[key];
               return (
