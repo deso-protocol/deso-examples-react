@@ -1,6 +1,6 @@
-import { getHotFeed } from "deso-protocol";
+import { getHotFeed, constructFollowTransaction } from "deso-protocol";
 import { useEffect, useState } from "react";
-
+import { Player } from "@livepeer/react";
 import {
   Text,
   Avatar,
@@ -60,10 +60,11 @@ export const HotFeed = () => {
 
     fetchHotFeed();
   }, []);
+  
+  const src = "https://lp-playback.com/hls/795apsmse3whsc0m/index.m3u8";
   return (
     <>
       <div>
-        
         {hotFeed && hotFeed.length > 0 ? (
           hotFeed.map((post) => (
             <Paper
@@ -86,15 +87,18 @@ export const HotFeed = () => {
                       description: post.ProfileEntryResponse.Description
                         ? post.ProfileEntryResponse.Description
                         : null,
-                        
-                     largeProfPic: post.ProfileEntryResponse.ExtraData &&
-    post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
-    ? post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
-    : null,
-  featureImage: post.ProfileEntryResponse.ExtraData &&
-    post.ProfileEntryResponse.ExtraData.FeaturedImageURL
-    ? post.ProfileEntryResponse.ExtraData.FeaturedImageURL
-    : null,
+
+                      largeProfPic:
+                        post.ProfileEntryResponse.ExtraData &&
+                        post.ProfileEntryResponse.ExtraData.LargeProfilePicURL
+                          ? post.ProfileEntryResponse.ExtraData
+                              .LargeProfilePicURL
+                          : null,
+                      featureImage:
+                        post.ProfileEntryResponse.ExtraData &&
+                        post.ProfileEntryResponse.ExtraData.FeaturedImageURL
+                          ? post.ProfileEntryResponse.ExtraData.FeaturedImageURL
+                          : null,
                     };
 
                     navigate(`/wave/${post.ProfileEntryResponse.Username}`, {
@@ -104,15 +108,14 @@ export const HotFeed = () => {
                   variant="transparent"
                 >
                   <Avatar
-   radius="xl"
-  size="lg"
-  src={
-    post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ||
-    `https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}`|| null
-  }
-/>
-
-                
+                    radius="xl"
+                    size="lg"
+                    src={
+                      post.ProfileEntryResponse.ExtraData?.LargeProfilePicURL ||
+                      `https://node.deso.org/api/v0/get-single-profile-picture/${post.ProfileEntryResponse.PublicKeyBase58Check}` ||
+                      null
+                    }
+                  />
 
                   <Space w="xs" />
                   <Text weight="bold" size="sm">

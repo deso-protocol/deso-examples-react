@@ -135,6 +135,8 @@ export const FollowerFeed = () => {
 
   return (
     <>
+   
+    
       <div>
         {currentUser &&
           followingWaves &&

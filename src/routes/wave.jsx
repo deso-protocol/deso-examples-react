@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Player } from "@livepeer/react";
 import {
   IconHeart,
@@ -12,6 +12,9 @@ import {
   getPostsForUser,
   getNFTsForUser,
   getSingleProfile,
+  updateFollowingStatus,
+  getIsFollowing,
+  identity,
 } from "deso-protocol";
 import {
   Avatar,
@@ -20,6 +23,8 @@ import {
   Text,
   Card,
   Space,
+  rem,
+  Menu,
   Center,
   Divider,
   Image,
@@ -29,8 +34,10 @@ import {
   createStyles,
   ActionIcon,
   Tooltip,
+  Button,
 } from "@mantine/core";
-
+import { DeSoIdentityContext } from "react-deso-protocol";
+import { RiUserUnfollowLine } from "react-icons/ri";
 const useStyles = createStyles((theme) => ({
   comment: {
     padding: `${theme.spacing.lg}px ${theme.spacing.xl}px`,
@@ -47,6 +54,20 @@ const useStyles = createStyles((theme) => ({
       marginBottom: 0,
     },
   },
+
+  menuControl: {
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    border: 0,
+    borderLeft: `${rem(1)} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white
+    }`,
+  },
+
+  button: {
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+  },
 }));
 
 export const Wave = () => {
@@ -59,6 +80,8 @@ export const Wave = () => {
   const [profile, setProfile] = useState([]);
   const [followerInfo, setFollowers] = useState({ followers: 0, following: 0 });
   const [activeTab, setActiveTab] = useState("first");
+  const { currentUser } = useContext(DeSoIdentityContext);
+  const [isFollowingUser, setisFollowingUser] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -77,7 +100,6 @@ export const Wave = () => {
         const nftData = await getNFTsForUser({
           UserPublicKeyBase58Check: userPublicKey,
         });
-
         const profileData = await getSingleProfile({
           Username: userName,
         });
@@ -93,6 +115,58 @@ export const Wave = () => {
 
     fetchProfile();
   }, [userPublicKey]);
+
+  useEffect(() => {
+    if (currentUser) {
+      const getIsFollowingData = async () => {
+        try {
+          const result = await getIsFollowing({
+            PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+            IsFollowingPublicKeyBase58Check: userPublicKey,
+          });
+          console.log("Is Following:", result.IsFollowing);
+          setisFollowingUser(result.IsFollowing);
+        } catch (error) {
+          console.error("Error checking if following:", error);
+        }
+      };
+
+      getIsFollowingData();
+    }
+  }, [currentUser, isFollowingUser]);
+
+  const getIsFollowingData = async () => {
+    try {
+      const result = await getIsFollowing({
+        PublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+        IsFollowingPublicKeyBase58Check: userPublicKey,
+      });
+      console.log("Is Following:", result.IsFollowing);
+      setisFollowingUser(result.IsFollowing);
+    } catch (error) {
+      console.error("Error checking if following:", error);
+    }
+  };
+
+  const followUser = async () => {
+    await updateFollowingStatus({
+      MinFeeRateNanosPerKB: 1000,
+      IsUnfollow: false,
+      FollowedPublicKeyBase58Check: userPublicKey,
+      FollowerPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+    });
+    getIsFollowingData();
+  };
+
+  const unfollowUser = async () => {
+    await updateFollowingStatus({
+      MinFeeRateNanosPerKB: 1000,
+      IsUnfollow: true,
+      FollowedPublicKeyBase58Check: userPublicKey,
+      FollowerPublicKeyBase58Check: currentUser.PublicKeyBase58Check,
+    });
+    getIsFollowingData();
+  };
 
   return (
     <>
@@ -189,6 +263,58 @@ export const Wave = () => {
             <Text fz="sm">Following: 0</Text>
           )}
         </Center>
+        <Space h="md" />
+        <Space h="md" />
+        {currentUser ? (
+          isFollowingUser ? (
+            <Group noWrap spacing={0}>
+              <Button
+                fullWidth
+                variant="gradient"
+                gradient={{ from: "cyan", to: "indigo" }}
+                className={classes.button}
+              >
+                Following
+              </Button>
+              <Tooltip
+                label="Unfollow User"
+                color="gray"
+                withArrow
+                arrowPosition="center"
+              >
+                <ActionIcon
+                  variant="filled"
+                  color="indigo"
+                  size={36}
+                  className={classes.menuControl}
+                  onClick={unfollowUser}
+                >
+                  <RiUserUnfollowLine size="1rem" stroke={1.5} />
+                </ActionIcon>
+              </Tooltip>
+            </Group>
+          ) : (
+            <Button
+              fullWidth
+              variant="gradient"
+              gradient={{ from: "cyan", to: "indigo" }}
+              radius="md"
+              onClick={followUser}
+            >
+              Follow
+            </Button>
+          )
+        ) : (
+          <Button
+            fullWidth
+            variant="gradient"
+            gradient={{ from: "cyan", to: "indigo" }}
+            radius="md"
+            onClick={() => identity.login()}
+          >
+            Login to Follow
+          </Button>
+        )}
       </Card>
 
       <Space h="xl" />
