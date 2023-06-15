@@ -2,6 +2,7 @@ import { identity } from "deso-protocol";
 import { useContext, useState, useEffect } from "react";
 import { DeSoIdentityContext } from "react-deso-protocol";
 import { getDisplayName } from "../../helpers";
+import Pride from "../../assets/pride.png";
 import {
   createStyles,
   Menu,
@@ -19,6 +20,7 @@ import {
   Loader,
   UnstyledButton,
   Space,
+  Image,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { GiWaveCrest } from "react-icons/gi";
@@ -183,15 +185,18 @@ export const MantineHeader = () => {
               <Header height={60} px="md">
                 <Group position="apart" sx={{ height: "100%" }}>
                   <UnstyledButton to="/" component={Link}>
-                    <Text
-                      fz="lg"
-                      fw={1000}
-                      inherit
-                      variant="gradient"
-                      component="span"
-                    >
-                      Waves
-                    </Text>
+                    <Group>
+                      <Text
+                        fz="lg"
+                        fw={1000}
+                        inherit
+                        variant="gradient"
+                        component="span"
+                      >
+                        Waves
+                      </Text>
+                      <Image src={Pride} width="55px" height="47px" />
+                    </Group>
                   </UnstyledButton>
 
                   <Group className={classes.hiddenMobile}>
