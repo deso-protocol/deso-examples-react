@@ -14,17 +14,23 @@ export const Wallet = () => {
         labelPosition="center"
       />
       <Space h="xl" />
-      <Center>
-        <Paper shadow="xl" radius="lg" p="xl" withBorder>
-          <Text
-            size="xl"
-            variant="gradient"
-            gradient={{ from: "indigo", to: "cyan", deg: 45 }}
-          >
-            Coming soon
-          </Text>
-        </Paper>
-      </Center>
+      <div>
+        <iframe
+          width="100%"
+          style={{
+            border: "none",
+            margin: "0px",
+            padding: "0px",
+            display: "flex",
+            overflow: "hidden",
+            borderRadius: "22px",
+            boxSizing: "border-box",
+            height: "auto",
+            minHeight: "100vh",
+          }}
+          src="https://heroswap.com/widget?affiliateAddress=BC1YLfjx3jKZeoShqr2r3QttepoYmvJGEs7vbYx1WYoNmNW9FY5VUu6"
+        />
+      </div>
       <Space h={222} />
     </>
   );
