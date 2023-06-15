@@ -9,13 +9,10 @@ import { GiWaveCrest } from "react-icons/gi";
 import { FaUsers } from "react-icons/fa";
 
 export const Home = () => {
-  const [activeTab, setActiveTab] = useState("first");
+  const [activeTab, setActiveTab] = useState("third");
 
   return (
     <>
-    
-              
-          
       <Space h="md" />
       <SignAndSubmitTx />
       <Space h="md" />
@@ -46,8 +43,7 @@ export const Home = () => {
         </Tabs.List>
 
         <Tabs.Panel value="first">
-          
-         <WavesFeed />
+          <WavesFeed />
           <Space h={55} />
         </Tabs.Panel>
         <Tabs.Panel value="second">
