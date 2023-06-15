@@ -13,7 +13,7 @@ import { MantineFooter } from "./MantineFooter";
 const useStyles = createStyles((theme) => ({
   main: {
     width: "100%",
-    maxWidth: "666px",
+    maxWidth: "555px",
     margin: "0 auto",
     overflowX: "hidden",
   },
