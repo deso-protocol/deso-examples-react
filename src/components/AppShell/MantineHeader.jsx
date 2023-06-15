@@ -1,5 +1,5 @@
 import { identity } from "deso-protocol";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { DeSoIdentityContext } from "react-deso-protocol";
 import { getDisplayName } from "../../helpers";
 import {
@@ -34,7 +34,7 @@ import {
   IconChevronRight,
   IconSearch,
 } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   buttonBox: {
@@ -147,7 +147,12 @@ export const MantineHeader = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes, theme, cx } = useStyles();
-  const [active, setActive] = useState("Home");
+
+  const location = useLocation();
+  const [active, setActive] = useState(() => {
+    const currentPage = data.find((item) => item.link === location.pathname);
+    return currentPage ? currentPage.label : "Home";
+  });
 
   const links = data.map((item) => (
     <Link

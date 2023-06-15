@@ -20,7 +20,7 @@ import {
   IconDeviceDesktopAnalytics,
   IconReceipt2,
 } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { DeSoIdentityContext } from "react-deso-protocol";
 import { getFollowersForUser, getIsFollowing } from "deso-protocol";
 const useStyles = createStyles((theme) => ({
@@ -102,7 +102,12 @@ const data = [
 
 export function MantineNavBar() {
   const { classes, cx } = useStyles();
-  const [active, setActive] = useState("Home");
+  const location = useLocation();
+  const [active, setActive] = useState(() => {
+    const currentPage = data.find((item) => item.link === location.pathname);
+    return currentPage ? currentPage.label : "Home";
+  });
+
   const navigate = useNavigate();
   const [opened] = useState(false);
   const [wavesSidebar, setWavesSidebar] = useState([]);
