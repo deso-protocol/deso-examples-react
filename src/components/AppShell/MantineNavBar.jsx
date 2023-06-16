@@ -431,9 +431,11 @@ export function MantineNavBar() {
               ))
             ) : (
               <Navbar.Section>
-                <Text fz="xs" fw={500} lineClamp={1}>
-                  No Waves Right Now.
-                </Text>
+                <Center>
+                  <Text fz="xs" fw={500} lineClamp={1}>
+                    No Waves Right Now.
+                  </Text>
+                </Center>
               </Navbar.Section>
             )}
           </Navbar.Section>
