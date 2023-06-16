@@ -11,8 +11,15 @@ import {
   Space,
   Text,
   Badge,
+  Center,
+  Tooltip,
   Divider,
+  Collapse,
+  Button,
+  ActionIcon,
+  UnstyledButton,
 } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import {
   IconBellRinging,
   IconUser,
@@ -23,60 +30,54 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { DeSoIdentityContext } from "react-deso-protocol";
 import { getFollowersForUser, getIsFollowing } from "deso-protocol";
+import { RiArrowRightSFill, RiArrowLeftSFill } from "react-icons/ri";
+import { RxDotFilled } from "react-icons/rx";
 const useStyles = createStyles((theme) => ({
-  header: {
-    paddingBottom: theme.spacing.md,
-    marginBottom: `calc(${theme.spacing.md} * 1.5)`,
-    borderBottom: `${rem(1)} solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+  wrapper: {
+    display: "flex",
+  },
+
+  aside: {
+    flex: `0 0 ${rem(60)}`,
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderRight: `${rem(1)} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[3]
     }`,
   },
 
-  footer: {
-    paddingTop: theme.spacing.md,
-    marginTop: theme.spacing.md,
-    borderTop: `${rem(1)} solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
-    }`,
+  main: {
+    flex: 1,
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
   },
 
-  link: {
-    ...theme.fn.focusStyles(),
+  mainLink: {
+    width: rem(44),
+    height: rem(44),
+    borderRadius: theme.radius.md,
     display: "flex",
     alignItems: "center",
-    textDecoration: "none",
-    fontSize: theme.fontSizes.sm,
+    justifyContent: "center",
     color:
       theme.colorScheme === "dark"
-        ? theme.colors.dark[1]
+        ? theme.colors.dark[0]
         : theme.colors.gray[7],
-    padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
-    borderRadius: theme.radius.sm,
-    fontWeight: 500,
 
     "&:hover": {
       backgroundColor:
         theme.colorScheme === "dark"
-          ? theme.colors.dark[6]
+          ? theme.colors.dark[5]
           : theme.colors.gray[0],
-      color: theme.colorScheme === "dark" ? theme.white : theme.black,
-
-      [`& .${getStylesRef("icon")}`]: {
-        color: theme.colorScheme === "dark" ? theme.white : theme.black,
-      },
     },
   },
 
-  linkIcon: {
-    ref: getStylesRef("icon"),
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[2]
-        : theme.colors.gray[6],
-    marginRight: theme.spacing.sm,
-  },
-
-  linkActive: {
+  mainLinkActive: {
     "&, &:hover": {
       backgroundColor: theme.fn.variant({
         variant: "light",
@@ -84,15 +85,80 @@ const useStyles = createStyles((theme) => ({
       }).background,
       color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
         .color,
-      [`& .${getStylesRef("icon")}`]: {
-        color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
-          .color,
-      },
     },
+  },
+
+  title: {
+    boxSizing: "border-box",
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    marginBottom: theme.spacing.xl,
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    padding: theme.spacing.md,
+    paddingTop: rem(18),
+    height: rem(60),
+    borderBottom: `${rem(1)} solid ${
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.colors.gray[3]
+    }`,
+  },
+
+  link: {
+    display: "flex",
+
+    justifyContent: "center",
+
+    textDecoration: "none",
+    borderTopRightRadius: theme.radius.md,
+    borderBottomRightRadius: theme.radius.md,
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
+
+    fontSize: theme.fontSizes.sm,
+
+    fontWeight: 500,
+    height: rem(44),
+    lineHeight: rem(44),
+
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[5]
+          : theme.colors.gray[1],
+      color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    },
+  },
+
+  linkActive: {
+    "&, &:hover": {
+      borderLeftColor: theme.fn.variant({
+        variant: "filled",
+        color: theme.primaryColor,
+      }).background,
+      backgroundColor: theme.fn.variant({
+        variant: "filled",
+        color: theme.primaryColor,
+      }).background,
+      color: theme.white,
+    },
+  },
+
+  innerNavBar: {
+    marginLeft: "77px",
+    display: "flex",
+  },
+
+  streamsWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
   },
 }));
 
-const data = [
+const mainLinksMockdata = [
   { link: "/", label: "Home", icon: IconHome2 },
   { link: "/profile", label: "Profile", icon: IconUser },
   { link: "/discover", label: "Discover", icon: IconDeviceDesktopAnalytics },
@@ -104,15 +170,18 @@ export function MantineNavBar() {
   const { classes, cx } = useStyles();
   const location = useLocation();
   const [active, setActive] = useState(() => {
-    const currentPage = data.find((item) => item.link === location.pathname);
+    const currentPage = mainLinksMockdata.find(
+      (item) => item.link === location.pathname
+    );
     return currentPage ? currentPage.label : "Home";
   });
 
   const navigate = useNavigate();
-  const [opened] = useState(false);
+  const [open] = useState(false);
   const [wavesSidebar, setWavesSidebar] = useState([]);
   const [followingWaves, setFollowingWaves] = useState([]);
   const { currentUser, isLoading } = useContext(DeSoIdentityContext);
+  const [opened, { toggle }] = useDisclosure(true);
   useEffect(() => {
     const fetchWavesSidebar = async () => {
       try {
@@ -166,48 +235,159 @@ export function MantineNavBar() {
     }
   }, [currentUser]);
 
-  const links = data.map((item) => (
-    <Link
-      to={item.link}
-      className={cx(classes.link, {
-        [classes.linkActive]: item.label === active,
-      })}
-      key={item.label}
-      onClick={() => setActive(item.label)}
-    >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>{item.label}</span>
-    </Link>
+  const links = mainLinksMockdata.map((link) => (
+    <>
+      <Tooltip
+        label={link.label}
+        position="right"
+        withArrow
+        transitionProps={{ duration: 0 }}
+        key={link.label}
+      >
+        <UnstyledButton
+          onClick={() => setActive(link.label)}
+          to={link.link}
+          component={Link}
+          className={cx(classes.mainLink, {
+            [classes.mainLinkActive]: link.label === active,
+          })}
+        >
+          <link.icon size="1.4rem" stroke={1.5} />
+        </UnstyledButton>
+      </Tooltip>
+      <Space h="xs" />
+    </>
   ));
 
   return (
-    <Navbar
-      p="md"
-      hiddenBreakpoint="sm"
-      hidden={!opened}
-      width={{ sm: 200, lg: 300 }}
-    >
-      <Text size="xs" weight={500} color="dimmed">
-        Following Waves
-      </Text>
-      {currentUser ? (
-        followingWaves && followingWaves.length > 0 ? (
-          followingWaves.map((post) => {
-            if (
-              post.PublicKeyBase58Check === currentUser.PublicKeyBase58Check
-            ) {
-              return (
-                <Text fz="xs" fw={500} lineClamp={2}>
-                  No Livestreams found.
-                </Text>
-              ); // Exclude current user from the list
-            }
+    <>
+      <Navbar
+        p="md"
+        hiddenBreakpoint="sm"
+        hidden={!open}
+        width={{ sm: 77, lg: 77 }}
+      >
+        <Group position="center">
+          <ActionIcon onClick={toggle}>
+            {opened ? <RiArrowLeftSFill /> : <RiArrowRightSFill />}
+          </ActionIcon>
+        </Group>
+        <Space h="xs" />
+        <Divider my="sm" />
+        <Space h="xs" />
 
-            return (
-              <div key={post.PublicKeyBase58Check}>
+        <Center>
+          <div className={classes.aside}>{links}</div>
+        </Center>
+      </Navbar>
+
+      <Collapse in={opened} style={{ float: "right", zIndex: 10 }}>
+        <Navbar
+          hiddenBreakpoint="sm"
+          hidden={!open}
+          width={{ sm: 233, lg: 233 }}
+          className={classes.innerNavBar}
+        >
+          <Space h="lg" />
+          <Navbar.Section grow>
+            <Center>
+              <Text size="xs" weight={500} color="dimmed">
+                Following Waves
+              </Text>
+            </Center>
+            <Space h="sm" />
+            {currentUser ? (
+              followingWaves && followingWaves.length > 0 ? (
+                followingWaves.map((post) => {
+                  if (
+                    post.PublicKeyBase58Check ===
+                    currentUser.PublicKeyBase58Check
+                  ) {
+                    return (
+                      <Center>
+                        <Text fz="xs" fw={500} lineClamp={2}>
+                          No Livestreams found.
+                        </Text>
+                      </Center>
+                    ); // Exclude current user from the list
+                  }
+
+                  return (
+                    <Center>
+                      <div key={post.PublicKeyBase58Check}>
+                        <Navbar.Section
+                          className={cx(classes.link, {
+                            [classes.mainLinkActive]: post === active,
+                          })}
+                          onClick={() => {
+                            const state = {
+                              userPublicKey: post.PublicKeyBase58Check,
+                              userName:
+                                post.Username || post.PublicKeyBase58Check,
+                              description: post.Description || null,
+                              largeProfPic:
+                                post.ExtraData?.LargeProfilePicURL || null,
+                              featureImage:
+                                post.ExtraData?.FeaturedImageURL || null,
+                            };
+
+                            navigate(`/wave/${post.Username}`, {
+                              state,
+                            });
+
+                            setActive(post);
+                          }}
+                        >
+                          <Group style={{ flex: 1 }} noWrap>
+                            <Space w={1} />
+                            <Avatar
+                              radius="xl"
+                              size="sm"
+                              src={
+                                post.ExtraData?.LargeProfilePicURL ||
+                                `https://node.deso.org/api/v0/get-single-profile-picture/${post.PublicKeyBase58Check}` ||
+                                null
+                              }
+                            />
+
+                            <span>
+                              <Text fz="xs" fw={500} truncate lineClamp={1}>
+                                {post.Username}
+                              </Text>
+                            </span>
+                          </Group>
+                        </Navbar.Section>
+                      </div>
+                    </Center>
+                  );
+                })
+              ) : (
+                <Center>
+                  <Text fz="xs" fw={500} lineClamp={2}>
+                    No Livestreams found.
+                  </Text>
+                </Center>
+              )
+            ) : (
+              <Center>
+                <Text fz="xs" fw={500} lineClamp={2}>
+                  Login to view your followings' Waves.
+                </Text>
+              </Center>
+            )}
+
+            <Divider my="sm" />
+            <Center>
+              <Text size="xs" weight={500} color="dimmed">
+                Recommended Waves
+              </Text>
+            </Center>
+            <Space h="sm" />
+            {filteredPosts && filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
                 <Navbar.Section
                   className={cx(classes.link, {
-                    [classes.linkActive]: post === active,
+                    [classes.mainLinkActive]: post === active,
                   })}
                   onClick={() => {
                     const state = {
@@ -225,7 +405,8 @@ export function MantineNavBar() {
                     setActive(post);
                   }}
                 >
-                  <Group className={classes.linkIcon}>
+                  <Group noWrap style={{ display: "flex" }}>
+                    <Space w={1} />
                     <Avatar
                       radius="xl"
                       size="sm"
@@ -241,76 +422,23 @@ export function MantineNavBar() {
                         {post.Username}
                       </Text>
                     </span>
+                    <Space w="lg" />
+                    <Group postition="right">
+                      <RxDotFilled size={22} color="red" />{" "}
+                    </Group>
                   </Group>
                 </Navbar.Section>
-              </div>
-            );
-          })
-        ) : (
-          <Text fz="xs" fw={500} lineClamp={2}>
-            No Livestreams found.
-          </Text>
-        )
-      ) : (
-        <Text fz="xs" fw={500} lineClamp={2}>
-          Login to view your followings' Waves.
-        </Text>
-      )}
-
-      <Divider my="sm" />
-      <Text size="xs" weight={500} color="dimmed">
-        Recommended Waves
-      </Text>
-      {filteredPosts && filteredPosts.length > 0 ? (
-        filteredPosts.map((post) => (
-          <Navbar.Section
-            className={cx(classes.link, {
-              [classes.linkActive]: post === active,
-            })}
-            onClick={() => {
-              const state = {
-                userPublicKey: post.PublicKeyBase58Check,
-                userName: post.Username || post.PublicKeyBase58Check,
-                description: post.Description || null,
-                largeProfPic: post.ExtraData?.LargeProfilePicURL || null,
-                featureImage: post.ExtraData?.FeaturedImageURL || null,
-              };
-
-              navigate(`/wave/${post.Username}`, {
-                state,
-              });
-
-              setActive(post);
-            }}
-          >
-            <Group className={classes.linkIcon}>
-              <Avatar
-                radius="xl"
-                size="sm"
-                src={
-                  post.ExtraData?.LargeProfilePicURL ||
-                  `https://node.deso.org/api/v0/get-single-profile-picture/${post.PublicKeyBase58Check}` ||
-                  null
-                }
-              />
-
-              <span>
+              ))
+            ) : (
+              <Navbar.Section>
                 <Text fz="xs" fw={500} lineClamp={1}>
-                  {post.Username}
+                  No Waves Right Now.
                 </Text>
-              </span>
-            </Group>
+              </Navbar.Section>
+            )}
           </Navbar.Section>
-        ))
-      ) : (
-        <Navbar.Section>
-          <Text fz="xs" fw={500} lineClamp={1}>
-            No Waves Right Now.
-          </Text>
-        </Navbar.Section>
-      )}
-      <Divider my="sm" />
-      <Navbar.Section grow>{links}</Navbar.Section>
-    </Navbar>
+        </Navbar>
+      </Collapse>
+    </>
   );
 }
